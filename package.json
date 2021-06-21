@@ -1,0 +1,92 @@
+{
+  "name": "@discordjs/builders",
+  "version": "1.0.0-dev",
+  "description": "A set of builders that you can use when creating your bot.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
+  },
+  "scripts": {
+    "build:ci": "tsc -b src --noEmit --incremental false",
+    "build": "tsc -b src && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
+    "clean": "rimraf dist",
+    "lint": "eslint --fix --ext mjs,ts src/**/*.ts",
+    "prepare": "is-ci || husky install",
+    "prepublishOnly": "run-s clean build",
+    "test:lint": "eslint --ext mjs,ts src/**/*.ts",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/discordjs/builders.git"
+  },
+  "keywords": [
+    "discord",
+    "api",
+    "bot",
+    "client",
+    "node",
+    "discordapp"
+  ],
+  "author": "Vlad Frangu <kingdgrizzle@gmail.com1>",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/discordjs/builders/issues"
+  },
+  "homepage": "https://github.com/discordjs/builders#readme",
+  "dependencies": {
+    "discord-api-types": "^0.18.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-angular": "^12.1.4",
+    "@types/node": "^15.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "eslint": "^7.27.0",
+    "eslint-config-marine": "^9.0.6",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "gen-esm-wrapper": "^1.1.1",
+    "husky": "^6.0.0",
+    "is-ci": "^3.0.0",
+    "lint-staged": "^11.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.0",
+    "pretty-quick": "^3.1.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
+  "eslintConfig": {
+    "extends": "marine/prettier/node",
+    "parserOptions": {
+      "project": "./tsconfig.eslint.json"
+    },
+    "rules": {
+      "@typescript-eslint/naming-convention": 0
+    },
+    "overrides": [
+      {
+        "files": [
+          "scripts/**/*.mjs"
+        ],
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+          "ecmaVersion": 2021,
+          "sourceType": "module"
+        }
+      }
+    ]
+  }
+}
