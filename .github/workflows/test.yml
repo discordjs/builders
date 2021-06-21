@@ -38,4 +38,4 @@ jobs:
         run: echo "##[add-matcher].github/tsc.json"
 
       - name: Run TypeScript compiler
-        run: npm run build:ci
+        run: npm run build

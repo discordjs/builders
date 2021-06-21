@@ -10,7 +10,6 @@
     "import": "./dist/index.mjs"
   },
   "scripts": {
-    "build:ci": "tsc -b src --noEmit --incremental false",
     "build": "tsc -b src && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
     "clean": "rimraf dist",
     "lint": "eslint --fix --ext mjs,ts src/**/*.ts",
