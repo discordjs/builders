@@ -152,7 +152,3 @@ export const TimestampStyles = {
  * The possible values, see {@link TimestampStyles} for more information.
  */
 export type TimestampStylesString = typeof TimestampStyles[keyof typeof TimestampStyles];
-
-const value = bold(underscore(italic(codeBlock('js', time(15552)))));
-
-void value;
