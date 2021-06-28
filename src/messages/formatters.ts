@@ -4,6 +4,7 @@
  * @returns The formatted content.
  */
 export function codeBlock<C extends string>(content: C): `\`\`\`\n${C}\`\`\``;
+
 /**
  * Wraps the content inside a codeblock with the specified language.
  * @param language The language for the codeblock.
@@ -29,8 +30,8 @@ export function inlineCode<C extends string>(content: C): `\`${C}\`` {
  * @param content The content to wrap.
  * @returns The formatted content.
  */
-export function italic<C extends string>(content: C): `*${C}*` {
-  return `*${content}*`;
+export function italic<C extends string>(content: C): `_${C}_` {
+  return `_${content}_`;
 }
 
 /**
@@ -83,17 +84,20 @@ export function blockQuote<C extends string>(content: C): `>>> ${C}` {
  * @param date The date to format, defaults to the current time.
  */
 export function time(date?: Date): `<t:${bigint}>`;
+
 /**
  * Formats a date given a format style.
  * @param date The date to format.
  * @param style The style to use.
  */
 export function time<S extends TimestampStylesString>(date: Date, style: S): `<t:${bigint}:${S}>`;
+
 /**
  * Formats the given timestamp into a short date-time string.
  * @param seconds The time to format, represents an UNIX timestamp in seconds.
  */
 export function time<C extends number>(seconds: C): `<t:${C}>`;
+
 /**
  * Formats the given timestamp into a short date-time string.
  * @param seconds The time to format, represents an UNIX timestamp in seconds.

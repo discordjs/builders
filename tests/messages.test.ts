@@ -29,8 +29,8 @@ describe('Messages', () => {
   });
 
   describe('italic', () => {
-    test('GIVEN "discord.js" THEN returns "*discord.js*"', () => {
-      expect<'*discord.js*'>(italic('discord.js')).toBe('*discord.js*');
+    test('GIVEN "discord.js" THEN returns "_discord.js_"', () => {
+      expect<'_discord.js_'>(italic('discord.js')).toBe('_discord.js_');
     });
   });
 
