@@ -13,11 +13,11 @@ import {
 
 describe('Messages', () => {
   describe('codeBlock', () => {
-    test('GIVEN "discord.js" with no language THEN returns "```\ndiscord.js```"', () => {
+    test('GIVEN "discord.js" with no language THEN returns "```\\ndiscord.js```"', () => {
       expect<'```\ndiscord.js```'>(codeBlock('discord.js')).toBe('```\ndiscord.js```');
     });
 
-    test('GIVEN "discord.js" with "js" as language THEN returns "```js\ndiscord.js```"', () => {
+    test('GIVEN "discord.js" with "js" as language THEN returns "```js\\ndiscord.js```"', () => {
       expect<'```js\ndiscord.js```'>(codeBlock('js', 'discord.js')).toBe('```js\ndiscord.js```');
     });
   });
