@@ -13,7 +13,7 @@ export function codeBlock<C extends string>(content: C): `\`\`\`\n${C}\`\`\``;
  */
 export function codeBlock<L extends string, C extends string>(language: L, content: C): `\`\`\`${L}\n${C}\`\`\``;
 export function codeBlock(language: string, content?: string): string {
-  return typeof content === 'undefined' ? `\`\`\`\n${language}\`\`\`` : `\`\`\`${language}\n${content}\`\`\``;
+	return typeof content === 'undefined' ? `\`\`\`\n${language}\`\`\`` : `\`\`\`${language}\n${content}\`\`\``;
 }
 
 /**
@@ -22,7 +22,7 @@ export function codeBlock(language: string, content?: string): string {
  * @returns The formatted content.
  */
 export function inlineCode<C extends string>(content: C): `\`${C}\`` {
-  return `\`${content}\``;
+	return `\`${content}\``;
 }
 
 /**
@@ -31,7 +31,7 @@ export function inlineCode<C extends string>(content: C): `\`${C}\`` {
  * @returns The formatted content.
  */
 export function italic<C extends string>(content: C): `_${C}_` {
-  return `_${content}_`;
+	return `_${content}_`;
 }
 
 /**
@@ -40,7 +40,7 @@ export function italic<C extends string>(content: C): `_${C}_` {
  * @returns The formatted content.
  */
 export function bold<C extends string>(content: C): `**${C}**` {
-  return `**${content}**`;
+	return `**${content}**`;
 }
 
 /**
@@ -49,7 +49,7 @@ export function bold<C extends string>(content: C): `**${C}**` {
  * @returns The formatted content.
  */
 export function underscore<C extends string>(content: C): `__${C}__` {
-  return `__${content}__`;
+	return `__${content}__`;
 }
 
 /**
@@ -58,7 +58,7 @@ export function underscore<C extends string>(content: C): `__${C}__` {
  * @returns The formatted content.
  */
 export function strikethrough<C extends string>(content: C): `~~${C}~~` {
-  return `~~${content}~~`;
+	return `~~${content}~~`;
 }
 
 /**
@@ -67,7 +67,7 @@ export function strikethrough<C extends string>(content: C): `~~${C}~~` {
  * @returns The formatted content.
  */
 export function quote<C extends string>(content: C): `> ${C}` {
-  return `> ${content}`;
+	return `> ${content}`;
 }
 
 /**
@@ -76,7 +76,7 @@ export function quote<C extends string>(content: C): `> ${C}` {
  * @returns The formatted content.
  */
 export function blockQuote<C extends string>(content: C): `>>> ${C}` {
-  return `>>> ${content}`;
+	return `>>> ${content}`;
 }
 
 /**
@@ -105,51 +105,51 @@ export function time<C extends number>(seconds: C): `<t:${C}>`;
  */
 export function time<C extends number, S extends TimestampStylesString>(seconds: C, style: S): `<t:${C}:${S}>`;
 export function time(timeOrSeconds?: number | Date, style?: TimestampStylesString): string {
-  if (typeof timeOrSeconds !== 'number') {
-    timeOrSeconds = Math.floor((timeOrSeconds?.getTime() ?? Date.now()) / 1000);
-  }
+	if (typeof timeOrSeconds !== 'number') {
+		timeOrSeconds = Math.floor((timeOrSeconds?.getTime() ?? Date.now()) / 1000);
+	}
 
-  return typeof style === 'string' ? `<t:${timeOrSeconds}:${style}>` : `<t:${timeOrSeconds}>`;
+	return typeof style === 'string' ? `<t:${timeOrSeconds}:${style}>` : `<t:${timeOrSeconds}>`;
 }
 
 /**
  * The [message formatting timestamp styles](https://discord.com/developers/docs/reference#message-formatting-timestamp-styles) supported by Discord.
  */
 export const TimestampStyles = {
-  /**
-   * Short time format, consisting of hours and minutes, e.g. 16:20.
-   */
-  ShortTime: 't',
+	/**
+	 * Short time format, consisting of hours and minutes, e.g. 16:20.
+	 */
+	ShortTime: 't',
 
-  /**
-   * Long time format, consisting of hours, minutes, and seconds, e.g. 16:20:30.
-   */
-  LongTime: 'T',
+	/**
+	 * Long time format, consisting of hours, minutes, and seconds, e.g. 16:20:30.
+	 */
+	LongTime: 'T',
 
-  /**
-   * Short date format, consisting of day, month, and year, e.g. 20/04/2021.
-   */
-  ShortDate: 'd',
+	/**
+	 * Short date format, consisting of day, month, and year, e.g. 20/04/2021.
+	 */
+	ShortDate: 'd',
 
-  /**
-   * Long date format, consisting of day, month, and year, e.g. 20 April 2021.
-   */
-  LongDate: 'D',
+	/**
+	 * Long date format, consisting of day, month, and year, e.g. 20 April 2021.
+	 */
+	LongDate: 'D',
 
-  /**
-   * Short date-time format, consisting of short date and short time formats, e.g. 20 April 2021 16:20.
-   */
-  ShortDateTime: 'f',
+	/**
+	 * Short date-time format, consisting of short date and short time formats, e.g. 20 April 2021 16:20.
+	 */
+	ShortDateTime: 'f',
 
-  /**
-   * Long date-time format, consisting of long date and short time formats, e.g. Tuesday, 20 April 2021 16:20.
-   */
-  LongDateTime: 'F',
+	/**
+	 * Long date-time format, consisting of long date and short time formats, e.g. Tuesday, 20 April 2021 16:20.
+	 */
+	LongDateTime: 'F',
 
-  /**
-   * Relative time format, consisting of a relative duration format, e.g. 2 months ago.
-   */
-  RelativeTime: 'R',
+	/**
+	 * Relative time format, consisting of a relative duration format, e.g. 2 months ago.
+	 */
+	RelativeTime: 'R',
 } as const;
 
 /**

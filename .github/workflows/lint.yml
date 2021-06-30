@@ -1,8 +1,8 @@
-name: Tests
+name: Lint
 on: [push, pull_request]
 jobs:
-  test:
-    name: Test
+  lint:
+    name: ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,8 +19,5 @@ jobs:
       - name: Build TypeScript
         run: npm run build
 
-      - name: Run Tests
-        run: npm run test:ci
-
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v1
+      - name: Run ESLint
+        run: npm run lint

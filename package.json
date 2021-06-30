@@ -1,104 +1,80 @@
 {
-  "name": "@discordjs/builders",
-  "version": "1.0.0-dev",
-  "description": "A set of builders that you can use when creating your bot.",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
-  },
-  "scripts": {
-    "build": "tsc -b src && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
-    "clean": "rimraf dist",
-    "lint": "eslint --fix --ext mjs,ts src/**/*.ts",
-    "prepare": "is-ci || husky install",
-    "prepublishOnly": "run-s clean test:lint build",
-    "test": "jest --collect-coverage",
-    "test:ci": "jest --verbose --ci --no-stack-trace --collect-coverage",
-    "test:lint": "eslint --ext mjs,ts src/**/*.ts",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/discordjs/builders.git"
-  },
-  "keywords": [
-    "discord",
-    "api",
-    "bot",
-    "client",
-    "node",
-    "discordapp",
-    "discordjs"
-  ],
-  "author": "Vlad Frangu <kingdgrizzle@gmail.com1>",
-  "license": "Apache-2.0",
-  "files": [
-    "dist"
-  ],
-  "bugs": {
-    "url": "https://github.com/discordjs/builders/issues"
-  },
-  "homepage": "https://github.com/discordjs/builders#readme",
-  "dependencies": {
-    "discord-api-types": "^0.18.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-typescript": "^7.14.5",
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-angular": "^12.1.4",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.5",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "babel-jest": "^27.0.6",
-    "conventional-changelog-cli": "^2.1.1",
-    "eslint": "^7.29.0",
-    "eslint-config-marine": "^9.0.6",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "gen-esm-wrapper": "^1.1.2",
-    "husky": "^6.0.0",
-    "is-ci": "^3.0.0",
-    "jest": "^27.0.6",
-    "lint-staged": "^11.0.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.2",
-    "pretty-quick": "^3.1.1",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.3.4"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=7.0.0"
-  },
-  "eslintConfig": {
-    "extends": "marine/prettier/node",
-    "parserOptions": {
-      "project": "./tsconfig.eslint.json"
-    },
-    "env": {
-      "jest": true
-    },
-    "rules": {
-      "@typescript-eslint/naming-convention": 0,
-      "no-redeclare": 0
-    },
-    "overrides": [
-      {
-        "files": [
-          "scripts/**/*.mjs"
-        ],
-        "parser": "@babel/eslint-parser",
-        "parserOptions": {
-          "ecmaVersion": 2021,
-          "sourceType": "module"
-        }
-      }
-    ]
-  }
+	"name": "@discordjs/builders",
+	"version": "0.0.0",
+	"description": "A set of builders that you can use when creating your bot.",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"require": "./dist/index.js",
+		"import": "./dist/index.mjs"
+	},
+	"scripts": {
+		"prebuild": "npm run clean",
+		"build": "tsc -b src && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
+		"clean": "rimraf dist",
+		"lint": "eslint --ext mjs,ts src/**/*.ts",
+		"lint:fix": "eslint --fix --ext mjs,ts src/**/*.ts",
+		"prepare": "is-ci || husky install",
+		"prepublishOnly": "npm run test:lint && npm run test",
+		"pretest": "npm run build",
+		"test": "jest --collect-coverage",
+		"test:ci": "jest --verbose --ci --no-stack-trace --collect-coverage",
+		"release": "standard-version --preset angular"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/discordjs/builders.git"
+	},
+	"keywords": [
+		"discord",
+		"api",
+		"bot",
+		"client",
+		"node",
+		"discordapp",
+		"discordjs"
+	],
+	"author": "Vlad Frangu <kingdgrizzle@gmail.com1>",
+	"license": "Apache-2.0",
+	"files": [
+		"dist"
+	],
+	"bugs": {
+		"url": "https://github.com/discordjs/builders/issues"
+	},
+	"homepage": "https://github.com/discordjs/builders#readme",
+	"dependencies": {
+		"discord-api-types": "^0.18.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.14.6",
+		"@babel/preset-env": "^7.14.7",
+		"@babel/preset-typescript": "^7.14.5",
+		"@commitlint/cli": "^12.1.4",
+		"@commitlint/config-angular": "^12.1.4",
+		"@types/jest": "^26.0.23",
+		"@types/node": "^15.12.5",
+		"@typescript-eslint/eslint-plugin": "^4.28.0",
+		"@typescript-eslint/parser": "^4.28.0",
+		"babel-jest": "^27.0.6",
+		"eslint": "^7.29.0",
+		"eslint-config-marine": "^9.0.6",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^3.4.0",
+		"gen-esm-wrapper": "^1.1.2",
+		"husky": "^6.0.0",
+		"is-ci": "^3.0.0",
+		"jest": "^27.0.6",
+		"lint-staged": "^11.0.0",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^2.3.2",
+		"rimraf": "^3.0.2",
+		"standard-version": "^9.3.0",
+		"typescript": "^4.3.4"
+	},
+	"engines": {
+		"node": ">=14.0.0",
+		"npm": ">=7.0.0"
+	}
 }

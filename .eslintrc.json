@@ -1,0 +1,23 @@
+{
+	"extends": "marine/prettier/node",
+	"parserOptions": {
+		"project": "./tsconfig.eslint.json"
+	},
+	"env": {
+		"jest": true
+	},
+	"rules": {
+		"@typescript-eslint/naming-convention": 0,
+		"no-redeclare": 0
+	},
+	"overrides": [
+		{
+			"files": ["scripts/**/*.mjs"],
+			"parser": "@babel/eslint-parser",
+			"parserOptions": {
+				"ecmaVersion": 2021,
+				"sourceType": "module"
+			}
+		}
+	]
+}
