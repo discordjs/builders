@@ -95,7 +95,7 @@ export function maskedLink<C extends string>(url: C): `<${C}>`;
  */
 export function maskedLink(url: URL): `<${string}>`;
 export function maskedLink(url: string | URL) {
-	return `<${typeof url === 'object' ? url.href : url}>`;
+	return `<${url}>`;
 }
 
 /**
@@ -136,7 +136,6 @@ export function hyperlink<C extends string, U extends string, T extends string>(
 	title: T,
 ): `[${C}](${U} ${T})`;
 export function hyperlink(content: string, url: string | URL, title?: string) {
-	if (typeof url === 'object') url = url.href;
 	return title ? `[${content}](${url} ${title})` : `[${content}](${url})`;
 }
 
