@@ -2,8 +2,10 @@ import {
 	blockQuote,
 	bold,
 	codeBlock,
+	hyperlink,
 	inlineCode,
 	italic,
+	maskLink,
 	quote,
 	strikethrough,
 	time,
@@ -61,6 +63,42 @@ describe('Messages', () => {
 	describe('blockQuote', () => {
 		test('GIVEN "discord.js" THEN returns ">>> discord.js"', () => {
 			expect<'>>> discord.js'>(blockQuote('discord.js')).toBe('>>> discord.js');
+		});
+	});
+
+	describe('maskLink', () => {
+		test('GIVEN "https://discord.js.org" THEN returns "<https://discord.js.org>"', () => {
+			expect<'<https://discord.js.org>'>(maskLink('https://discord.js.org')).toBe('<https://discord.js.org>');
+		});
+
+		test('GIVEN new URL("https://discord.js.org") THEN returns "<https://discord.js.org>"', () => {
+			expect<`<${string}>`>(maskLink(new URL('https://discord.js.org'))).toBe('<https://discord.js.org>');
+		});
+	});
+
+	describe('hyperlink', () => {
+		test('GIVEN content and string URL THEN returns "[content](url)"', () => {
+			expect<'[discord.js](https://discord.js.org)'>(hyperlink('discord.js', 'https://discord.js.org')).toBe(
+				'[discord.js](https://discord.js.org)',
+			);
+		});
+
+		test('GIVEN content and URL THEN returns "[content](url)"', () => {
+			expect<`[discord.js](${string})`>(hyperlink('discord.js', new URL('https://discord.js.org'))).toBe(
+				'[discord.js](https://discord.js.org)',
+			);
+		});
+
+		test('GIVEN content, string URL, and title THEN returns "[content](url title)"', () => {
+			expect<'[discord.js](https://discord.js.org Official Documentation)'>(
+				hyperlink('discord.js', 'https://discord.js.org', 'Official Documentation'),
+			).toBe('[discord.js](https://discord.js.org Official Documentation)');
+		});
+
+		test('GIVEN content, URL, and title THEN returns "[content](url title)"', () => {
+			expect<`[discord.js](${string} Official Documentation)`>(
+				hyperlink('discord.js', new URL('https://discord.js.org'), 'Official Documentation'),
+			).toBe('[discord.js](https://discord.js.org Official Documentation)');
 		});
 	});
 

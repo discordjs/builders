@@ -1,3 +1,5 @@
+import type { URL } from 'url';
+
 /**
  * Wraps the content inside a codeblock with no language.
  * @param content The content to wrap.
@@ -77,6 +79,65 @@ export function quote<C extends string>(content: C): `> ${C}` {
  */
 export function blockQuote<C extends string>(content: C): `>>> ${C}` {
 	return `>>> ${content}`;
+}
+
+/**
+ * Formats the URL into `<>`, which stops it from embedding.
+ * @param url The URL to wrap.
+ * @returns The formatted content.
+ */
+export function maskLink<C extends string>(url: C): `<${C}>`;
+
+/**
+ * Formats the URL into `<>`, which stops it from embedding.
+ * @param url The URL to wrap.
+ * @returns The formatted content.
+ */
+export function maskLink(url: URL): `<${string}>`;
+export function maskLink(url: string | URL) {
+	return `<${typeof url === 'object' ? url.href : url}>`;
+}
+
+/**
+ * Formats the content and the URL into a masked URL.
+ * @param content The content to display.
+ * @param url The URL the content links to.
+ * @returns The formatted content.
+ */
+export function hyperlink<C extends string>(content: C, url: URL): `[${C}](${string})`;
+
+/**
+ * Formats the content and the URL into a masked URL.
+ * @param content The content to display.
+ * @param url The URL the content links to.
+ * @returns The formatted content.
+ */
+export function hyperlink<C extends string, U extends string>(content: C, url: U): `[${C}](${U})`;
+
+/**
+ * Formats the content and the URL into a masked URL.
+ * @param content The content to display.
+ * @param url The URL the content links to.
+ * @param title The title shown when hovering on the masked link.
+ * @returns The formatted content.
+ */
+export function hyperlink<C extends string, T extends string>(content: C, url: URL, title: T): `[${C}](${string} ${T})`;
+
+/**
+ * Formats the content and the URL into a masked URL.
+ * @param content The content to display.
+ * @param url The URL the content links to.
+ * @param title The title shown when hovering on the masked link.
+ * @returns The formatted content.
+ */
+export function hyperlink<C extends string, U extends string, T extends string>(
+	content: C,
+	url: U,
+	title: T,
+): `[${C}](${U} ${T})`;
+export function hyperlink(content: string, url: string | URL, title?: string) {
+	if (typeof url === 'object') url = url.href;
+	return title ? `[${content}](${url} ${title})` : `[${content}](${url})`;
 }
 
 /**
