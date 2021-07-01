@@ -2,10 +2,10 @@ import {
 	blockQuote,
 	bold,
 	codeBlock,
+	hideLinkEmbed,
 	hyperlink,
 	inlineCode,
 	italic,
-	maskedLink,
 	quote,
 	strikethrough,
 	time,
@@ -66,13 +66,13 @@ describe('Messages', () => {
 		});
 	});
 
-	describe('maskedLink', () => {
+	describe('hideLinkEmbed', () => {
 		test('GIVEN "https://discord.js.org" THEN returns "<https://discord.js.org>"', () => {
-			expect<'<https://discord.js.org>'>(maskedLink('https://discord.js.org')).toBe('<https://discord.js.org>');
+			expect<'<https://discord.js.org>'>(hideLinkEmbed('https://discord.js.org')).toBe('<https://discord.js.org>');
 		});
 
 		test('GIVEN new URL("https://discord.js.org") THEN returns "<https://discord.js.org>"', () => {
-			expect<`<${string}>`>(maskedLink(new URL('https://discord.js.org/'))).toBe('<https://discord.js.org/>');
+			expect<`<${string}>`>(hideLinkEmbed(new URL('https://discord.js.org/'))).toBe('<https://discord.js.org/>');
 		});
 	});
 

@@ -86,15 +86,15 @@ export function blockQuote<C extends string>(content: C): `>>> ${C}` {
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
-export function maskedLink<C extends string>(url: C): `<${C}>`;
+export function hideLinkEmbed<C extends string>(url: C): `<${C}>`;
 
 /**
  * Formats the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
-export function maskedLink(url: URL): `<${string}>`;
-export function maskedLink(url: string | URL) {
+export function hideLinkEmbed(url: URL): `<${string}>`;
+export function hideLinkEmbed(url: string | URL) {
 	// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 	return `<${url}>`;
 }
