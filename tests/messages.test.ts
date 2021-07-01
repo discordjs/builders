@@ -5,7 +5,7 @@ import {
 	hyperlink,
 	inlineCode,
 	italic,
-	maskLink,
+	maskedLink,
 	quote,
 	strikethrough,
 	time,
@@ -66,13 +66,13 @@ describe('Messages', () => {
 		});
 	});
 
-	describe('maskLink', () => {
+	describe('maskedLink', () => {
 		test('GIVEN "https://discord.js.org" THEN returns "<https://discord.js.org>"', () => {
-			expect<'<https://discord.js.org>'>(maskLink('https://discord.js.org')).toBe('<https://discord.js.org>');
+			expect<'<https://discord.js.org>'>(maskedLink('https://discord.js.org')).toBe('<https://discord.js.org>');
 		});
 
 		test('GIVEN new URL("https://discord.js.org") THEN returns "<https://discord.js.org>"', () => {
-			expect<`<${string}>`>(maskLink(new URL('https://discord.js.org'))).toBe('<https://discord.js.org>');
+			expect<`<${string}>`>(maskedLink(new URL('https://discord.js.org/'))).toBe('<https://discord.js.org/>');
 		});
 	});
 
@@ -85,7 +85,7 @@ describe('Messages', () => {
 
 		test('GIVEN content and URL THEN returns "[content](url)"', () => {
 			expect<`[discord.js](${string})`>(hyperlink('discord.js', new URL('https://discord.js.org'))).toBe(
-				'[discord.js](https://discord.js.org)',
+				'[discord.js](https://discord.js.org/)',
 			);
 		});
 
@@ -98,7 +98,7 @@ describe('Messages', () => {
 		test('GIVEN content, URL, and title THEN returns "[content](url title)"', () => {
 			expect<`[discord.js](${string} Official Documentation)`>(
 				hyperlink('discord.js', new URL('https://discord.js.org'), 'Official Documentation'),
-			).toBe('[discord.js](https://discord.js.org Official Documentation)');
+			).toBe('[discord.js](https://discord.js.org/ Official Documentation)');
 		});
 	});
 

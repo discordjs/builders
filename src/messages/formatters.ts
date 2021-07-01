@@ -86,15 +86,15 @@ export function blockQuote<C extends string>(content: C): `>>> ${C}` {
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
-export function maskLink<C extends string>(url: C): `<${C}>`;
+export function maskedLink<C extends string>(url: C): `<${C}>`;
 
 /**
  * Formats the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
-export function maskLink(url: URL): `<${string}>`;
-export function maskLink(url: string | URL) {
+export function maskedLink(url: URL): `<${string}>`;
+export function maskedLink(url: string | URL) {
 	return `<${typeof url === 'object' ? url.href : url}>`;
 }
 
