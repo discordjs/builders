@@ -122,7 +122,11 @@ export function hyperlink<C extends string, U extends string>(content: C, url: U
  * @param title The title shown when hovering on the masked link.
  * @returns The formatted content.
  */
-export function hyperlink<C extends string, T extends string>(content: C, url: URL, title: T): `[${C}](${string} ${T})`;
+export function hyperlink<C extends string, T extends string>(
+	content: C,
+	url: URL,
+	title: T,
+): `[${C}](${string} "${T}")`;
 
 /**
  * Formats the content and the URL into a masked URL.
@@ -135,10 +139,10 @@ export function hyperlink<C extends string, U extends string, T extends string>(
 	content: C,
 	url: U,
 	title: T,
-): `[${C}](${U} ${T})`;
+): `[${C}](${U} "${T}")`;
 export function hyperlink(content: string, url: string | URL, title?: string) {
 	// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-	return title ? `[${content}](${url} ${title})` : `[${content}](${url})`;
+	return title ? `[${content}](${url} "${title}")` : `[${content}](${url})`;
 }
 
 /**

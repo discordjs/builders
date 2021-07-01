@@ -89,16 +89,16 @@ describe('Messages', () => {
 			);
 		});
 
-		test('GIVEN content, string URL, and title THEN returns "[content](url title)"', () => {
-			expect<'[discord.js](https://discord.js.org Official Documentation)'>(
+		test('GIVEN content, string URL, and title THEN returns "[content](url "title")"', () => {
+			expect<'[discord.js](https://discord.js.org "Official Documentation")'>(
 				hyperlink('discord.js', 'https://discord.js.org', 'Official Documentation'),
-			).toBe('[discord.js](https://discord.js.org Official Documentation)');
+			).toBe('[discord.js](https://discord.js.org "Official Documentation")');
 		});
 
-		test('GIVEN content, URL, and title THEN returns "[content](url title)"', () => {
-			expect<`[discord.js](${string} Official Documentation)`>(
+		test('GIVEN content, URL, and title THEN returns "[content](url "title")"', () => {
+			expect<`[discord.js](${string} "Official Documentation")`>(
 				hyperlink('discord.js', new URL('https://discord.js.org'), 'Official Documentation'),
-			).toBe('[discord.js](https://discord.js.org/ Official Documentation)');
+			).toBe('[discord.js](https://discord.js.org/ "Official Documentation")');
 		});
 	});
 
