@@ -222,3 +222,20 @@ export const TimestampStyles = {
  * The possible values, see {@link TimestampStyles} for more information.
  */
 export type TimestampStylesString = typeof TimestampStyles[keyof typeof TimestampStyles];
+
+export const Faces = {
+	/**
+	 * ¯\\_(ツ)_/¯
+	 */
+	shrug: '¯\\_(ツ)_/¯',
+
+	/**
+	 * (╯°□°）╯︵ ┻━┻
+	 */
+	tableflip: '(╯°□°）╯︵ ┻━┻',
+
+	/**
+	 * ┬─┬ ノ( ゜-゜ノ)
+	 */
+	unflip: '┬─┬ ノ( ゜-゜ノ)',
+};
