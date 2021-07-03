@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.2.0](https://github.com/discordjs/builders/compare/v0.1.1...v0.2.0) (2021-07-03)
+
+
+### Features
+
+* **Formatters:** added `hyperlink` and `hideLinkEmbed` ([#4](https://github.com/discordjs/builders/issues/4)) ([c532daf](https://github.com/discordjs/builders/commit/c532daf2ba2feae75bf9668f63462e96a5314cff))
+
+
+
 ## [0.1.1](https://github.com/discordjs/builders/compare/v0.1.0...v0.1.1) (2021-06-30)
 
 
