@@ -224,7 +224,7 @@ export const TimestampStyles = {
 export type TimestampStylesString = typeof TimestampStyles[keyof typeof TimestampStyles];
 
 /**
- * An object with all the available faces from Discord's native slash commands
+ * An enum with all the available faces from Discord's native slash commands
  */
 export enum Faces {
 	/**
