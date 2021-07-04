@@ -2,6 +2,7 @@ import {
 	blockQuote,
 	bold,
 	codeBlock,
+	Faces,
 	hideLinkEmbed,
 	hyperlink,
 	inlineCode,
@@ -134,6 +135,20 @@ describe('Messages', () => {
 
 		test('GIVEN a date and a format from enum THEN returns "<t:${time}:${style}>"', () => {
 			expect<'<t:1867424897:R>'>(time(1867424897, TimestampStyles.RelativeTime)).toBe('<t:1867424897:R>');
+		});
+	});
+
+	describe('Faces', () => {
+		test('GIVEN Faces.Shrug THEN returns "¯\\_(ツ)_/¯"', () => {
+			expect<'¯\\_(ツ)_/¯'>(Faces.Shrug).toBe('¯\\_(ツ)_/¯');
+		});
+
+		test('GIVEN Faces.Tableflip THEN returns "(╯°□°）╯︵ ┻━┻"', () => {
+			expect<'(╯°□°）╯︵ ┻━┻'>(Faces.Tableflip).toBe('(╯°□°）╯︵ ┻━┻');
+		});
+
+		test('GIVEN Faces.Unflip THEN returns "┬─┬ ノ( ゜-゜ノ)"', () => {
+			expect<'┬─┬ ノ( ゜-゜ノ)'>(Faces.Unflip).toBe('┬─┬ ノ( ゜-゜ノ)');
 		});
 	});
 });

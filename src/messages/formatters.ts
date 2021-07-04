@@ -222,3 +222,23 @@ export const TimestampStyles = {
  * The possible values, see {@link TimestampStyles} for more information.
  */
 export type TimestampStylesString = typeof TimestampStyles[keyof typeof TimestampStyles];
+
+/**
+ * An enum with all the available faces from Discord's native slash commands
+ */
+export enum Faces {
+	/**
+	 * ¯\\_(ツ)_/¯
+	 */
+	Shrug = '¯\\_(ツ)_/¯',
+
+	/**
+	 * (╯°□°）╯︵ ┻━┻
+	 */
+	Tableflip = '(╯°□°）╯︵ ┻━┻',
+
+	/**
+	 * ┬─┬ ノ( ゜-゜ノ)
+	 */
+	Unflip = '┬─┬ ノ( ゜-゜ノ)',
+}
