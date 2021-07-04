@@ -46,6 +46,7 @@
 	"homepage": "https://github.com/discordjs/builders#readme",
 	"dependencies": {
 		"discord-api-types": "^0.18.1",
+		"ow": "^0.26.0",
 		"tslib": "^2.3.0"
 	},
 	"devDependencies": {
