@@ -223,19 +223,22 @@ export const TimestampStyles = {
  */
 export type TimestampStylesString = typeof TimestampStyles[keyof typeof TimestampStyles];
 
+/**
+ * An object with all the available faces from Discord's native slash commands
+ */
 export const Faces = {
 	/**
 	 * ¯\\_(ツ)_/¯
 	 */
-	shrug: '¯\\_(ツ)_/¯',
+	Shrug: '¯\\_(ツ)_/¯',
 
 	/**
 	 * (╯°□°）╯︵ ┻━┻
 	 */
-	tableflip: '(╯°□°）╯︵ ┻━┻',
+	Tableflip: '(╯°□°）╯︵ ┻━┻',
 
 	/**
 	 * ┬─┬ ノ( ゜-゜ノ)
 	 */
-	unflip: '┬─┬ ノ( ゜-゜ノ)',
-};
+	Unflip: '┬─┬ ノ( ゜-゜ノ)',
+} as const;
