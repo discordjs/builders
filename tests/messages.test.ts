@@ -139,15 +139,15 @@ describe('Messages', () => {
 	});
 
 	describe('Faces', () => {
-		test('it should return "¯\\_(ツ)_/¯"', () => {
+		test('GIVEN Faces.Shrug THEN returns "¯\\_(ツ)_/¯"', () => {
 			expect<'¯\\_(ツ)_/¯'>(Faces.Shrug).toBe('¯\\_(ツ)_/¯');
 		});
 
-		test('it should return "(╯°□°）╯︵ ┻━┻"', () => {
+		test('GIVEN Faces.Tableflip THEN returns "(╯°□°）╯︵ ┻━┻"', () => {
 			expect<'(╯°□°）╯︵ ┻━┻'>(Faces.Tableflip).toBe('(╯°□°）╯︵ ┻━┻');
 		});
 
-		test('it should return "┬─┬ ノ( ゜-゜ノ)"', () => {
+		test('GIVEN Faces.Unflip THEN returns "┬─┬ ノ( ゜-゜ノ)"', () => {
 			expect<'┬─┬ ノ( ゜-゜ノ)'>(Faces.Unflip).toBe('┬─┬ ノ( ゜-゜ノ)');
 		});
 	});
