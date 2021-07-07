@@ -1,5 +1,8 @@
 module.exports = {
 	testMatch: ['<rootDir>/tests/**/*.test.ts'],
+	transform: {
+		'^.+\\.ts$': '@swc/jest',
+	},
 	testEnvironment: 'node',
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*.ts'],
@@ -12,4 +15,5 @@ module.exports = {
 			statements: 70,
 		},
 	},
+	coveragePathIgnorePatterns: ['src/index.ts'],
 };

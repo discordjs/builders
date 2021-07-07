@@ -18,8 +18,8 @@
 		"prepare": "is-ci || husky install",
 		"prepublishOnly": "npm run lint && npm run test",
 		"pretest": "npm run build",
-		"test": "jest --collect-coverage",
-		"test:ci": "jest --verbose --ci --no-stack-trace --collect-coverage",
+		"test": "jest",
+		"test:ci": "jest --verbose --no-stack-trace",
 		"release": "standard-version --preset angular"
 	},
 	"repository": {
@@ -49,16 +49,13 @@
 		"tslib": "^2.3.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.14.6",
-		"@babel/preset-env": "^7.14.7",
-		"@babel/preset-typescript": "^7.14.5",
 		"@commitlint/cli": "^12.1.4",
 		"@commitlint/config-angular": "^12.1.4",
+		"@swc/jest": "^0.1.2",
 		"@types/jest": "^26.0.23",
 		"@types/node": "^15.12.5",
 		"@typescript-eslint/eslint-plugin": "^4.28.0",
 		"@typescript-eslint/parser": "^4.28.0",
-		"babel-jest": "^27.0.6",
 		"eslint": "^7.29.0",
 		"eslint-config-marine": "^9.0.6",
 		"eslint-config-prettier": "^8.3.0",
