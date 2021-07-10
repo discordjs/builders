@@ -146,6 +146,33 @@ export function hyperlink(content: string, url: string | URL, title?: string) {
 }
 
 /**
+ * Formats the user ID into a user mention.
+ * @param userId The user ID to format.
+ * @returns The formatted user mention.
+ */
+export function userMention<C extends string>(userId: C): `<@!${C}>` {
+	return `<@!${userId}>`;
+}
+
+/**
+ * Formats the channel ID into a channel mention.
+ * @param channelId The channel ID to format.
+ * @returns The formatted channel mention.
+ */
+ export function channelMention<C extends string>(channelId: C): `<#${C}>` {
+	return `<#${channelId}>`;
+}
+
+/**
+ * Formats the channel ID into a role mention.
+ * @param roleId The role ID to format.
+ * @returns The formatted role mention.
+ */
+ export function roleMention<C extends string>(roleId: C): `<@&${C}>` {
+	return `<@&${roleId}>`;
+}
+
+/**
  * Formats a date into a short date-time string.
  * @param date The date to format, defaults to the current time.
  */
