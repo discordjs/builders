@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types';
 import type { URL } from 'url';
 
 /**
@@ -150,7 +151,7 @@ export function hyperlink(content: string, url: string | URL, title?: string) {
  * @param userId The user ID to format.
  * @returns The formatted user mention.
  */
-export function userMention<C extends string>(userId: C): `<@!${C}>` {
+export function userMention<C extends Snowflake>(userId: C): `<@!${C}>` {
 	return `<@!${userId}>`;
 }
 
@@ -159,7 +160,7 @@ export function userMention<C extends string>(userId: C): `<@!${C}>` {
  * @param channelId The channel ID to format.
  * @returns The formatted channel mention.
  */
- export function channelMention<C extends string>(channelId: C): `<#${C}>` {
+export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
 	return `<#${channelId}>`;
 }
 
@@ -168,7 +169,7 @@ export function userMention<C extends string>(userId: C): `<@!${C}>` {
  * @param roleId The role ID to format.
  * @returns The formatted role mention.
  */
- export function roleMention<C extends string>(roleId: C): `<@&${C}>` {
+export function roleMention<C extends Snowflake>(roleId: C): `<@&${C}>` {
 	return `<@&${roleId}>`;
 }
 
