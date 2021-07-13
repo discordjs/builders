@@ -1,7 +1,7 @@
 module.exports = {
 	testMatch: ['<rootDir>/tests/**/*.test.ts'],
 	transform: {
-		'^.+\\.ts$': '@swc/jest',
+		'^.+\\.ts$': ['@swc/jest'],
 	},
 	testEnvironment: 'node',
 	collectCoverage: true,

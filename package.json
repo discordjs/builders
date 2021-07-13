@@ -54,6 +54,8 @@
 	"devDependencies": {
 		"@commitlint/cli": "^12.1.4",
 		"@commitlint/config-angular": "^12.1.4",
+		"@swc/cli": "^0.1.46",
+		"@swc/core": "^1.2.63",
 		"@swc/jest": "^0.1.2",
 		"@types/jest": "^26.0.24",
 		"@types/node": "^16.0.1",
