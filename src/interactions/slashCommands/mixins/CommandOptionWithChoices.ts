@@ -1,11 +1,16 @@
 import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v8';
-import ow from 'ow';
+import ow, { Predicate } from 'ow';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
 const stringPredicate = ow.string.minLength(1).maxLength(100);
 const integerPredicate = ow.number.finite;
+
+// TODO: See resolution for sindresorhus/ow#217 in relation to this cast
+const choicesPredicate = ow.array.ofType<[string, string | number]>(
+	ow.array.exactShape([stringPredicate, ow.any(ow.string, integerPredicate) as unknown as Predicate<string | number>]),
+);
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
 	extends SlashCommandOptionBase
@@ -43,14 +48,14 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * Adds multiple choices for this option
 	 * @param choices The choices to add
 	 */
-	public addChoices(choices: Record<T, string> | Map<string, T> | [name: string, value: T][]) {
-		const finalOptions =
-			Array.isArray(choices) || choices instanceof Map
-				? choices
-				: (Object.entries(choices).map(([k, v]) => [v, k]) as [name: string, value: T][]);
+	public addChoices(choices: [name: string, value: T][]) {
+		ow(
+			choices,
+			`${this.type === ApplicationCommandOptionType.STRING ? 'string' : 'integer'} choices`,
+			choicesPredicate,
+		);
 
-		for (const [name, value] of finalOptions) this.addChoice(name, value);
-
+		for (const [label, value] of choices) this.addChoice(label, value);
 		return this;
 	}
 

@@ -127,7 +127,7 @@ describe('Slash Commands', () => {
 							integer
 								.setName('iscool')
 								.setDescription('Are we cool or what?')
-								.addChoices(new Map([['Very cool', 1_000]])),
+								.addChoices([['Very cool', 1_000]]),
 						)
 						.addStringOption((string) =>
 							string
@@ -137,8 +137,7 @@ describe('Slash Commands', () => {
 									['Fancy Pants', 'fp_1'],
 									['Fancy Shoes', 'fs_1'],
 									['The Whole shebang', 'all'],
-								])
-								.addChoices({ value_you_will_get_when_this_is_chosen: 'Pretty name for the client' }),
+								]),
 						)
 						.toJSON(),
 				).not.toThrowError();
