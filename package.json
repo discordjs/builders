@@ -11,7 +11,7 @@
 	},
 	"scripts": {
 		"prebuild": "npm run clean",
-		"build": "tsc -b src && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
+		"build": "tsc && gen-esm-wrapper ./dist/index.js ./dist/index.mjs",
 		"clean": "rimraf dist",
 		"lint": "eslint --ext mjs,ts src/**/*.ts",
 		"lint:fix": "eslint --fix --ext mjs,ts src/**/*.ts",
