@@ -1,4 +1,4 @@
-import {
+import type {
 	APIEmbed,
 	APIEmbedAuthor,
 	APIEmbedField,
@@ -7,7 +7,6 @@ import {
 	APIEmbedProvider,
 	APIEmbedThumbnail,
 	APIEmbedVideo,
-	EmbedType,
 } from 'discord-api-types/v8';
 
 /**
@@ -18,12 +17,6 @@ export class Embed implements APIEmbed {
 	 * Embed Fields.
 	 */
 	public fields: APIEmbedField[] = [];
-
-	/**
-	 * The type of embed.
-	 * @since 0.0.1
-	 */
-	public type?: EmbedType;
 
 	/**
 	 * The embed title.
@@ -82,7 +75,6 @@ export class Embed implements APIEmbed {
 	public footer?: APIEmbedFooter;
 
 	public constructor(data: APIEmbed = {}) {
-		this.type = data.type;
 		this.title = data.title;
 		this.description = data.description;
 		this.url = data.url;
@@ -237,12 +229,10 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Transforms the embed to a plain object.
-	 * @returns {APIEmbed} The raw data of this embed
 	 */
 	public toJSON(): APIEmbed {
 		return {
 			title: this.title,
-			type: EmbedType.Rich,
 			description: this.description,
 			url: this.url,
 			timestamp: this.timestamp ? new Date(this.timestamp).toISOString() : undefined,
@@ -257,27 +247,11 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Normalizes field input and resolves strings.
-	 * @param name The name of the field
-	 * @param value The value of the field
-	 * @param inline Set the field to display inline
-	 */
-	public static normalizeField(name: string, value: string, inline = false): APIEmbedField {
-		return {
-			name,
-			value,
-			inline,
-		};
-	}
-
-	/**
-	 * Normalizes field input and resolves strings.
 	 * @param fields Fields to normalize
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields
-			.flat(2)
-			.map((field) =>
-				this.normalizeField(field.name, field.value, typeof field.inline === 'boolean' ? field.inline : false),
-			);
+			.flat(Infinity)
+			.map((field) => ({ name: field.name, value: field.value, inline: field.inline ?? false }));
 	}
 }
