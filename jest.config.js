@@ -1,8 +1,6 @@
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
 	testMatch: ['<rootDir>/tests/**/*.test.ts'],
-	transform: {
-		'^.+\\.ts$': ['@swc/jest'],
-	},
 	testEnvironment: 'node',
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*.ts'],
