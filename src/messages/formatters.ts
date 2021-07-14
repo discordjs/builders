@@ -151,8 +151,8 @@ export function hyperlink(content: string, url: string | URL, title?: string) {
  * @param userId The user ID to format.
  * @returns The formatted user mention.
  */
-export function userMention<C extends Snowflake>(userId: C): `<@!${C}>` {
-	return `<@!${userId}>`;
+export function userMention<C extends Snowflake>(userId: C): `<@${C}>` {
+	return `<@${userId}>`;
 }
 
 /**
@@ -160,8 +160,8 @@ export function userMention<C extends Snowflake>(userId: C): `<@!${C}>` {
  * @param memberId The user ID to format.
  * @returns The formatted member-nickname mention.
  */
-export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@${C}>` {
-	return `<@${memberId}>`;
+export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@!${C}>` {
+	return `<@!${memberId}>`;
 }
 
 /**

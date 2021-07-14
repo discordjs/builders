@@ -7,11 +7,13 @@ import {
 	hyperlink,
 	inlineCode,
 	italic,
+	memberNicknameMention,
 	quote,
 	strikethrough,
 	time,
 	TimestampStyles,
 	underscore,
+	userMention,
 } from '../src';
 
 describe('Messages', () => {
@@ -100,6 +102,18 @@ describe('Messages', () => {
 			expect<`[discord.js](${string} "Official Documentation")`>(
 				hyperlink('discord.js', new URL('https://discord.js.org'), 'Official Documentation'),
 			).toBe('[discord.js](https://discord.js.org/ "Official Documentation")');
+		});
+	});
+
+	describe('userMention', () => {
+		test('GIVEN userId THEN returns "<@[userId]>"', () => {
+			expect<'<@139836912335716352>'>(userMention('139836912335716352')).toBe('<@139836912335716352>');
+		});
+	});
+
+	describe('memberNicknameMention', () => {
+		test('GIVEN memberId THEN returns "<@![memberId]>"', () => {
+			expect<'<@!139836912335716352>'>(memberNicknameMention('139836912335716352')).toBe('<@!139836912335716352>');
 		});
 	});
 
