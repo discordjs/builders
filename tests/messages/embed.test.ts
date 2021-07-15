@@ -1,5 +1,5 @@
 import { Embed } from '../../src';
-import { APIEmbed, EmbedType } from 'discord-api-types/v8';
+import type { APIEmbed } from 'discord-api-types/v8';
 
 const emptyEmbed: APIEmbed = {
 	author: undefined,
@@ -11,7 +11,6 @@ const emptyEmbed: APIEmbed = {
 	thumbnail: undefined,
 	timestamp: undefined,
 	title: undefined,
-	type: EmbedType.Rich,
 	url: undefined,
 };
 
