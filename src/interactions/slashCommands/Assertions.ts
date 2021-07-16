@@ -24,8 +24,8 @@ const namePredicate = ow.string.lowercase
 	.minLength(1)
 	.maxLength(32)
 	.addValidator({
-		message: (value, label) => `Expected ${label!} to match "^[\p{Ll}\p{N}_-]{1,32}$", got ${value} instead`,
-		validator: (value) => /^[\p{Ll}\p{N}_-]{1,32}$/u.test(value),
+		message: (value, label) => `Expected ${label!} to match "^[\\p{L}\\p{N}_-]+$", got ${value} instead`,
+		validator: (value) => /^[\p{L}\p{N}_-]+$/u.test(value),
 	});
 
 export function validateName(name: unknown): asserts name is string {

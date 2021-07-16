@@ -178,6 +178,9 @@ describe('Slash Commands', () => {
 
 				// Translation: a_command
 				expect(() => getBuilder().setName('o_comandă')).not.toThrowError();
+
+				// Translation: thx (according to GTranslate)
+				expect(() => getBuilder().setName('どうも')).not.toThrowError();
 			});
 
 			test('GIVEN invalid returns for builder THEN throw error', () => {
