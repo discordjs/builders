@@ -228,7 +228,7 @@ export type TimestampStylesString = typeof TimestampStyles[keyof typeof Timestam
  */
 export enum Faces {
 	/**
-	 * ¯\\_(ツ)_/¯
+	 * ¯\\_(ツ)\\_/¯
 	 */
 	Shrug = '¯\\_(ツ)\\_/¯',
 
