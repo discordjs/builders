@@ -139,8 +139,8 @@ describe('Messages', () => {
 	});
 
 	describe('Faces', () => {
-		test('GIVEN Faces.Shrug THEN returns "¯\\_(ツ)_/¯"', () => {
-			expect<'¯\\_(ツ)_/¯'>(Faces.Shrug).toBe('¯\\_(ツ)_/¯');
+		test('GIVEN Faces.Shrug THEN returns "¯\\_(ツ)\\_/¯"', () => {
+			expect<'¯\\_(ツ)\\_/¯'>(Faces.Shrug).toBe('¯\\_(ツ)\\_/¯');
 		});
 
 		test('GIVEN Faces.Tableflip THEN returns "(╯°□°）╯︵ ┻━┻"', () => {
