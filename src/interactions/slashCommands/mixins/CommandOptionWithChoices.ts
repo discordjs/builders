@@ -1,4 +1,4 @@
-import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v8';
+import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v9';
 import ow, { Predicate } from 'ow';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
@@ -31,12 +31,12 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		// Validate name
 		ow(
 			name,
-			`${this.type === ApplicationCommandOptionType.STRING ? 'string' : 'integer'} choice name`,
+			`${this.type === ApplicationCommandOptionType.String ? 'string' : 'integer'} choice name`,
 			stringPredicate,
 		);
 
 		// Validate the value
-		if (this.type === ApplicationCommandOptionType.STRING) ow(value, 'string choice value', stringPredicate);
+		if (this.type === ApplicationCommandOptionType.String) ow(value, 'string choice value', stringPredicate);
 		else ow(value, 'integer choice value', integerPredicate);
 
 		this.choices.push({ name, value });
@@ -51,7 +51,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	public addChoices(choices: [name: string, value: T][]) {
 		ow(
 			choices,
-			`${this.type === ApplicationCommandOptionType.STRING ? 'string' : 'integer'} choices`,
+			`${this.type === ApplicationCommandOptionType.String ? 'string' : 'integer'} choices`,
 			choicesPredicate,
 		);
 

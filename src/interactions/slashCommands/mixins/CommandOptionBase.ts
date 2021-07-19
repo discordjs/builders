@@ -1,4 +1,4 @@
-import type { ApplicationCommandOptionType } from 'discord-api-types/v8';
+import type { ApplicationCommandOptionType } from 'discord-api-types/v9';
 import ow from 'ow';
 import { validateRequiredParameters } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';

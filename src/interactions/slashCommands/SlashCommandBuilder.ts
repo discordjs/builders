@@ -1,4 +1,4 @@
-import type { APIApplicationCommandOption } from 'discord-api-types/v8';
+import type { APIApplicationCommandOption } from 'discord-api-types/v9';
 import { mix } from 'ts-mixer';
 import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
 import { SharedNameAndDescription } from './mixins/NameAndDescription';
