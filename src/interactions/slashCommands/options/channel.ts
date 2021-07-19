@@ -1,10 +1,10 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v8';
+import { ApplicationCommandOptionType } from 'discord-api-types/v9';
 import { SlashCommandOptionBase } from '../mixins/CommandOptionBase';
 
 export class SlashCommandChannelOption extends SlashCommandOptionBase {
-	public override readonly type = ApplicationCommandOptionType.CHANNEL as const;
+	public override readonly type = ApplicationCommandOptionType.Channel as const;
 
 	public constructor() {
-		super(ApplicationCommandOptionType.CHANNEL);
+		super(ApplicationCommandOptionType.Channel);
 	}
 }

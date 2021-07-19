@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is';
-import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v8';
+import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v9';
 import ow from 'ow';
 import type { SlashCommandOptionBase } from './mixins/CommandOptionBase';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
