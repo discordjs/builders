@@ -169,13 +169,13 @@ export class Embed implements APIEmbed {
 	 * @param options.iconURL The icon URL of the author.
 	 * @param options.url The URL of the author.
 	 */
-	public setAuthor(name: string, { iconURL, url }: Record<string, string | undefined> = {}): this {
+	public setAuthor(name: string | null, { iconURL, url }: Record<string, string | undefined | null> = {}): this {
 		// Data assertions
-		ow(name, 'name', ow.string.minLength(1).maxLength(256));
-		ow(iconURL, 'iconURL', ow.optional.string.url);
-		ow(url, 'url', ow.optional.string.url);
+		ow(name, 'name', ow.any(ow.string.minLength(1).maxLength(256), ow.null));
+		ow(iconURL, 'iconURL', ow.any(ow.string.url, ow.nullOrUndefined));
+		ow(url, 'url', ow.any(ow.string.url, ow.nullOrUndefined));
 
-		this.author = { name, icon_url: iconURL, url };
+		this.author = name ? { name, icon_url: iconURL ?? undefined, url: url ?? undefined } : undefined;
 		return this;
 	}
 
@@ -183,11 +183,11 @@ export class Embed implements APIEmbed {
 	 * Sets the color of this embed.
 	 * @param color The color of the embed.
 	 */
-	public setColor(color: number): this {
+	public setColor(color: number | null): this {
 		// Data assertions
-		ow(color, 'color', ow.number);
+		ow(color, 'color', ow.any(ow.number, ow.null));
 
-		this.color = color;
+		this.color = color ?? undefined;
 		return this;
 	}
 
@@ -195,11 +195,11 @@ export class Embed implements APIEmbed {
 	 * Sets the description of this embed.
 	 * @param description The description.
 	 */
-	public setDescription(description: string): this {
+	public setDescription(description: string | null): this {
 		// Data assertions
-		ow(description, 'description', ow.string.minLength(1).maxLength(4096));
+		ow(description, 'description', ow.any(ow.string.minLength(1).maxLength(4096), ow.null));
 
-		this.description = description;
+		this.description = description ?? undefined;
 		return this;
 	}
 
@@ -208,12 +208,12 @@ export class Embed implements APIEmbed {
 	 * @param text The text of the footer.
 	 * @param iconURL The icon URL of the footer.
 	 */
-	public setFooter(text: string, iconURL?: string): this {
+	public setFooter(text: string, iconURL?: string | null): this {
 		// Data assertions
-		ow(text, 'text', ow.string.minLength(1).maxLength(2048));
-		ow(iconURL, 'iconURL', ow.optional.string.url);
+		ow(text, 'text', ow.any(ow.string.minLength(1).maxLength(2048), ow.null));
+		ow(iconURL, 'iconURL', ow.any(ow.string.url, ow.nullOrUndefined));
 
-		this.footer = { text, icon_url: iconURL };
+		this.footer = text ? { text, icon_url: iconURL ?? undefined } : undefined;
 		return this;
 	}
 
@@ -221,11 +221,11 @@ export class Embed implements APIEmbed {
 	 * Sets the image of this embed.
 	 * @param url The URL of the image.
 	 */
-	public setImage(url: string): this {
+	public setImage(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.optional.string.url);
+		ow(url, 'url', ow.any(ow.string.url, ow.null));
 
-		this.image = { url };
+		this.image = url ? { url } : undefined;
 		return this;
 	}
 
@@ -233,11 +233,11 @@ export class Embed implements APIEmbed {
 	 * Sets the thumbnail of this embed.
 	 * @param url The URL of the thumbnail.
 	 */
-	public setThumbnail(url: string): this {
+	public setThumbnail(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.string.url);
+		ow(url, 'url', ow.any(ow.string.url, ow.null));
 
-		this.thumbnail = { url };
+		this.thumbnail = url ? { url } : undefined;
 		return this;
 	}
 
@@ -245,11 +245,11 @@ export class Embed implements APIEmbed {
 	 * Sets the timestamp of this embed.
 	 * @param timestamp The timestamp or date.
 	 */
-	public setTimestamp(timestamp: number | Date = Date.now()): this {
+	public setTimestamp(timestamp: number | Date | null = Date.now()): this {
 		// Data assertions
-		ow(timestamp, 'timestamp', ow.any(ow.number, ow.date));
+		ow(timestamp, 'timestamp', ow.any(ow.number, ow.date, ow.null));
 
-		this.timestamp = new Date(timestamp).toISOString();
+		this.timestamp = timestamp ? new Date(timestamp).toISOString() : undefined;
 		return this;
 	}
 
@@ -257,11 +257,11 @@ export class Embed implements APIEmbed {
 	 * Sets the title of this embed.
 	 * @param title The title.
 	 */
-	public setTitle(title: string): this {
+	public setTitle(title: string | null): this {
 		// Data assertions
-		ow(title, 'title', ow.string.minLength(1).maxLength(256));
+		ow(title, 'title', ow.any(ow.string.minLength(1).maxLength(256), ow.null));
 
-		this.title = title;
+		this.title = title ?? undefined;
 		return this;
 	}
 
@@ -269,11 +269,11 @@ export class Embed implements APIEmbed {
 	 * Sets the URL of this embed.
 	 * @param url The URL.
 	 */
-	public setURL(url: string): this {
+	public setURL(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.string.url);
+		ow(url, 'url', ow.any(ow.string.url, ow.null));
 
-		this.url = url;
+		this.url = url ?? undefined;
 		return this;
 	}
 
