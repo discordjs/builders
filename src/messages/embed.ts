@@ -148,10 +148,11 @@ export class Embed implements APIEmbed {
 	/**
 	 * Sets the author of this embed.
 	 * @param name The name of the author
-	 * @param iconURL The icon URL of the author
-	 * @param url The URL of the author
+	 * @param options The URL options of the author
+	 * @param options.iconURL The icon URL of the author
+	 * @param options.url The URL of the author
 	 */
-	public setAuthor(name: string, iconURL?: string, url?: string): this {
+	public setAuthor(name: string, { iconURL, url }: Record<string, string | undefined> = {}): this {
 		this.author = { name, icon_url: iconURL, url };
 		return this;
 	}
