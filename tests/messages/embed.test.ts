@@ -140,6 +140,13 @@ describe('Embed', () => {
 
 			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, timestamp: now.toISOString() });
 		});
+
+		test('GIVEN an embed using Embed#setTimestamp (default) THEN returns valid toJSON data', () => {
+			const embed = new Embed();
+			embed.setTimestamp();
+
+			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, timestamp: embed.timestamp });
+		});
 	});
 
 	describe('Embed Thumbnail', () => {
