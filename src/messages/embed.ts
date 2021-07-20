@@ -91,7 +91,7 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * The date displayed on this embed
+	 * The date displayed on this embed.
 	 */
 	public get createdAt(): Date | null {
 		return this.timestamp ? new Date(this.timestamp) : null;
