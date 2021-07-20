@@ -8,6 +8,22 @@ import type {
 	APIEmbedThumbnail,
 	APIEmbedVideo,
 } from 'discord-api-types/v9';
+import ow from 'ow';
+
+const embedFieldPredicate = ow.object.exactShape({
+	name: ow.string.minLength(1).maxLength(256),
+	value: ow.string.minLength(1).maxLength(1024),
+	inline: ow.optional.boolean,
+});
+
+const embedFieldsArrayPredicate = ow.array.ofType(embedFieldPredicate);
+
+function validateFieldLength(amountAdding: number, fields: APIEmbedField[]): void {
+	if (amountAdding + fields.length > 25)
+		throw RangeError(
+			`Adding ${amountAdding} more field${amountAdding > 1 ? 's' : ''} would exceed the 25 field limit.`,
+		);
+}
 
 /**
  * Represents an embed in a message (image/video preview, rich embed, etc.)
@@ -111,6 +127,9 @@ export class Embed implements APIEmbed {
 	 * @param inline If this field will be displayed inline.
 	 */
 	public addField(name: string, value: string, inline = false): this {
+		// Ensure adding this field won't exceed the 25 field limit
+		validateFieldLength(1, this.fields);
+
 		return this.addFields({ name, value, inline });
 	}
 
@@ -119,6 +138,12 @@ export class Embed implements APIEmbed {
 	 * @param fields The fields to add.
 	 */
 	public addFields(...fields: APIEmbedField[]): this {
+		// Data assertions
+		ow(fields, embedFieldsArrayPredicate);
+
+		// Ensure adding this field won't exceed the 25 field limit
+		validateFieldLength(fields.length, this.fields);
+
 		this.fields.push(...Embed.normalizeFields(...fields));
 		return this;
 	}
@@ -130,6 +155,12 @@ export class Embed implements APIEmbed {
 	 * @param fields The replacing field objects.
 	 */
 	public spliceFields(index: number, deleteCount: number, ...fields: APIEmbedField[]): this {
+		// Data assertions
+		ow(fields, embedFieldsArrayPredicate);
+
+		// Ensure adding this field won't exceed the 25 field limit
+		validateFieldLength(fields.length, this.fields);
+
 		this.fields.splice(index, deleteCount, ...Embed.normalizeFields(...fields));
 		return this;
 	}
@@ -142,6 +173,11 @@ export class Embed implements APIEmbed {
 	 * @param options.url The URL of the author.
 	 */
 	public setAuthor(name: string, { iconURL, url }: Record<string, string | undefined> = {}): this {
+		// Data assertions
+		ow(name, ow.string.minLength(1).maxLength(256));
+		ow(iconURL, ow.optional.string.url);
+		ow(url, ow.optional.string.url);
+
 		this.author = { name, icon_url: iconURL, url };
 		return this;
 	}
@@ -151,6 +187,9 @@ export class Embed implements APIEmbed {
 	 * @param color The color of the embed.
 	 */
 	public setColor(color: number): this {
+		// Data assertions
+		ow(color, ow.number);
+
 		this.color = color;
 		return this;
 	}
@@ -160,6 +199,9 @@ export class Embed implements APIEmbed {
 	 * @param description The description.
 	 */
 	public setDescription(description: string): this {
+		// Data assertions
+		ow(description, ow.string.minLength(1).maxLength(4096));
+
 		this.description = description;
 		return this;
 	}
@@ -169,7 +211,11 @@ export class Embed implements APIEmbed {
 	 * @param text The text of the footer.
 	 * @param iconURL The icon URL of the footer.
 	 */
-	public setFooter(text: string, iconURL: string): this {
+	public setFooter(text: string, iconURL?: string): this {
+		// Data assertions
+		ow(text, ow.string.minLength(1).maxLength(2048));
+		ow(iconURL, ow.optional.string.url);
+
 		this.footer = { text, icon_url: iconURL };
 		return this;
 	}
@@ -179,6 +225,9 @@ export class Embed implements APIEmbed {
 	 * @param url The URL of the image.
 	 */
 	public setImage(url: string): this {
+		// Data assertions
+		ow(url, ow.optional.string.url);
+
 		this.image = { url };
 		return this;
 	}
@@ -188,6 +237,9 @@ export class Embed implements APIEmbed {
 	 * @param url The URL of the thumbnail.
 	 */
 	public setThumbnail(url: string): this {
+		// Data assertions
+		ow(url, ow.string.url);
+
 		this.thumbnail = { url };
 		return this;
 	}
@@ -197,6 +249,9 @@ export class Embed implements APIEmbed {
 	 * @param timestamp The timestamp or date.
 	 */
 	public setTimestamp(timestamp: number | Date = Date.now()): this {
+		// Data assertions
+		ow(timestamp, ow.any(ow.number, ow.date));
+
 		this.timestamp = new Date(timestamp).toISOString();
 		return this;
 	}
@@ -206,6 +261,9 @@ export class Embed implements APIEmbed {
 	 * @param title The title.
 	 */
 	public setTitle(title: string): this {
+		// Data assertions
+		ow(title, ow.string.minLength(1).maxLength(256));
+
 		this.title = title;
 		return this;
 	}
@@ -215,6 +273,9 @@ export class Embed implements APIEmbed {
 	 * @param url The URL.
 	 */
 	public setURL(url: string): this {
+		// Data assertions
+		ow(url, ow.string.url);
+
 		this.url = url;
 		return this;
 	}
@@ -223,7 +284,7 @@ export class Embed implements APIEmbed {
 	 * Transforms the embed to a plain object.
 	 */
 	public toJSON(): APIEmbed {
-		return this;
+		return { ...this };
 	}
 
 	/**
@@ -231,8 +292,11 @@ export class Embed implements APIEmbed {
 	 * @param fields Fields to normalize.
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
-		return fields
-			.flat(Infinity)
-			.map((field) => ({ name: field.name, value: field.value, inline: field.inline ?? false }));
+		return fields.flat(Infinity).map((field) => {
+			ow(field.name, ow.string.maxLength(256));
+			ow(field.value, ow.string.maxLength(1024));
+
+			return { name: field.name, value: field.value, inline: field.inline ?? false };
+		});
 	}
 }
