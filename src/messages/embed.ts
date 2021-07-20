@@ -14,7 +14,7 @@ import type {
  */
 export class Embed implements APIEmbed {
 	/**
-	 * An array of Fields of this Embed.
+	 * An array of fields of this embed.
 	 */
 	public fields: APIEmbedField[];
 
