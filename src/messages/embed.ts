@@ -234,18 +234,7 @@ export class Embed implements APIEmbed {
 	 * Transforms the embed to a plain object.
 	 */
 	public toJSON(): APIEmbed {
-		return {
-			title: this.title,
-			description: this.description,
-			url: this.url,
-			timestamp: this.timestamp,
-			color: this.color,
-			fields: this.fields,
-			thumbnail: this.thumbnail,
-			image: this.image,
-			author: this.author,
-			footer: this.footer,
-		};
+		return this;
 	}
 
 	/**
