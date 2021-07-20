@@ -16,7 +16,7 @@ export class Embed implements APIEmbed {
 	/**
 	 * An array of Fields of this Embed.
 	 */
-	public fields: APIEmbedField[] = [];
+	public fields: APIEmbedField[];
 
 	/**
 	 * The embed title.
@@ -50,25 +50,21 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * The embed image data.
-	 * @since 0.0.1
 	 */
 	public image?: APIEmbedImage;
 
 	/**
 	 * Received video data.
-	 * @since 0.0.1
 	 */
 	public video?: APIEmbedVideo;
 
 	/**
 	 * The embed author data.
-	 * @since 0.0.1
 	 */
 	public author?: APIEmbedAuthor;
 
 	/**
 	 * Received data about the embed provider.
-	 * @since 0.0.1
 	 */
 	public provider?: APIEmbedProvider;
 
@@ -88,20 +84,13 @@ export class Embed implements APIEmbed {
 		this.author = data.author;
 		this.provider = data.provider;
 		this.footer = data.footer;
+		this.fields = data.fields ?? [];
 
 		if (data.timestamp) this.timestamp = new Date(data.timestamp).toISOString();
-		if (data.fields) this.fields = data.fields;
 	}
 
 	/**
-	 * The date displayed on this embed.
-	 */
-	public get createdAt(): Date | null {
-		return this.timestamp ? new Date(this.timestamp) : null;
-	}
-
-	/**
-	 * The accumulated length for the embed title, description, fields, footer text, and author name
+	 * The accumulated length for the embed title, description, fields, footer text, and author name.
 	 */
 	public get length(): number {
 		return (
@@ -117,9 +106,9 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Adds a field to the embed (max 25).
-	 * @param name The name of this field
-	 * @param value The value of this field
-	 * @param inline If this field will be displayed inline
+	 * @param name The name of this field.
+	 * @param value The value of this field.
+	 * @param inline If this field will be displayed inline.
 	 */
 	public addField(name: string, value: string, inline = false): this {
 		return this.addFields({ name, value, inline });
@@ -127,7 +116,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Adds fields to the embed (max 25).
-	 * @param fields The fields to add
+	 * @param fields The fields to add.
 	 */
 	public addFields(...fields: APIEmbedField[]): this {
 		this.fields.push(...Embed.normalizeFields(...fields));
@@ -136,9 +125,9 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Removes, replaces, and inserts fields in the embed (max 25).
-	 * @param index The index to start at
-	 * @param deleteCount The number of fields to remove
-	 * @param fields The replacing field objects
+	 * @param index The index to start at.
+	 * @param deleteCount The number of fields to remove.
+	 * @param fields The replacing field objects.
 	 */
 	public spliceFields(index: number, deleteCount: number, ...fields: APIEmbedField[]): this {
 		this.fields.splice(index, deleteCount, ...Embed.normalizeFields(...fields));
@@ -147,10 +136,10 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the author of this embed.
-	 * @param name The name of the author
-	 * @param options The URL options of the author
-	 * @param options.iconURL The icon URL of the author
-	 * @param options.url The URL of the author
+	 * @param name The name of the author.
+	 * @param options The URL options of the author.
+	 * @param options.iconURL The icon URL of the author.
+	 * @param options.url The URL of the author.
 	 */
 	public setAuthor(name: string, { iconURL, url }: Record<string, string | undefined> = {}): this {
 		this.author = { name, icon_url: iconURL, url };
@@ -159,7 +148,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the color of this embed.
-	 * @param color The color of the embed
+	 * @param color The color of the embed.
 	 */
 	public setColor(color: number): this {
 		this.color = color;
@@ -168,7 +157,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the description of this embed.
-	 * @param description The description
+	 * @param description The description.
 	 */
 	public setDescription(description: string): this {
 		this.description = description;
@@ -177,8 +166,8 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the footer of this embed.
-	 * @param text The text of the footer
-	 * @param iconURL The icon URL of the footer
+	 * @param text The text of the footer.
+	 * @param iconURL The icon URL of the footer.
 	 */
 	public setFooter(text: string, iconURL: string): this {
 		this.footer = { text, icon_url: iconURL };
@@ -187,7 +176,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the image of this embed.
-	 * @param url The URL of the image
+	 * @param url The URL of the image.
 	 */
 	public setImage(url: string): this {
 		this.image = { url };
@@ -196,7 +185,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the thumbnail of this embed.
-	 * @param url The URL of the thumbnail
+	 * @param url The URL of the thumbnail.
 	 */
 	public setThumbnail(url: string): this {
 		this.thumbnail = { url };
@@ -205,7 +194,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the timestamp of this embed.
-	 * @param timestamp The timestamp or date
+	 * @param timestamp The timestamp or date.
 	 */
 	public setTimestamp(timestamp: number | Date = Date.now()): this {
 		this.timestamp = new Date(timestamp).toISOString();
@@ -214,7 +203,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the title of this embed.
-	 * @param title The title
+	 * @param title The title.
 	 */
 	public setTitle(title: string): this {
 		this.title = title;
@@ -223,7 +212,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the URL of this embed.
-	 * @param url The URL
+	 * @param url The URL.
 	 */
 	public setURL(url: string): this {
 		this.url = url;
@@ -239,7 +228,7 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Normalizes field input and resolves strings.
-	 * @param fields Fields to normalize
+	 * @param fields Fields to normalize.
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields
