@@ -1,6 +1,7 @@
 import {
 	blockQuote,
 	bold,
+	channelMention,
 	codeBlock,
 	Faces,
 	hideLinkEmbed,
@@ -107,13 +108,25 @@ describe('Messages', () => {
 
 	describe('userMention', () => {
 		test('GIVEN userId THEN returns "<@[userId]>"', () => {
-			expect<'<@139836912335716352>'>(userMention('139836912335716352')).toBe('<@139836912335716352>');
+			expect(userMention('139836912335716352')).toBe('<@139836912335716352>');
 		});
 	});
 
 	describe('memberNicknameMention', () => {
 		test('GIVEN memberId THEN returns "<@![memberId]>"', () => {
-			expect<'<@!139836912335716352>'>(memberNicknameMention('139836912335716352')).toBe('<@!139836912335716352>');
+			expect(memberNicknameMention('139836912335716352')).toBe('<@!139836912335716352>');
+		});
+	});
+
+	describe('channelMention', () => {
+		test('GIVEN channelId THEN returns "<#[channelId]>"', () => {
+			expect(channelMention('829924760309334087')).toBe('<#829924760309334087>');
+		});
+	});
+
+	describe('roleMention', () => {
+		test('GIVEN roleId THEN returns "<&[roleId]>"', () => {
+			expect(channelMention('815434166602170409')).toBe('<@&815434166602170409>');
 		});
 	});
 
