@@ -39,7 +39,7 @@ export class Embed implements APIEmbed {
 	public color?: number;
 
 	/**
-	 * The timestamp of the embed.
+	 * The timestamp of the embed in the ISO format.
 	 */
 	public timestamp?: string;
 
