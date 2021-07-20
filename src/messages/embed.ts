@@ -7,7 +7,7 @@ import type {
 	APIEmbedProvider,
 	APIEmbedThumbnail,
 	APIEmbedVideo,
-} from 'discord-api-types/v8';
+} from 'discord-api-types/v9';
 
 /**
  * Represents an embed in a message (image/video preview, rich embed, etc.)

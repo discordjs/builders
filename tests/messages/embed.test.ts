@@ -1,5 +1,5 @@
 import { Embed } from '../../src';
-import type { APIEmbed } from 'discord-api-types/v8';
+import type { APIEmbed } from 'discord-api-types/v9';
 
 const emptyEmbed: APIEmbed = {
 	author: undefined,
@@ -163,7 +163,7 @@ describe('Message embed', () => {
 
 		test('Use Embed#setAuthor', () => {
 			const embed = new Embed();
-			embed.setAuthor('Wumpus', 'https://discord.js.org/static/logo.svg', 'https://discord.js.org');
+			embed.setAuthor('Wumpus', { iconURL: 'https://discord.js.org/static/logo.svg', url: 'https://discord.js.org' });
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
