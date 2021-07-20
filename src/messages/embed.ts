@@ -207,8 +207,7 @@ export class Embed implements APIEmbed {
 	 * @param timestamp The timestamp or date
 	 */
 	public setTimestamp(timestamp: number | Date = Date.now()): this {
-		if (timestamp instanceof Date) this.timestamp = timestamp.toISOString();
-		else this.timestamp = new Date(timestamp).toISOString();
+		this.timestamp = new Date(timestamp).toISOString();
 		return this;
 	}
 
