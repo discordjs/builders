@@ -237,7 +237,7 @@ export class Embed implements APIEmbed {
 			title: this.title,
 			description: this.description,
 			url: this.url,
-			timestamp: this.timestamp ? new Date(this.timestamp).toISOString() : undefined,
+			timestamp: this.timestamp,
 			color: this.color,
 			fields: this.fields,
 			thumbnail: this.thumbnail,
