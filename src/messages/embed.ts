@@ -72,6 +72,9 @@ export class Embed implements APIEmbed {
 	 */
 	public provider?: APIEmbedProvider;
 
+	/**
+	 * The embed footer data.
+	 */
 	public footer?: APIEmbedFooter;
 
 	public constructor(data: APIEmbed = {}) {
