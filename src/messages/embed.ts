@@ -34,7 +34,7 @@ export class Embed implements APIEmbed {
 	public url?: string;
 
 	/**
-	 * The embed bar color.
+	 * The embed color.
 	 */
 	public color?: number;
 
