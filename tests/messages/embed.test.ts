@@ -30,6 +30,12 @@ describe('Embed', () => {
 
 			expect(embed.length).toBe(alpha.length * 6);
 		});
+
+		test('GIVEN an embed with zero characters THEN returns amount of characters', () => {
+			const embed = new Embed();
+
+			expect(embed.length).toBe(0);
+		});
 	});
 
 	describe('Embed#title', () => {
