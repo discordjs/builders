@@ -10,6 +10,7 @@ import {
 	italic,
 	memberNicknameMention,
 	quote,
+	roleMention,
 	strikethrough,
 	time,
 	TimestampStyles,
@@ -126,7 +127,7 @@ describe('Messages', () => {
 
 	describe('roleMention', () => {
 		test('GIVEN roleId THEN returns "<&[roleId]>"', () => {
-			expect(channelMention('815434166602170409')).toBe('<@&815434166602170409>');
+			expect(roleMention('815434166602170409')).toBe('<@&815434166602170409>');
 		});
 	});
 

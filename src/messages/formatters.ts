@@ -174,7 +174,7 @@ export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
 }
 
 /**
- * Formats the channel ID into a role mention.
+ * Formats the role ID into a role mention.
  * @param roleId The role ID to format.
  * @returns The formatted role mention.
  */
