@@ -107,27 +107,29 @@ describe('Messages', () => {
 		});
 	});
 
-	describe('userMention', () => {
-		test('GIVEN userId THEN returns "<@[userId]>"', () => {
-			expect(userMention('139836912335716352')).toBe('<@139836912335716352>');
+	describe('Mentions', () => {
+		describe('userMention', () => {
+			test('GIVEN userId THEN returns "<@[userId]>"', () => {
+				expect(userMention('139836912335716352')).toBe('<@139836912335716352>');
+			});
 		});
-	});
 
-	describe('memberNicknameMention', () => {
-		test('GIVEN memberId THEN returns "<@![memberId]>"', () => {
-			expect(memberNicknameMention('139836912335716352')).toBe('<@!139836912335716352>');
+		describe('memberNicknameMention', () => {
+			test('GIVEN memberId THEN returns "<@![memberId]>"', () => {
+				expect(memberNicknameMention('139836912335716352')).toBe('<@!139836912335716352>');
+			});
 		});
-	});
 
-	describe('channelMention', () => {
-		test('GIVEN channelId THEN returns "<#[channelId]>"', () => {
-			expect(channelMention('829924760309334087')).toBe('<#829924760309334087>');
+		describe('channelMention', () => {
+			test('GIVEN channelId THEN returns "<#[channelId]>"', () => {
+				expect(channelMention('829924760309334087')).toBe('<#829924760309334087>');
+			});
 		});
-	});
 
-	describe('roleMention', () => {
-		test('GIVEN roleId THEN returns "<&[roleId]>"', () => {
-			expect(roleMention('815434166602170409')).toBe('<@&815434166602170409>');
+		describe('roleMention', () => {
+			test('GIVEN roleId THEN returns "<&[roleId]>"', () => {
+				expect(roleMention('815434166602170409')).toBe('<@&815434166602170409>');
+			});
 		});
 	});
 
