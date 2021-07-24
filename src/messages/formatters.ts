@@ -1,3 +1,4 @@
+import type { Snowflake } from 'discord-api-types/globals';
 import type { URL } from 'url';
 
 /**
@@ -143,6 +144,42 @@ export function hyperlink<C extends string, U extends string, T extends string>(
 export function hyperlink(content: string, url: string | URL, title?: string) {
 	// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 	return title ? `[${content}](${url} "${title}")` : `[${content}](${url})`;
+}
+
+/**
+ * Formats the user ID into a user mention.
+ * @param userId The user ID to format.
+ * @returns The formatted user mention.
+ */
+export function userMention<C extends Snowflake>(userId: C): `<@${C}>` {
+	return `<@${userId}>`;
+}
+
+/**
+ * Formats the user ID into a member-nickname mention.
+ * @param memberId The user ID to format.
+ * @returns The formatted member-nickname mention.
+ */
+export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@!${C}>` {
+	return `<@!${memberId}>`;
+}
+
+/**
+ * Formats the channel ID into a channel mention.
+ * @param channelId The channel ID to format.
+ * @returns The formatted channel mention.
+ */
+export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
+	return `<#${channelId}>`;
+}
+
+/**
+ * Formats the role ID into a role mention.
+ * @param roleId The role ID to format.
+ * @returns The formatted role mention.
+ */
+export function roleMention<C extends Snowflake>(roleId: C): `<@&${C}>` {
+	return `<@&${roleId}>`;
 }
 
 /**
