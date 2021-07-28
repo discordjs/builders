@@ -6,6 +6,7 @@ import {
 	Faces,
 	hideLinkEmbed,
 	hyperlink,
+	spoiler,
 	inlineCode,
 	italic,
 	memberNicknameMention,
@@ -104,6 +105,12 @@ describe('Messages', () => {
 			expect<`[discord.js](${string} "Official Documentation")`>(
 				hyperlink('discord.js', new URL('https://discord.js.org'), 'Official Documentation'),
 			).toBe('[discord.js](https://discord.js.org/ "Official Documentation")');
+		});
+	});
+	
+	describe('spoiler', () => {
+		test('GIVEN "discord.js" THEN returns "||discord.js||"', () => {
+			expect<'||discord.js||'>(spoiler('discord.js')).toBe('||discord.js||');
 		});
 	});
 

@@ -147,6 +147,15 @@ export function hyperlink(content: string, url: string | URL, title?: string) {
 }
 
 /**
+ * Wraps the content inside spoiler (hidden text).
+ * @param content The content to wrap.
+ * @returns The formatted content.
+ */
+export function spoiler<C extends string>(content: C): `||${C}||` {
+	return `||${content}||`;
+}
+
+/**
  * Formats the user ID into a user mention.
  * @param userId The user ID to format.
  * @returns The formatted user mention.
