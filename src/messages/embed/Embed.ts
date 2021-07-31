@@ -9,18 +9,20 @@ import type {
 	APIEmbedVideo,
 } from 'discord-api-types/v9';
 import ow from 'ow';
-
-const embedFieldPredicate = ow.object.exactShape({
-	name: ow.string.minLength(1).maxLength(256),
-	value: ow.string.minLength(1).maxLength(1024),
-	inline: ow.optional.boolean,
-});
-
-const embedFieldsArrayPredicate = ow.array.ofType(embedFieldPredicate);
-
-function validateFieldLength(fields: APIEmbedField[], amountAdding: number): void {
-	ow(fields.length + amountAdding, 'field amount', ow.number.lessThanOrEqual(25));
-}
+import {
+	authorNamePredicate,
+	colorPredicate,
+	descriptionPredicate,
+	embedFieldsArrayPredicate,
+	fieldInlinePredicate,
+	fieldNamePredicate,
+	fieldValuePredicate,
+	footerTextPredicate,
+	timestampPredicate,
+	titlePredicate,
+	urlPredicate,
+	validateFieldLength,
+} from './Assertions';
 
 /**
  * Represents an embed in a message (image/video preview, rich embed, etc.)
@@ -124,9 +126,6 @@ export class Embed implements APIEmbed {
 	 * @param inline If this field will be displayed inline.
 	 */
 	public addField(name: string, value: string, inline = false): this {
-		// Ensure adding this field won't exceed the 25 field limit
-		validateFieldLength(this.fields, 1);
-
 		return this.addFields({ name, value, inline });
 	}
 
@@ -171,9 +170,9 @@ export class Embed implements APIEmbed {
 	 */
 	public setAuthor(name: string | null, { iconURL, url }: Record<string, string | undefined | null> = {}): this {
 		// Data assertions
-		ow(name, 'name', ow.any(ow.string.minLength(1).maxLength(256), ow.null));
-		ow(iconURL, 'iconURL', ow.any(ow.string.url, ow.nullOrUndefined));
-		ow(url, 'url', ow.any(ow.string.url, ow.nullOrUndefined));
+		ow(name, 'name', authorNamePredicate);
+		ow(iconURL, 'iconURL', urlPredicate);
+		ow(url, 'url', urlPredicate);
 
 		this.author = name ? { name, icon_url: iconURL ?? undefined, url: url ?? undefined } : undefined;
 		return this;
@@ -185,7 +184,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setColor(color: number | null): this {
 		// Data assertions
-		ow(color, 'color', ow.any(ow.number, ow.null));
+		ow(color, 'color', colorPredicate);
 
 		this.color = color ?? undefined;
 		return this;
@@ -197,7 +196,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setDescription(description: string | null): this {
 		// Data assertions
-		ow(description, 'description', ow.any(ow.string.minLength(1).maxLength(4096), ow.null));
+		ow(description, 'description', descriptionPredicate);
 
 		this.description = description ?? undefined;
 		return this;
@@ -210,8 +209,8 @@ export class Embed implements APIEmbed {
 	 */
 	public setFooter(text: string, iconURL?: string | null): this {
 		// Data assertions
-		ow(text, 'text', ow.any(ow.string.minLength(1).maxLength(2048), ow.null));
-		ow(iconURL, 'iconURL', ow.any(ow.string.url, ow.nullOrUndefined));
+		ow(text, 'text', footerTextPredicate);
+		ow(iconURL, 'iconURL', urlPredicate);
 
 		this.footer = text ? { text, icon_url: iconURL ?? undefined } : undefined;
 		return this;
@@ -223,7 +222,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setImage(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.any(ow.string.url, ow.null));
+		ow(url, 'url', urlPredicate);
 
 		this.image = url ? { url } : undefined;
 		return this;
@@ -235,7 +234,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setThumbnail(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.any(ow.string.url, ow.null));
+		ow(url, 'url', urlPredicate);
 
 		this.thumbnail = url ? { url } : undefined;
 		return this;
@@ -247,7 +246,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setTimestamp(timestamp: number | Date | null = Date.now()): this {
 		// Data assertions
-		ow(timestamp, 'timestamp', ow.any(ow.number, ow.date, ow.null));
+		ow(timestamp, 'timestamp', timestampPredicate);
 
 		this.timestamp = timestamp ? new Date(timestamp).toISOString() : undefined;
 		return this;
@@ -259,7 +258,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setTitle(title: string | null): this {
 		// Data assertions
-		ow(title, 'title', ow.any(ow.string.minLength(1).maxLength(256), ow.null));
+		ow(title, 'title', titlePredicate);
 
 		this.title = title ?? undefined;
 		return this;
@@ -271,7 +270,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setURL(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', ow.any(ow.string.url, ow.null));
+		ow(url, 'url', urlPredicate);
 
 		this.url = url ?? undefined;
 		return this;
@@ -290,9 +289,9 @@ export class Embed implements APIEmbed {
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields.flat(Infinity).map((field) => {
-			ow(field.name, ow.string.maxLength(256));
-			ow(field.value, ow.string.maxLength(1024));
-			ow(field.inline, ow.optional.boolean);
+			ow(field.name, fieldNamePredicate);
+			ow(field.value, fieldValuePredicate);
+			ow(field.inline, fieldInlinePredicate);
 
 			return { name: field.name, value: field.value, inline: field.inline ?? false };
 		});
