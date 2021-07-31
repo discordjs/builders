@@ -154,7 +154,7 @@ export class Embed implements APIEmbed {
 		// Data assertions
 		ow(fields, 'fields', embedFieldsArrayPredicate);
 
-		// Ensure adding this field won't exceed the 25 field limit
+		// Ensure adding these fields won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length - deleteCount);
 
 		this.fields.splice(index, deleteCount, ...Embed.normalizeFields(...fields));
