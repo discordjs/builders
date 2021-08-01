@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **Shrug:** Update comment ([#14](https://github.com/discordjs/builders/issues/14)) ([6fa6c40](https://github.com/discordjs/builders/commit/6fa6c405f2ea733811677d3d1bfb1e2806d504d5)), closes [/github.com/discordjs/builders/pull/13#discussion_r671382602](https://github.com//github.com/discordjs/builders/pull/13/issues/discussion_r671382602)
+* **Shrug:** Update comment ([#14](https://github.com/discordjs/builders/issues/14)) ([6fa6c40](https://github.com/discordjs/builders/commit/6fa6c405f2ea733811677d3d1bfb1e2806d504d5))
 * shrug face rendering ([#13](https://github.com/discordjs/builders/issues/13)) ([6ad24ec](https://github.com/discordjs/builders/commit/6ad24ecd96c82b0f576e78e9e53fc7bf9c36ef5d))
 
 
