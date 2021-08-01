@@ -55,7 +55,7 @@ export class SlashCommandSubCommandGroupBuilder implements ToAPIApplicationComma
 	public toJSON() {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
-			type: ApplicationCommandOptionType.SubCommandGroup,
+			type: ApplicationCommandOptionType.SubcommandGroup,
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
@@ -90,7 +90,7 @@ export class SlashCommandSubCommandBuilder implements ToAPIApplicationCommandOpt
 	public toJSON() {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
-			type: ApplicationCommandOptionType.SubCommand,
+			type: ApplicationCommandOptionType.Subcommand,
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
