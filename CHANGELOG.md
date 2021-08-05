@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.4.0](https://github.com/discordjs/builders/compare/v0.3.0...v0.4.0) (2021-08-05)
+
+### Features
+
+* `sub command` => `subcommand` ([#18](https://github.com/discordjs/builders/pull/18)) ([95599c5](https://github.com/discordjs/builders/commit/95599c5b5366ebd054c4c277c52f1a44cda1209d))
+
+
+
 # [0.3.0](https://github.com/discordjs/builders/compare/v0.2.0...v0.3.0) (2021-08-01)
 
 
