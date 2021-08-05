@@ -24,6 +24,11 @@ import {
 	validateFieldLength,
 } from './Assertions';
 
+export interface AuthorURLOptions {
+	url?: string | null;
+	iconURL?: string | null;
+}
+
 /**
  * Represents an embed in a message (image/video preview, rich embed, etc.)
  */
@@ -137,7 +142,7 @@ export class Embed implements APIEmbed {
 		// Data assertions
 		ow(fields, embedFieldsArrayPredicate);
 
-		// Ensure adding these fields won't exceed the 25 field limit
+		// Ensure adding this field won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length);
 
 		this.fields.push(...Embed.normalizeFields(...fields));
@@ -154,7 +159,7 @@ export class Embed implements APIEmbed {
 		// Data assertions
 		ow(fields, 'fields', embedFieldsArrayPredicate);
 
-		// Ensure adding these fields won't exceed the 25 field limit
+		// Ensure adding this field won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length - deleteCount);
 
 		this.fields.splice(index, deleteCount, ...Embed.normalizeFields(...fields));
@@ -168,7 +173,7 @@ export class Embed implements APIEmbed {
 	 * @param options.iconURL The icon URL of the author.
 	 * @param options.url The URL of the author.
 	 */
-	public setAuthor(name: string | null, { iconURL, url }: Record<string, string | undefined | null> = {}): this {
+	public setAuthor(name: string | null, { iconURL, url }: AuthorURLOptions = {}): this {
 		// Data assertions
 		ow(name, 'name', authorNamePredicate);
 		ow(iconURL, 'iconURL', urlPredicate);
