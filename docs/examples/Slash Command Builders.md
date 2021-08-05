@@ -48,7 +48,7 @@ boopCommand.addIntegerOption((option) =>
 const rawData = boopCommand.toJSON();
 ```
 
-## Sub commands and sub command groups
+## Subcommands and subcommand groups
 
 ```ts
 import { SlashCommandBuilder } from '@discordjs/builders';
@@ -56,12 +56,12 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 const pointsCommand = new SlashCommandBuilder().setName('points').setDescription('Lists or manages user points');
 
 // Add a manage group
-pointsCommand.addSubCommandGroup((group) =>
+pointsCommand.addSubcommandGroup((group) =>
 	group
 		.setName('manage')
 		.setDescription('Shows or manages points in the server')
-		.addSubCommand((subCommand) =>
-			subCommand
+		.addSubcommand((subcommand) =>
+			subcommand
 				.setName('user_points')
 				.setDescription("Alters a user's points")
 				.addUserOption((option) =>
@@ -83,15 +83,15 @@ pointsCommand.addSubCommandGroup((group) =>
 );
 
 // Add an information group
-pointsCommand.addSubCommandGroup((group) =>
+pointsCommand.addSubcommandGroup((group) =>
 	group
 		.setName('info')
 		.setDescription('Shows information about points in the guild')
-		.addSubCommand((subCommand) =>
-			subCommand.setName('total').setDescription('Tells you the total amount of points given in the guild'),
+		.addSubcommand((subcommand) =>
+			subcommand.setName('total').setDescription('Tells you the total amount of points given in the guild'),
 		)
-		.addSubCommand((subCommand) =>
-			subCommand
+		.addSubcommand((subcommand) =>
+			subcommand
 				.setName('user')
 				.setDescription("Lists a user's points")
 				.addUserOption((option) =>

@@ -3,7 +3,7 @@ import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v9';
 import ow from 'ow';
 import type { SlashCommandOptionBase } from './mixins/CommandOptionBase';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
-import type { SlashCommandSubCommandBuilder, SlashCommandSubCommandGroupBuilder } from './SlashCommandSubCommands';
+import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
 
 export function validateRequiredParameters(
 	name: string,
@@ -49,7 +49,7 @@ export function validateMaxChoicesLength(choices: APIApplicationCommandOptionCho
 }
 
 export function assertReturnOfBuilder<
-	T extends SlashCommandOptionBase | SlashCommandSubCommandBuilder | SlashCommandSubCommandGroupBuilder,
+	T extends SlashCommandOptionBase | SlashCommandSubcommandBuilder | SlashCommandSubcommandGroupBuilder,
 >(input: unknown, ExpectedInstanceOf: new () => T): asserts input is T {
 	const instanceName = ExpectedInstanceOf.name;
 
