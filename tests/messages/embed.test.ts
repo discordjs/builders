@@ -127,19 +127,19 @@ describe('Embed', () => {
 
 	describe('Embed Color', () => {
 		test('GIVEN an embed with a pre-defined color THEN returns valid toJSON data', () => {
-			const embed = new Embed({ color: 0x0 });
-			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, color: 0x0 });
+			const embed = new Embed({ color: 0xff0000 });
+			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, color: 0xff0000 });
 		});
 
 		test('GIVEN an embed using Embed#setColor THEN returns valid toJSON data', () => {
 			const embed = new Embed();
-			embed.setColor(0x0);
+			embed.setColor(0xff0000);
 
-			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, color: 0x0 });
+			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, color: 0xff0000 });
 		});
 
 		test('GIVEN an embed with a pre-defined color THEN unset color THEN return valid toJSON data', () => {
-			const embed = new Embed({ color: 0x0 });
+			const embed = new Embed({ color: 0xff0000 });
 			embed.setColor(null);
 
 			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed });
@@ -350,11 +350,11 @@ describe('Embed', () => {
 	describe('Embed Fields', () => {
 		test('GIVEN an embed with a pre-defined field THEN returns valid toJSON data', () => {
 			const embed = new Embed({
-				fields: [{ name: 'foo', value: 'bar', inline: false }],
+				fields: [{ name: 'foo', value: 'bar', inline: undefined }],
 			});
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
-				fields: [{ name: 'foo', value: 'bar', inline: false }],
+				fields: [{ name: 'foo', value: 'bar', inline: undefined }],
 			});
 		});
 
@@ -364,7 +364,7 @@ describe('Embed', () => {
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
-				fields: [{ name: 'foo', value: 'bar', inline: false }],
+				fields: [{ name: 'foo', value: 'bar', inline: undefined }],
 			});
 		});
 
@@ -374,7 +374,7 @@ describe('Embed', () => {
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
-				fields: [{ name: 'foo', value: 'bar', inline: false }],
+				fields: [{ name: 'foo', value: 'bar', inline: undefined }],
 			});
 		});
 
@@ -384,7 +384,7 @@ describe('Embed', () => {
 
 			expect(embed.spliceFields(0, 1).toJSON()).toStrictEqual({
 				...emptyEmbed,
-				fields: [{ name: 'foo', value: 'baz', inline: false }],
+				fields: [{ name: 'foo', value: 'baz', inline: undefined }],
 			});
 		});
 
