@@ -130,7 +130,7 @@ export class Embed implements APIEmbed {
 	 * @param value The value of this field.
 	 * @param inline If this field will be displayed inline.
 	 */
-	public addField(name: string, value: string, inline = false): this {
+	public addField(name: string, value: string, inline?: boolean): this {
 		return this.addFields({ name, value, inline });
 	}
 
