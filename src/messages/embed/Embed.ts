@@ -140,9 +140,9 @@ export class Embed implements APIEmbed {
 	 */
 	public addFields(...fields: APIEmbedField[]): this {
 		// Data assertions
-		ow(fields, embedFieldsArrayPredicate);
+		ow(fields, 'fields', embedFieldsArrayPredicate);
 
-		// Ensure adding this field won't exceed the 25 field limit
+		// Ensure adding these fields won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length);
 
 		this.fields.push(...Embed.normalizeFields(...fields));
@@ -159,19 +159,23 @@ export class Embed implements APIEmbed {
 		// Data assertions
 		ow(fields, 'fields', embedFieldsArrayPredicate);
 
-		// Ensure adding this field won't exceed the 25 field limit
-		validateFieldLength(this.fields, fields.length - deleteCount);
+		// Ensure adding these fields won't exceed the 25 field limit
+		/* if (fields.length > deleteCount) */ validateFieldLength(this.fields, fields.length - deleteCount);
 
 		this.fields.splice(index, deleteCount, ...Embed.normalizeFields(...fields));
 		return this;
 	}
 
 	/**
+	 * @typedef {Object} AuthorURLOptions
+	 * @property {string | null | undefined} url The URL of the author.
+	 * @property {string | null | undefined} iconURL The icon URL of the author
+	 */
+
+	/**
 	 * Sets the author of this embed.
 	 * @param name The name of the author.
 	 * @param options The URL options of the author.
-	 * @param options.iconURL The icon URL of the author.
-	 * @param options.url The URL of the author.
 	 */
 	public setAuthor(name: string | null, { iconURL, url }: AuthorURLOptions = {}): this {
 		// Data assertions
@@ -294,11 +298,11 @@ export class Embed implements APIEmbed {
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields.flat(Infinity).map((field) => {
-			ow(field.name, fieldNamePredicate);
-			ow(field.value, fieldValuePredicate);
-			ow(field.inline, fieldInlinePredicate);
+			ow(field.name, 'field.name', fieldNamePredicate);
+			ow(field.value, 'field.value', fieldValuePredicate);
+			ow(field.inline, 'field.inline', fieldInlinePredicate);
 
-			return { name: field.name, value: field.value, inline: field.inline ?? false };
+			return { name: field.name, value: field.value, inline: field.inline ?? undefined };
 		});
 	}
 }

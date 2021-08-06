@@ -388,6 +388,24 @@ describe('Embed', () => {
 			});
 		});
 
+		test('GIVEN an embed using Embed#spliceFields THEN returns valid toJSON data', () => {
+			const embed = new Embed();
+			embed.addFields(...Array.from({ length: 23 }, () => ({ name: 'foo', value: 'bar' })));
+
+			expect(() =>
+				embed.spliceFields(0, 3, ...Array.from({ length: 5 }, () => ({ name: 'foo', value: 'bar' }))),
+			).not.toThrowError();
+		});
+
+		test('GIVEN an embed using Embed#spliceFields that adds additional fields resulting in fields > 25 THEN throws error', () => {
+			const embed = new Embed();
+			embed.addFields(...Array.from({ length: 23 }, () => ({ name: 'foo', value: 'bar' })));
+
+			expect(() =>
+				embed.spliceFields(0, 3, ...Array.from({ length: 8 }, () => ({ name: 'foo', value: 'bar' }))),
+			).toThrowError();
+		});
+
 		describe('GIVEN invalid field amount THEN throws error', () => {
 			test('', () => {
 				const embed = new Embed();
