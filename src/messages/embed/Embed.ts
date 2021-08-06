@@ -24,9 +24,15 @@ import {
 	validateFieldLength,
 } from './Assertions';
 
-export interface AuthorURLOptions {
-	url?: string | null;
-	iconURL?: string | null;
+export interface AuthorOptions {
+	name: string;
+	url?: string;
+	iconURL?: string;
+}
+
+export interface FooterOptions {
+	text: string;
+	iconURL?: string;
 }
 
 /**
@@ -167,23 +173,29 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * @typedef {Object} AuthorURLOptions
+	 * @typedef {Object} AuthorOptions
+	 * @property {string} name The name of the author.
 	 * @property {string | null | undefined} url The URL of the author.
 	 * @property {string | null | undefined} iconURL The icon URL of the author
 	 */
 
 	/**
 	 * Sets the author of this embed.
-	 * @param name The name of the author.
-	 * @param options The URL options of the author.
+	 * @param options The options for the author.
 	 */
-	public setAuthor(name: string | null, { iconURL, url }: AuthorURLOptions = {}): this {
+	public setAuthor(options: AuthorOptions | null): this {
+		if (options === null) {
+			this.author = undefined;
+			return this;
+		}
+
+		const { name, iconURL, url } = options;
 		// Data assertions
 		ow(name, 'name', authorNamePredicate);
 		ow(iconURL, 'iconURL', urlPredicate);
 		ow(url, 'url', urlPredicate);
 
-		this.author = name ? { name, icon_url: iconURL ?? undefined, url: url ?? undefined } : undefined;
+		this.author = { name, url, icon_url: iconURL };
 		return this;
 	}
 
@@ -213,15 +225,20 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Sets the footer of this embed.
-	 * @param text The text of the footer.
-	 * @param iconURL The icon URL of the footer.
+	 * @param options The options for the footer.
 	 */
-	public setFooter(text: string, iconURL?: string | null): this {
+	public setFooter(options: FooterOptions | null): this {
+		if (options === null) {
+			this.footer = undefined;
+			return this;
+		}
+
+		const { text, iconURL } = options;
 		// Data assertions
 		ow(text, 'text', footerTextPredicate);
 		ow(iconURL, 'iconURL', urlPredicate);
 
-		this.footer = text ? { text, icon_url: iconURL ?? undefined } : undefined;
+		this.footer = { text, icon_url: iconURL };
 		return this;
 	}
 
@@ -298,9 +315,9 @@ export class Embed implements APIEmbed {
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields.flat(Infinity).map((field) => {
-			ow(field.name, 'field.name', fieldNamePredicate);
-			ow(field.value, 'field.value', fieldValuePredicate);
-			ow(field.inline, 'field.inline', fieldInlinePredicate);
+			ow(field.name, 'field name', fieldNamePredicate);
+			ow(field.value, 'field value', fieldValuePredicate);
+			ow(field.inline, 'field inline', fieldInlinePredicate);
 
 			return { name: field.name, value: field.value, inline: field.inline ?? undefined };
 		});

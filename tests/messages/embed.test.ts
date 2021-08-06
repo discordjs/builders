@@ -269,7 +269,11 @@ describe('Embed', () => {
 
 		test('GIVEN an embed using Embed#setAuthor THEN returns valid toJSON data', () => {
 			const embed = new Embed();
-			embed.setAuthor('Wumpus', { iconURL: 'https://discord.js.org/static/logo.svg', url: 'https://discord.js.org' });
+			embed.setAuthor({
+				name: 'Wumpus',
+				iconURL: 'https://discord.js.org/static/logo.svg',
+				url: 'https://discord.js.org',
+			});
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
@@ -281,27 +285,15 @@ describe('Embed', () => {
 			const embed = new Embed({
 				author: { name: 'Wumpus', icon_url: 'https://discord.js.org/static/logo.svg', url: 'https://discord.js.org' },
 			});
-			embed.setAuthor(null, { iconURL: null, url: null });
+			embed.setAuthor(null);
 
 			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed });
-		});
-
-		test('GIVEN an embed with a pre-defined author THEN unset author urls THEN return valid toJSON data', () => {
-			const embed = new Embed({
-				author: { name: 'Wumpus', icon_url: 'https://discord.js.org/static/logo.svg', url: 'https://discord.js.org' },
-			});
-			embed.setAuthor(embed.author.name!, { iconURL: null, url: null });
-
-			expect(embed.toJSON()).toStrictEqual({
-				...emptyEmbed,
-				author: { name: 'Wumpus', icon_url: undefined, url: undefined },
-			});
 		});
 
 		test('GIVEN an embed with an invalid author name THEN throws error', () => {
 			const embed = new Embed();
 
-			expect(() => embed.setAuthor('a'.repeat(257))).toThrowError();
+			expect(() => embed.setAuthor({ name: 'a'.repeat(257) })).toThrowError();
 		});
 	});
 
@@ -318,7 +310,7 @@ describe('Embed', () => {
 
 		test('GIVEN an embed using Embed#setAuthor THEN returns valid toJSON data', () => {
 			const embed = new Embed();
-			embed.setFooter('Wumpus', 'https://discord.js.org/static/logo.svg');
+			embed.setFooter({ text: 'Wumpus', iconURL: 'https://discord.js.org/static/logo.svg' });
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
@@ -328,22 +320,15 @@ describe('Embed', () => {
 
 		test('GIVEN an embed with a pre-defined footer THEN unset footer THEN return valid toJSON data', () => {
 			const embed = new Embed({ footer: { text: 'Wumpus', icon_url: 'https://discord.js.org/static/logo.svg' } });
-			embed.setFooter(null, null);
+			embed.setFooter(null);
 
 			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed });
-		});
-
-		test('GIVEN an embed with a pre-defined footer THEN unset footer urls THEN return valid toJSON data', () => {
-			const embed = new Embed({ footer: { text: 'Wumpus', icon_url: 'https://discord.js.org/static/logo.svg' } });
-			embed.setFooter(embed.footer.text, null);
-
-			expect(embed.toJSON()).toStrictEqual({ ...emptyEmbed, footer: { text: 'Wumpus', icon_url: undefined } });
 		});
 
 		test('GIVEN an embed with invalid footer text THEN throws error', () => {
 			const embed = new Embed();
 
-			expect(() => embed.setFooter('a'.repeat(2049))).toThrowError();
+			expect(() => embed.setFooter({ text: 'a'.repeat(2049) })).toThrowError();
 		});
 	});
 
