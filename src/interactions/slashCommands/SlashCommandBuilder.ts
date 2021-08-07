@@ -3,7 +3,7 @@ import { mix } from 'ts-mixer';
 import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
 import { SharedNameAndDescription } from './mixins/NameAndDescription';
 import { SharedSlashCommandOptions } from './mixins/CommandOptions';
-import { SlashCommandSubCommandBuilder, SlashCommandSubCommandGroupBuilder } from './SlashCommandSubCommands';
+import { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
 
 @mix(SharedSlashCommandOptions, SharedNameAndDescription)
 export class SlashCommandBuilder {
@@ -37,27 +37,27 @@ export class SlashCommandBuilder {
 	}
 
 	/**
-	 * Adds a new sub command group to this command
-	 * @param input A function that returns a sub command group builder, or an already built builder
+	 * Adds a new subcommand group to this command
+	 * @param input A function that returns a subcommand group builder, or an already built builder
 	 */
-	public addSubCommandGroup(
+	public addSubcommandGroup(
 		input:
-			| SlashCommandSubCommandGroupBuilder
-			| ((subCommandGroup: SlashCommandSubCommandGroupBuilder) => SlashCommandSubCommandGroupBuilder),
-	): SlashCommandSubCommandGroupsOnlyBuilder {
+			| SlashCommandSubcommandGroupBuilder
+			| ((subcommandGroup: SlashCommandSubcommandGroupBuilder) => SlashCommandSubcommandGroupBuilder),
+	): SlashCommandSubcommandGroupsOnlyBuilder {
 		const { options } = this;
 
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
 
-		// Make sure there is no sub command at the root level - if there is, throw
-		const hasSubCommands = options.some((item) => item instanceof SlashCommandSubCommandBuilder);
-		if (hasSubCommands) throw new RangeError(`You cannot mix sub commands and sub command groups at the root level.`);
+		// Make sure there is no subcommand at the root level - if there is, throw
+		const hasSubcommands = options.some((item) => item instanceof SlashCommandSubcommandBuilder);
+		if (hasSubcommands) throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
 
 		// Get the final result
-		const result = typeof input === 'function' ? input(new SlashCommandSubCommandGroupBuilder()) : input;
+		const result = typeof input === 'function' ? input(new SlashCommandSubcommandGroupBuilder()) : input;
 
-		assertReturnOfBuilder(result, SlashCommandSubCommandGroupBuilder);
+		assertReturnOfBuilder(result, SlashCommandSubcommandGroupBuilder);
 
 		// Push it
 		options.push(result);
@@ -66,28 +66,28 @@ export class SlashCommandBuilder {
 	}
 
 	/**
-	 * Adds a new sub command to this command
-	 * @param input A function that returns a sub command builder, or an already built builder
+	 * Adds a new subcommand to this command
+	 * @param input A function that returns a subcommand builder, or an already built builder
 	 */
-	public addSubCommand(
+	public addSubcommand(
 		input:
-			| SlashCommandSubCommandBuilder
-			| ((subCommandGroup: SlashCommandSubCommandBuilder) => SlashCommandSubCommandBuilder),
-	): SlashCommandSubCommandsOnlyBuilder {
+			| SlashCommandSubcommandBuilder
+			| ((subcommandGroup: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder),
+	): SlashCommandSubcommandsOnlyBuilder {
 		const { options } = this;
 
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
 
-		// Make sure there is no sub command at the root level - if there is, throw
-		const hasSubCommandGroups = options.some((item) => item instanceof SlashCommandSubCommandGroupBuilder);
-		if (hasSubCommandGroups)
-			throw new RangeError(`You cannot mix sub commands and sub command groups at the root level.`);
+		// Make sure there is no subcommand at the root level - if there is, throw
+		const hasSubcommandGroups = options.some((item) => item instanceof SlashCommandSubcommandGroupBuilder);
+		if (hasSubcommandGroups)
+			throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
 
 		// Get the final result
-		const result = typeof input === 'function' ? input(new SlashCommandSubCommandBuilder()) : input;
+		const result = typeof input === 'function' ? input(new SlashCommandSubcommandBuilder()) : input;
 
-		assertReturnOfBuilder(result, SlashCommandSubCommandBuilder);
+		assertReturnOfBuilder(result, SlashCommandSubcommandBuilder);
 
 		// Push it
 		options.push(result);
@@ -98,13 +98,13 @@ export class SlashCommandBuilder {
 
 export interface SlashCommandBuilder extends SharedNameAndDescription, SharedSlashCommandOptions {}
 
-export interface SlashCommandSubCommandsOnlyBuilder
+export interface SlashCommandSubcommandsOnlyBuilder
 	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubCommand'> {}
+		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand'> {}
 
-export interface SlashCommandSubCommandGroupsOnlyBuilder
+export interface SlashCommandSubcommandGroupsOnlyBuilder
 	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubCommandGroup'> {}
+		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommandGroup'> {}
 
 export interface SlashCommandOptionsOnlyBuilder
 	extends SharedNameAndDescription,

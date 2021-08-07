@@ -6,35 +6,35 @@ import { SharedNameAndDescription } from './mixins/NameAndDescription';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
 
 /**
- * Represents a folder for sub commands
+ * Represents a folder for subcommands
  *
  * For more information, go to https://discord.com/developers/docs/interactions/slash-commands#subcommands-and-subcommand-groups
  */
 @mix(SharedNameAndDescription)
-export class SlashCommandSubCommandGroupBuilder implements ToAPIApplicationCommandOptions {
+export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationCommandOptions {
 	/**
-	 * The name of this sub command group
+	 * The name of this subcommand group
 	 */
 	public readonly name: string = undefined!;
 
 	/**
-	 * The description of this sub command group
+	 * The description of this subcommand group
 	 */
 	public readonly description: string = undefined!;
 
 	/**
-	 * The sub commands part of this sub command group
+	 * The subcommands part of this subcommand group
 	 */
 	public readonly options: ToAPIApplicationCommandOptions[] = [];
 
 	/**
-	 * Adds a new sub command to this group
-	 * @param input A function that returns a sub command builder, or an already built builder
+	 * Adds a new subcommand to this group
+	 * @param input A function that returns a subcommand builder, or an already built builder
 	 */
-	public addSubCommand(
+	public addSubcommand(
 		input:
-			| SlashCommandSubCommandBuilder
-			| ((subCommandGroup: SlashCommandSubCommandBuilder) => SlashCommandSubCommandBuilder),
+			| SlashCommandSubcommandBuilder
+			| ((subcommandGroup: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder),
 	) {
 		const { options } = this;
 
@@ -42,9 +42,9 @@ export class SlashCommandSubCommandGroupBuilder implements ToAPIApplicationComma
 		validateMaxOptionsLength(options);
 
 		// Get the final result
-		const result = typeof input === 'function' ? input(new SlashCommandSubCommandBuilder()) : input;
+		const result = typeof input === 'function' ? input(new SlashCommandSubcommandBuilder()) : input;
 
-		assertReturnOfBuilder(result, SlashCommandSubCommandBuilder);
+		assertReturnOfBuilder(result, SlashCommandSubcommandBuilder);
 
 		// Push it
 		options.push(result);
@@ -55,7 +55,7 @@ export class SlashCommandSubCommandGroupBuilder implements ToAPIApplicationComma
 	public toJSON() {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
-			type: ApplicationCommandOptionType.SubCommandGroup,
+			type: ApplicationCommandOptionType.SubcommandGroup,
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
@@ -63,34 +63,34 @@ export class SlashCommandSubCommandGroupBuilder implements ToAPIApplicationComma
 	}
 }
 
-export interface SlashCommandSubCommandGroupBuilder extends SharedNameAndDescription {}
+export interface SlashCommandSubcommandGroupBuilder extends SharedNameAndDescription {}
 
 /**
- * Represents a sub command
+ * Represents a subcommand
  *
  * For more information, go to https://discord.com/developers/docs/interactions/slash-commands#subcommands-and-subcommand-groups
  */
 @mix(SharedNameAndDescription, SharedSlashCommandOptions)
-export class SlashCommandSubCommandBuilder implements ToAPIApplicationCommandOptions {
+export class SlashCommandSubcommandBuilder implements ToAPIApplicationCommandOptions {
 	/**
-	 * The name of this sub command
+	 * The name of this subcommand
 	 */
 	public readonly name: string = undefined!;
 
 	/**
-	 * The description of this sub command
+	 * The description of this subcommand
 	 */
 	public readonly description: string = undefined!;
 
 	/**
-	 * The options of this sub command
+	 * The options of this subcommand
 	 */
 	public readonly options: ToAPIApplicationCommandOptions[] = [];
 
 	public toJSON() {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
-			type: ApplicationCommandOptionType.SubCommand,
+			type: ApplicationCommandOptionType.Subcommand,
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
@@ -98,4 +98,4 @@ export class SlashCommandSubCommandBuilder implements ToAPIApplicationCommandOpt
 	}
 }
 
-export interface SlashCommandSubCommandBuilder extends SharedNameAndDescription, SharedSlashCommandOptions<false> {}
+export interface SlashCommandSubcommandBuilder extends SharedNameAndDescription, SharedSlashCommandOptions<false> {}

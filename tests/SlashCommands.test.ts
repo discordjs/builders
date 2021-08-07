@@ -7,8 +7,8 @@ import {
 	SlashCommandMentionableOption,
 	SlashCommandRoleOption,
 	SlashCommandStringOption,
-	SlashCommandSubCommandBuilder,
-	SlashCommandSubCommandGroupBuilder,
+	SlashCommandSubcommandBuilder,
+	SlashCommandSubcommandGroupBuilder,
 	SlashCommandUserOption,
 } from '../src/index';
 
@@ -23,8 +23,8 @@ const getUserOption = () => new SlashCommandUserOption().setName('owo').setDescr
 const getChannelOption = () => new SlashCommandChannelOption().setName('owo').setDescription('Testing 123');
 const getRoleOption = () => new SlashCommandRoleOption().setName('owo').setDescription('Testing 123');
 const getMentionableOption = () => new SlashCommandMentionableOption().setName('owo').setDescription('Testing 123');
-const getSubCommandGroup = () => new SlashCommandSubCommandGroupBuilder().setName('owo').setDescription('Testing 123');
-const getSubCommand = () => new SlashCommandSubCommandBuilder().setName('owo').setDescription('Testing 123');
+const getSubcommandGroup = () => new SlashCommandSubcommandGroupBuilder().setName('owo').setDescription('Testing 123');
+const getSubcommand = () => new SlashCommandSubcommandBuilder().setName('owo').setDescription('Testing 123');
 
 class Collection {
 	public get [Symbol.toStringTag]() {
@@ -198,82 +198,82 @@ describe('Slash Commands', () => {
 			});
 		});
 
-		describe('Builder with sub command (group) options', () => {
-			test('GIVEN builder with sub command group THEN does not throw error', () => {
+		describe('Builder with subcommand (group) options', () => {
+			test('GIVEN builder with subcommand group THEN does not throw error', () => {
 				expect(() =>
-					getNamedBuilder().addSubCommandGroup((group) => group.setName('group').setDescription('Group us together!')),
+					getNamedBuilder().addSubcommandGroup((group) => group.setName('group').setDescription('Group us together!')),
 				).not.toThrowError();
 			});
 
-			test('GIVEN builder with sub command THEN does not throw error', () => {
+			test('GIVEN builder with subcommand THEN does not throw error', () => {
 				expect(() =>
-					getNamedBuilder().addSubCommand((subCommand) =>
-						subCommand.setName('boop').setDescription('Boops a fellow nerd (you)'),
+					getNamedBuilder().addSubcommand((subcommand) =>
+						subcommand.setName('boop').setDescription('Boops a fellow nerd (you)'),
 					),
 				).not.toThrowError();
 			});
 
-			test('GIVEN builder with already built sub command group THEN does not throw error', () => {
-				expect(() => getNamedBuilder().addSubCommandGroup(getSubCommandGroup())).not.toThrowError();
+			test('GIVEN builder with already built subcommand group THEN does not throw error', () => {
+				expect(() => getNamedBuilder().addSubcommandGroup(getSubcommandGroup())).not.toThrowError();
 			});
 
-			test('GIVEN builder with already built sub command THEN does not throw error', () => {
-				expect(() => getNamedBuilder().addSubCommand(getSubCommand())).not.toThrowError();
+			test('GIVEN builder with already built subcommand THEN does not throw error', () => {
+				expect(() => getNamedBuilder().addSubcommand(getSubcommand())).not.toThrowError();
 			});
 
-			test('GIVEN builder with already built sub command with options THEN does not throw error', () => {
+			test('GIVEN builder with already built subcommand with options THEN does not throw error', () => {
 				expect(() =>
-					getNamedBuilder().addSubCommand(getSubCommand().addBooleanOption(getBooleanOption())),
+					getNamedBuilder().addSubcommand(getSubcommand().addBooleanOption(getBooleanOption())),
 				).not.toThrowError();
 			});
 
-			test('GIVEN builder with a sub command group that tries to add a sub command THEN throw error', () => {
+			test('GIVEN builder with a subcommand group that tries to add a subcommand THEN throw error', () => {
 				expect(() =>
 					// @ts-expect-error Checking if check works JS-side too
-					getNamedBuilder().addSubCommandGroup(getSubCommandGroup()).addSubCommand(getSubCommand()),
+					getNamedBuilder().addSubcommandGroup(getSubcommandGroup()).addSubcommand(getSubcommand()),
 				).toThrowError();
 			});
 
-			test('GIVEN builder with a sub command that tries to add an invalid result THEN throw error', () => {
+			test('GIVEN builder with a subcommand that tries to add an invalid result THEN throw error', () => {
 				expect(() =>
 					// @ts-expect-error Checking if check works JS-side too
-					getNamedBuilder().addSubCommand(getSubCommand()).addSubCommandGroup(getSubCommandGroup()),
+					getNamedBuilder().addSubcommand(getSubcommand()).addSubcommandGroup(getSubcommandGroup()),
 				).toThrowError();
 			});
 
-			test('GIVEN no valid return for an addSubCommand(Group) method THEN throw error', () => {
+			test('GIVEN no valid return for an addSubcommand(Group) method THEN throw error', () => {
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
-				expect(() => getBuilder().addSubCommandGroup()).toThrowError();
+				expect(() => getBuilder().addSubcommandGroup()).toThrowError();
 
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
-				expect(() => getBuilder().addSubCommand()).toThrowError();
+				expect(() => getBuilder().addSubcommand()).toThrowError();
 
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
-				expect(() => getBuilder().addSubCommand(getSubCommandGroup())).toThrowError();
+				expect(() => getBuilder().addSubcommand(getSubcommandGroup())).toThrowError();
 			});
 		});
 
-		describe('Sub command group builder', () => {
-			test('GIVEN no valid sub command THEN throw error', () => {
+		describe('Subcommand group builder', () => {
+			test('GIVEN no valid subcommand THEN throw error', () => {
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
-				expect(() => getSubCommandGroup().addSubCommand()).toThrowError();
+				expect(() => getSubcommandGroup().addSubcommand()).toThrowError();
 
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
-				expect(() => getSubCommandGroup().addSubCommand(getSubCommandGroup())).toThrowError();
+				expect(() => getSubcommandGroup().addSubcommand(getSubcommandGroup())).toThrowError();
 			});
 
-			test('GIVEN a valid sub command THEN does not throw an error', () => {
+			test('GIVEN a valid subcommand THEN does not throw an error', () => {
 				expect(() =>
-					getSubCommandGroup()
-						.addSubCommand((sub) => sub.setName('sub').setDescription('Testing 123'))
+					getSubcommandGroup()
+						.addSubcommand((sub) => sub.setName('sub').setDescription('Testing 123'))
 						.toJSON(),
 				).not.toThrowError();
 			});
 		});
 
-		describe('Sub command builder', () => {
-			test('GIVEN a valid sub command with options THEN does not throw error', () => {
-				expect(() => getSubCommand().addBooleanOption(getBooleanOption()).toJSON()).not.toThrowError();
+		describe('Subcommand builder', () => {
+			test('GIVEN a valid subcommand with options THEN does not throw error', () => {
+				expect(() => getSubcommand().addBooleanOption(getBooleanOption()).toJSON()).not.toThrowError();
 			});
 		});
 	});
