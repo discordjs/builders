@@ -1,8 +1,13 @@
 import type { APIApplicationCommandOption } from 'discord-api-types/v9';
 import { mix } from 'ts-mixer';
-import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
-import { SharedNameAndDescription } from './mixins/NameAndDescription';
+import {
+	assertReturnOfBuilder,
+	validateDefaultPermission,
+	validateMaxOptionsLength,
+	validateRequiredParameters,
+} from './Assertions';
 import { SharedSlashCommandOptions } from './mixins/CommandOptions';
+import { SharedNameAndDescription } from './mixins/NameAndDescription';
 import { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
 
 @mix(SharedSlashCommandOptions, SharedNameAndDescription)
@@ -23,6 +28,11 @@ export class SlashCommandBuilder {
 	public readonly options: ToAPIApplicationCommandOptions[] = [];
 
 	/**
+	 * Whether the command is enabled by default when the app is added to a guild
+	 */
+	public readonly defaultPermission: boolean = true;
+
+	/**
 	 * Returns the final data that should be sent to Discord.
 	 *
 	 * **Note:** Calling this function will validate required properties based on their conditions.
@@ -33,7 +43,25 @@ export class SlashCommandBuilder {
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
+			default_permission: this.defaultPermission,
 		};
+	}
+
+	/**
+	 * Sets whether the command is enabled by default when the application is added to a guild.
+	 *
+	 * **Note**: If set to `true`, you will have to later have to `PUT` the permissions for this command.
+	 * @param value Whether or not to enable this command by default
+	 *
+	 * @see https://discord.com/developers/docs/interactions/slash-commands#permissions
+	 */
+	public setDefaultPermission(value: boolean) {
+		// Assert the value matches the conditions
+		validateDefaultPermission(value);
+
+		Reflect.set(this, 'defaultPermission', value);
+
+		return this;
 	}
 
 	/**

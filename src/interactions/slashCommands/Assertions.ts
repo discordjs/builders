@@ -38,6 +38,12 @@ export function validateDescription(description: unknown): asserts description i
 	ow(description, 'description', descriptionPredicate);
 }
 
+const defaultPermissionPredicate = ow.boolean;
+
+export function validateDefaultPermission(value: unknown): asserts value is boolean {
+	ow(value, 'default_permission', defaultPermissionPredicate);
+}
+
 const maxArrayLengthPredicate = ow.array.maxLength(25);
 
 export function validateMaxOptionsLength(options: unknown): asserts options is ToAPIApplicationCommandOptions[] {
