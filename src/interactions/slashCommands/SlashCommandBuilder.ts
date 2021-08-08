@@ -50,7 +50,7 @@ export class SlashCommandBuilder {
 	/**
 	 * Sets whether the command is enabled by default when the application is added to a guild.
 	 *
-	 * **Note**: If set to `true`, you will have to later have to `PUT` the permissions for this command.
+	 * **Note**: If set to `false`, you will have to later have to `PUT` the permissions for this command.
 	 * @param value Whether or not to enable this command by default
 	 *
 	 * @see https://discord.com/developers/docs/interactions/slash-commands#permissions
