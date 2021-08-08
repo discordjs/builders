@@ -53,7 +53,6 @@ export class SlashCommandBuilder {
 	 *
 	 * **Note**: If set to `false`, you will have to later have to `PUT` the permissions for this command.
 	 * @param value Whether or not to enable this command by default
-	 * @default true
 	 *
 	 * @see https://discord.com/developers/docs/interactions/slash-commands#permissions
 	 */
