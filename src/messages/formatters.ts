@@ -20,7 +20,7 @@ export function codeBlock(language: string, content?: string): string {
 }
 
 /**
- * Wraps the content inside an inline code.
+ * Wraps the content inside \`backticks\`, which formats it as inline code.
  * @param content The content to wrap.
  * @returns The formatted content.
  */
@@ -56,7 +56,7 @@ export function underscore<C extends string>(content: C): `__${C}__` {
 }
 
 /**
- * Formats the content into strikethrough text.
+ * Formats the content into strike-through text.
  * @param content The content to wrap.
  * @returns The formatted content.
  */
@@ -83,14 +83,14 @@ export function blockQuote<C extends string>(content: C): `>>> ${C}` {
 }
 
 /**
- * Formats the URL into `<>`, which stops it from embedding.
+ * Wraps the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
 export function hideLinkEmbed<C extends string>(url: C): `<${C}>`;
 
 /**
- * Formats the URL into `<>`, which stops it from embedding.
+ * Wraps the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
  * @returns The formatted content.
  */
@@ -156,7 +156,7 @@ export function spoiler<C extends string>(content: C): `||${C}||` {
 }
 
 /**
- * Formats the user ID into a user mention.
+ * Formats a user ID into a user mention.
  * @param userId The user ID to format.
  * @returns The formatted user mention.
  */
@@ -165,7 +165,7 @@ export function userMention<C extends Snowflake>(userId: C): `<@${C}>` {
 }
 
 /**
- * Formats the user ID into a member-nickname mention.
+ * Formats a user ID into a member-nickname mention.
  * @param memberId The user ID to format.
  * @returns The formatted member-nickname mention.
  */
@@ -174,7 +174,7 @@ export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@!${C
 }
 
 /**
- * Formats the channel ID into a channel mention.
+ * Formats a channel ID into a channel mention.
  * @param channelId The channel ID to format.
  * @returns The formatted channel mention.
  */
@@ -183,12 +183,37 @@ export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
 }
 
 /**
- * Formats the role ID into a role mention.
+ * Formats a role ID into a role mention.
  * @param roleId The role ID to format.
  * @returns The formatted role mention.
  */
 export function roleMention<C extends Snowflake>(roleId: C): `<@&${C}>` {
 	return `<@&${roleId}>`;
+}
+
+/**
+ * Formats an emoji ID into a fully qualified emoji identifier
+ * @param emojiId The emoji ID to format.
+ * @returns The formatted emoji.
+ */
+export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: false): `<:_:${C}>`;
+
+/**
+ * Formats an emoji ID into a fully qualified emoji identifier
+ * @param emojiId The emoji ID to format.
+ * @param animated Whether the emoji is animated or not. Defaults to `false`
+ * @returns The formatted emoji.
+ */
+export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: true): `<a:_:${C}>`;
+
+/**
+ * Formats an emoji ID into a fully qualified emoji identifier
+ * @param emojiId The emoji ID to format.
+ * @param animated Whether the emoji is animated or not. Defaults to `false`
+ * @returns The formatted emoji.
+ */
+export function formatEmoji<C extends Snowflake>(emojiId: C, animated = false): `<a:_:${C}>` | `<:_:${C}>` {
+	return `<${animated ? 'a' : ''}:_:${emojiId}>`;
 }
 
 /**
