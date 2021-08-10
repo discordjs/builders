@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/discordjs/builders/compare/v0.3.0...v0.5.0) (2021-08-10)
+
+
+### Features
+
+* **Formatters:** add `formatEmoji` ([#20](https://github.com/discordjs/builders/issues/20)) ([c3d8bb5](https://github.com/discordjs/builders/commit/c3d8bb5363a1d46b45c0def4277da6921e2ba209))
+
+
+
 # [0.4.0](https://github.com/discordjs/builders/compare/v0.3.0...v0.4.0) (2021-08-05)
 
 ### Features
