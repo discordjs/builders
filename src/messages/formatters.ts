@@ -4,7 +4,6 @@ import type { URL } from 'url';
 /**
  * Wraps the content inside a codeblock with no language.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function codeBlock<C extends string>(content: C): `\`\`\`\n${C}\`\`\``;
 
@@ -12,7 +11,6 @@ export function codeBlock<C extends string>(content: C): `\`\`\`\n${C}\`\`\``;
  * Wraps the content inside a codeblock with the specified language.
  * @param language The language for the codeblock.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function codeBlock<L extends string, C extends string>(language: L, content: C): `\`\`\`${L}\n${C}\`\`\``;
 export function codeBlock(language: string, content?: string): string {
@@ -22,7 +20,6 @@ export function codeBlock(language: string, content?: string): string {
 /**
  * Wraps the content inside \`backticks\`, which formats it as inline code.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function inlineCode<C extends string>(content: C): `\`${C}\`` {
 	return `\`${content}\``;
@@ -31,7 +28,6 @@ export function inlineCode<C extends string>(content: C): `\`${C}\`` {
 /**
  * Formats the content into italic text.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function italic<C extends string>(content: C): `_${C}_` {
 	return `_${content}_`;
@@ -40,7 +36,6 @@ export function italic<C extends string>(content: C): `_${C}_` {
 /**
  * Formats the content into bold text.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function bold<C extends string>(content: C): `**${C}**` {
 	return `**${content}**`;
@@ -49,7 +44,6 @@ export function bold<C extends string>(content: C): `**${C}**` {
 /**
  * Formats the content into underscored text.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function underscore<C extends string>(content: C): `__${C}__` {
 	return `__${content}__`;
@@ -58,7 +52,6 @@ export function underscore<C extends string>(content: C): `__${C}__` {
 /**
  * Formats the content into strike-through text.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function strikethrough<C extends string>(content: C): `~~${C}~~` {
 	return `~~${content}~~`;
@@ -67,7 +60,6 @@ export function strikethrough<C extends string>(content: C): `~~${C}~~` {
 /**
  * Formats the content into a quote. This needs to be at the start of the line for Discord to format it.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function quote<C extends string>(content: C): `> ${C}` {
 	return `> ${content}`;
@@ -76,7 +68,6 @@ export function quote<C extends string>(content: C): `> ${C}` {
 /**
  * Formats the content into a block quote. This needs to be at the start of the line for Discord to format it.
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function blockQuote<C extends string>(content: C): `>>> ${C}` {
 	return `>>> ${content}`;
@@ -85,14 +76,12 @@ export function blockQuote<C extends string>(content: C): `>>> ${C}` {
 /**
  * Wraps the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
- * @returns The formatted content.
  */
 export function hideLinkEmbed<C extends string>(url: C): `<${C}>`;
 
 /**
  * Wraps the URL into `<>`, which stops it from embedding.
  * @param url The URL to wrap.
- * @returns The formatted content.
  */
 export function hideLinkEmbed(url: URL): `<${string}>`;
 export function hideLinkEmbed(url: string | URL) {
@@ -104,7 +93,6 @@ export function hideLinkEmbed(url: string | URL) {
  * Formats the content and the URL into a masked URL.
  * @param content The content to display.
  * @param url The URL the content links to.
- * @returns The formatted content.
  */
 export function hyperlink<C extends string>(content: C, url: URL): `[${C}](${string})`;
 
@@ -112,7 +100,6 @@ export function hyperlink<C extends string>(content: C, url: URL): `[${C}](${str
  * Formats the content and the URL into a masked URL.
  * @param content The content to display.
  * @param url The URL the content links to.
- * @returns The formatted content.
  */
 export function hyperlink<C extends string, U extends string>(content: C, url: U): `[${C}](${U})`;
 
@@ -121,7 +108,6 @@ export function hyperlink<C extends string, U extends string>(content: C, url: U
  * @param content The content to display.
  * @param url The URL the content links to.
  * @param title The title shown when hovering on the masked link.
- * @returns The formatted content.
  */
 export function hyperlink<C extends string, T extends string>(
 	content: C,
@@ -134,7 +120,6 @@ export function hyperlink<C extends string, T extends string>(
  * @param content The content to display.
  * @param url The URL the content links to.
  * @param title The title shown when hovering on the masked link.
- * @returns The formatted content.
  */
 export function hyperlink<C extends string, U extends string, T extends string>(
 	content: C,
@@ -149,7 +134,6 @@ export function hyperlink(content: string, url: string | URL, title?: string) {
 /**
  * Wraps the content inside spoiler (hidden text).
  * @param content The content to wrap.
- * @returns The formatted content.
  */
 export function spoiler<C extends string>(content: C): `||${C}||` {
 	return `||${content}||`;
@@ -158,7 +142,6 @@ export function spoiler<C extends string>(content: C): `||${C}||` {
 /**
  * Formats a user ID into a user mention.
  * @param userId The user ID to format.
- * @returns The formatted user mention.
  */
 export function userMention<C extends Snowflake>(userId: C): `<@${C}>` {
 	return `<@${userId}>`;
@@ -167,7 +150,6 @@ export function userMention<C extends Snowflake>(userId: C): `<@${C}>` {
 /**
  * Formats a user ID into a member-nickname mention.
  * @param memberId The user ID to format.
- * @returns The formatted member-nickname mention.
  */
 export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@!${C}>` {
 	return `<@!${memberId}>`;
@@ -176,7 +158,6 @@ export function memberNicknameMention<C extends Snowflake>(memberId: C): `<@!${C
 /**
  * Formats a channel ID into a channel mention.
  * @param channelId The channel ID to format.
- * @returns The formatted channel mention.
  */
 export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
 	return `<#${channelId}>`;
@@ -185,7 +166,6 @@ export function channelMention<C extends Snowflake>(channelId: C): `<#${C}>` {
 /**
  * Formats a role ID into a role mention.
  * @param roleId The role ID to format.
- * @returns The formatted role mention.
  */
 export function roleMention<C extends Snowflake>(roleId: C): `<@&${C}>` {
 	return `<@&${roleId}>`;
@@ -194,7 +174,6 @@ export function roleMention<C extends Snowflake>(roleId: C): `<@&${C}>` {
 /**
  * Formats an emoji ID into a fully qualified emoji identifier
  * @param emojiId The emoji ID to format.
- * @returns The formatted emoji.
  */
 export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: false): `<:_:${C}>`;
 
@@ -202,7 +181,6 @@ export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: false): 
  * Formats an emoji ID into a fully qualified emoji identifier
  * @param emojiId The emoji ID to format.
  * @param animated Whether the emoji is animated or not. Defaults to `false`
- * @returns The formatted emoji.
  */
 export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: true): `<a:_:${C}>`;
 
@@ -210,7 +188,6 @@ export function formatEmoji<C extends Snowflake>(emojiId: C, animated?: true): `
  * Formats an emoji ID into a fully qualified emoji identifier
  * @param emojiId The emoji ID to format.
  * @param animated Whether the emoji is animated or not. Defaults to `false`
- * @returns The formatted emoji.
  */
 export function formatEmoji<C extends Snowflake>(emojiId: C, animated = false): `<a:_:${C}>` | `<:_:${C}>` {
 	return `<${animated ? 'a' : ''}:_:${emojiId}>`;
