@@ -43,8 +43,12 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 
 		// Validate the value
 		if (this.type === ApplicationCommandOptionType.String) ow(value, 'string choice value', stringPredicate);
-		else if (this.type === ApplicationCommandOptionType.Integer) ow(value, 'integer choice value', integerPredicate);
-		else ow(value, 'number choice value', integerPredicate);
+		else
+			ow(
+				value,
+				`${this.type === ApplicationCommandOptionType.Integer ? 'integer' : 'number'} choice value`,
+				integerPredicate,
+			);
 
 		this.choices.push({ name, value });
 
