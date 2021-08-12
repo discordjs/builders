@@ -5,6 +5,7 @@ import {
 	SlashCommandChannelOption,
 	SlashCommandIntegerOption,
 	SlashCommandMentionableOption,
+	SlashCommandNumberOption,
 	SlashCommandRoleOption,
 	SlashCommandStringOption,
 	SlashCommandSubcommandBuilder,
@@ -18,6 +19,7 @@ const getBuilder = () => new SlashCommandBuilder();
 const getNamedBuilder = () => getBuilder().setName('example').setDescription('Example command');
 const getStringOption = () => new SlashCommandStringOption().setName('owo').setDescription('Testing 123');
 const getIntegerOption = () => new SlashCommandIntegerOption().setName('owo').setDescription('Testing 123');
+const getNumberOption = () => new SlashCommandNumberOption().setName('owo').setDescription('Testing 123');
 const getBooleanOption = () => new SlashCommandBooleanOption().setName('owo').setDescription('Testing 123');
 const getUserOption = () => new SlashCommandUserOption().setName('owo').setDescription('Testing 123');
 const getChannelOption = () => new SlashCommandChannelOption().setName('owo').setDescription('Testing 123');
@@ -129,6 +131,12 @@ describe('Slash Commands', () => {
 								.setDescription('Are we cool or what?')
 								.addChoices([['Very cool', 1_000]]),
 						)
+						.addNumberOption((number) =>
+							number
+								.setName('iscool')
+								.setDescription('Are we cool or what?')
+								.addChoices([['Very cool', 1.5]]),
+						)
 						.addStringOption((string) =>
 							string
 								.setName('iscool')
@@ -147,6 +155,8 @@ describe('Slash Commands', () => {
 				expect(() => getBuilder().addStringOption(getStringOption())).not.toThrowError();
 
 				expect(() => getBuilder().addIntegerOption(getIntegerOption())).not.toThrowError();
+
+				expect(() => getBuilder().addNumberOption(getNumberOption())).not.toThrowError();
 
 				expect(() => getBuilder().addBooleanOption(getBooleanOption())).not.toThrowError();
 

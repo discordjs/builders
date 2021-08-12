@@ -4,6 +4,7 @@ import { SlashCommandBooleanOption } from '../options/boolean';
 import { SlashCommandChannelOption } from '../options/channel';
 import { SlashCommandIntegerOption } from '../options/integer';
 import { SlashCommandMentionableOption } from '../options/mentionable';
+import { SlashCommandNumberOption } from '../options/number';
 import { SlashCommandRoleOption } from '../options/role';
 import { SlashCommandStringOption } from '../options/string';
 import { SlashCommandUserOption } from '../options/user';
@@ -76,6 +77,16 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 		input: SlashCommandIntegerOption | ((builder: SlashCommandIntegerOption) => SlashCommandIntegerOption),
 	) {
 		return this._sharedAddOptionMethod(input, SlashCommandIntegerOption);
+	}
+
+	/**
+	 * Adds a number option
+	 * @param input A function that returns an option builder, or an already built builder
+	 */
+	public addNumberOption(
+		input: SlashCommandNumberOption | ((builder: SlashCommandNumberOption) => SlashCommandNumberOption),
+	) {
+		return this._sharedAddOptionMethod(input, SlashCommandNumberOption);
 	}
 
 	private _sharedAddOptionMethod<T extends SlashCommandOptionBase>(

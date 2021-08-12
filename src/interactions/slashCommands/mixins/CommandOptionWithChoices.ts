@@ -31,13 +31,20 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		// Validate name
 		ow(
 			name,
-			`${this.type === ApplicationCommandOptionType.String ? 'string' : 'integer'} choice name`,
+			`${
+				this.type === ApplicationCommandOptionType.String
+					? 'string'
+					: this.type === ApplicationCommandOptionType.Integer
+					? 'integer'
+					: 'number'
+			} choice name`,
 			stringPredicate,
 		);
 
 		// Validate the value
 		if (this.type === ApplicationCommandOptionType.String) ow(value, 'string choice value', stringPredicate);
-		else ow(value, 'integer choice value', integerPredicate);
+		else if (this.type === ApplicationCommandOptionType.Integer) ow(value, 'integer choice value', integerPredicate);
+		else ow(value, 'number choice value', integerPredicate);
 
 		this.choices.push({ name, value });
 
@@ -51,7 +58,13 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	public addChoices(choices: [name: string, value: T][]) {
 		ow(
 			choices,
-			`${this.type === ApplicationCommandOptionType.String ? 'string' : 'integer'} choices`,
+			`${
+				this.type === ApplicationCommandOptionType.String
+					? 'string'
+					: this.type === ApplicationCommandOptionType.Integer
+					? 'integer'
+					: 'number'
+			} choices`,
 			choicesPredicate,
 		);
 
