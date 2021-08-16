@@ -156,7 +156,7 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Removes, replaces, and inserts fields in the embed (max 25).
+	 * Removes, replaces, or inserts fields in the embed (max 25).
 	 * @param index The index to start at.
 	 * @param deleteCount The number of fields to remove.
 	 * @param fields The replacing field objects.
