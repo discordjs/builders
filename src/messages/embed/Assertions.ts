@@ -23,7 +23,7 @@ export const authorNamePredicate = ow.any(fieldNamePredicate, ow.null);
 
 export const urlPredicate = ow.any(ow.string.url, ow.nullOrUndefined);
 
-export const colorPredicate = ow.any(ow.number.greaterThan(0).lessThan(0xffffff), ow.null);
+export const colorPredicate = ow.any(ow.number.greaterThanOrEqual(0).lessThanOrEqual(0xffffff), ow.null);
 
 export const descriptionPredicate = ow.any(ow.string.minLength(1).maxLength(4096), ow.null);
 

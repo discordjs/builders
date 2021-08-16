@@ -130,12 +130,10 @@ export class Embed implements APIEmbed {
 
 	/**
 	 * Adds a field to the embed (max 25).
-	 * @param name The name of this field.
-	 * @param value The value of this field.
-	 * @param inline If this field will be displayed inline.
+	 * @param options The options for this field.
 	 */
-	public addField(name: string, value: string, inline?: boolean): this {
-		return this.addFields({ name, value, inline });
+	public addField(field: APIEmbedField): this {
+		return this.addFields(field);
 	}
 
 	/**

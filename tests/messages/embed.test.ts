@@ -345,7 +345,7 @@ describe('Embed', () => {
 
 		test('GIVEN an embed using Embed#addField THEN returns valid toJSON data', () => {
 			const embed = new Embed();
-			embed.addField('foo', 'bar');
+			embed.addField({ name: 'foo', value: 'bar' });
 
 			expect(embed.toJSON()).toStrictEqual({
 				...emptyEmbed,
