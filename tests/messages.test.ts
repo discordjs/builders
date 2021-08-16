@@ -4,14 +4,15 @@ import {
 	channelMention,
 	codeBlock,
 	Faces,
+	formatEmoji,
 	hideLinkEmbed,
 	hyperlink,
-	spoiler,
 	inlineCode,
 	italic,
 	memberNicknameMention,
 	quote,
 	roleMention,
+	spoiler,
 	strikethrough,
 	time,
 	TimestampStyles,
@@ -107,7 +108,7 @@ describe('Messages', () => {
 			).toBe('[discord.js](https://discord.js.org/ "Official Documentation")');
 		});
 	});
-	
+
 	describe('spoiler', () => {
 		test('GIVEN "discord.js" THEN returns "||discord.js||"', () => {
 			expect<'||discord.js||'>(spoiler('discord.js')).toBe('||discord.js||');
@@ -137,6 +138,20 @@ describe('Messages', () => {
 			test('GIVEN roleId THEN returns "<&[roleId]>"', () => {
 				expect(roleMention('815434166602170409')).toBe('<@&815434166602170409>');
 			});
+		});
+	});
+
+	describe('formatEmoji', () => {
+		test('GIVEN static emojiId THEN returns "<:_:${emojiId}>"', () => {
+			expect<`<:_:851461487498493952>`>(formatEmoji('851461487498493952')).toBe('<:_:851461487498493952>');
+		});
+
+		test('GIVEN static emojiId WITH animated explicitly false THEN returns "<:_:[emojiId]>"', () => {
+			expect<`<:_:851461487498493952>`>(formatEmoji('851461487498493952', false)).toBe('<:_:851461487498493952>');
+		});
+
+		test('GIVEN animated emojiId THEN returns "<a:_:${emojiId}>"', () => {
+			expect<`<a:_:827220205352255549>`>(formatEmoji('827220205352255549', true)).toBe('<a:_:827220205352255549>');
 		});
 	});
 
