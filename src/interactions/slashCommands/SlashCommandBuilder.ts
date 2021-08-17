@@ -50,10 +50,6 @@ export class SlashCommandBuilder {
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
 
-		// Make sure there is no subcommand at the root level - if there is, throw
-		const hasSubcommands = options.some((item) => item instanceof SlashCommandSubcommandBuilder);
-		if (hasSubcommands) throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
-
 		// Get the final result
 		const result = typeof input === 'function' ? input(new SlashCommandSubcommandGroupBuilder()) : input;
 
@@ -78,11 +74,6 @@ export class SlashCommandBuilder {
 
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
-
-		// Make sure there is no subcommand at the root level - if there is, throw
-		const hasSubcommandGroups = options.some((item) => item instanceof SlashCommandSubcommandGroupBuilder);
-		if (hasSubcommandGroups)
-			throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
 
 		// Get the final result
 		const result = typeof input === 'function' ? input(new SlashCommandSubcommandBuilder()) : input;
