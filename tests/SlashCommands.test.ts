@@ -227,17 +227,10 @@ describe('Slash Commands', () => {
 				).not.toThrowError();
 			});
 
-			test('GIVEN builder with a subcommand group that tries to add a subcommand THEN throw error', () => {
-				expect(() =>
-					// @ts-expect-error Checking if check works JS-side too
-					getNamedBuilder().addSubcommandGroup(getSubcommandGroup()).addSubcommand(getSubcommand()),
-				).toThrowError();
-			});
-
 			test('GIVEN builder with a subcommand that tries to add an invalid result THEN throw error', () => {
 				expect(() =>
 					// @ts-expect-error Checking if check works JS-side too
-					getNamedBuilder().addSubcommand(getSubcommand()).addSubcommandGroup(getSubcommandGroup()),
+					getNamedBuilder().addSubcommand(getSubcommand()).addInteger(getInteger()),
 				).toThrowError();
 			});
 
