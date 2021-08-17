@@ -44,7 +44,7 @@ export class SlashCommandBuilder {
 		input:
 			| SlashCommandSubcommandGroupBuilder
 			| ((subcommandGroup: SlashCommandSubcommandGroupBuilder) => SlashCommandSubcommandGroupBuilder),
-	): SlashCommandSubcommandGroupsOnlyBuilder {
+	): SlashCommandSubcommandsAndSubcommandGroupsOnlyBuilder {
 		const { options } = this;
 
 		// First, assert options conditions - we cannot have more than 25 options
@@ -69,7 +69,7 @@ export class SlashCommandBuilder {
 		input:
 			| SlashCommandSubcommandBuilder
 			| ((subcommandGroup: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder),
-	): SlashCommandSubcommandsOnlyBuilder {
+	): SlashCommandSubcommandsAndSubcommandGroupsOnlyBuilder {
 		const { options } = this;
 
 		// First, assert options conditions - we cannot have more than 25 options
@@ -89,13 +89,9 @@ export class SlashCommandBuilder {
 
 export interface SlashCommandBuilder extends SharedNameAndDescription, SharedSlashCommandOptions {}
 
-export interface SlashCommandSubcommandsOnlyBuilder
+export interface SlashCommandSubcommandsAndSubcommandGroupsOnlyBuilder
 	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand'> {}
-
-export interface SlashCommandSubcommandGroupsOnlyBuilder
-	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommandGroup'> {}
+		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand' | 'addSubcommandGroup'> {}
 
 export interface SlashCommandOptionsOnlyBuilder
 	extends SharedNameAndDescription,
