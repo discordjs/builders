@@ -44,15 +44,11 @@ export class SlashCommandBuilder {
 		input:
 			| SlashCommandSubcommandGroupBuilder
 			| ((subcommandGroup: SlashCommandSubcommandGroupBuilder) => SlashCommandSubcommandGroupBuilder),
-	): SlashCommandSubcommandGroupsOnlyBuilder {
+	): SlashCommandSubcommandsOnlyBuilder {
 		const { options } = this;
 
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
-
-		// Make sure there is no subcommand at the root level - if there is, throw
-		const hasSubcommands = options.some((item) => item instanceof SlashCommandSubcommandBuilder);
-		if (hasSubcommands) throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
 
 		// Get the final result
 		const result = typeof input === 'function' ? input(new SlashCommandSubcommandGroupBuilder()) : input;
@@ -79,11 +75,6 @@ export class SlashCommandBuilder {
 		// First, assert options conditions - we cannot have more than 25 options
 		validateMaxOptionsLength(options);
 
-		// Make sure there is no subcommand at the root level - if there is, throw
-		const hasSubcommandGroups = options.some((item) => item instanceof SlashCommandSubcommandGroupBuilder);
-		if (hasSubcommandGroups)
-			throw new RangeError(`You cannot mix subcommands and subcommand groups at the root level.`);
-
 		// Get the final result
 		const result = typeof input === 'function' ? input(new SlashCommandSubcommandBuilder()) : input;
 
@@ -100,11 +91,7 @@ export interface SlashCommandBuilder extends SharedNameAndDescription, SharedSla
 
 export interface SlashCommandSubcommandsOnlyBuilder
 	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand'> {}
-
-export interface SlashCommandSubcommandGroupsOnlyBuilder
-	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommandGroup'> {}
+		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand' | 'addSubcommandGroup'> {}
 
 export interface SlashCommandOptionsOnlyBuilder
 	extends SharedNameAndDescription,
