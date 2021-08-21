@@ -1,4 +1,4 @@
-export * from './messages/embed/Assertions';
+export * as EmbedAssertions from './messages/embed/Assertions';
 export * from './messages/embed/Embed';
 export * from './messages/formatters';
 
