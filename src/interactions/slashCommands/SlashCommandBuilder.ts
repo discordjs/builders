@@ -31,7 +31,7 @@ export class SlashCommandBuilder {
 	 * Whether the command is enabled by default when the app is added to a guild
 	 * @default true
 	 */
-	public readonly defaultPermission: boolean = undefined!;
+	public readonly defaultPermission: boolean | undefined = undefined;
 
 	/**
 	 * Returns the final data that should be sent to Discord.
