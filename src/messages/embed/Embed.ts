@@ -169,13 +169,6 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * @typedef {Object} AuthorOptions
-	 * @property {string} name The name of the author.
-	 * @property {string | null | undefined} url The URL of the author.
-	 * @property {string | null | undefined} iconURL The icon URL of the author
-	 */
-
-	/**
 	 * Sets the author of this embed.
 	 * @param options The options for the author.
 	 */
