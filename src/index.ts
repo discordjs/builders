@@ -11,3 +11,6 @@ export * from './interactions/slashCommands/options/number';
 export * from './interactions/slashCommands/options/role';
 export * from './interactions/slashCommands/options/string';
 export * from './interactions/slashCommands/options/user';
+
+export * as ContextMenuCommandAssertions from './interactions/contextMenuCommands/Assertions';
+export * from './interactions/contextMenuCommands/ContextMenuCommandBuilder';
