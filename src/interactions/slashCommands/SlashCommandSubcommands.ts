@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v9';
+import { APIApplicationCommandSubCommandOptions, ApplicationCommandOptionType } from 'discord-api-types/v9';
 import { mix } from 'ts-mixer';
 import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
 import { SharedSlashCommandOptions } from './mixins/CommandOptions';
@@ -52,7 +52,7 @@ export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationComma
 		return this;
 	}
 
-	public toJSON() {
+	public toJSON(): APIApplicationCommandSubCommandOptions {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
 			type: ApplicationCommandOptionType.SubcommandGroup,
@@ -87,7 +87,7 @@ export class SlashCommandSubcommandBuilder implements ToAPIApplicationCommandOpt
 	 */
 	public readonly options: ToAPIApplicationCommandOptions[] = [];
 
-	public toJSON() {
+	public toJSON(): APIApplicationCommandSubCommandOptions {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
 			type: ApplicationCommandOptionType.Subcommand,
