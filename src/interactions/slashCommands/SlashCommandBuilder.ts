@@ -1,4 +1,4 @@
-import type { APIApplicationCommandOption } from 'discord-api-types/v9';
+import type { APIApplicationCommandOption, RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 import { mix } from 'ts-mixer';
 import {
 	assertReturnOfBuilder,
@@ -38,7 +38,7 @@ export class SlashCommandBuilder {
 	 *
 	 * **Note:** Calling this function will validate required properties based on their conditions.
 	 */
-	public toJSON() {
+	public toJSON(): RESTPostAPIApplicationCommandsJSONBody {
 		validateRequiredParameters(this.name, this.description, this.options);
 		return {
 			name: this.name,
