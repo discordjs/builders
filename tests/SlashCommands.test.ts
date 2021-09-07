@@ -1,4 +1,8 @@
-import { ApplicationCommandData, ChatInputApplicationCommandData } from 'discord.js';
+import {
+	ApplicationCommandChoicesData,
+	ApplicationCommandOptionChoice,
+	ChatInputApplicationCommandData,
+} from 'discord.js';
 import {
 	SlashCommandAssertions,
 	SlashCommandBooleanOption,
@@ -29,15 +33,24 @@ const getMentionableOption = () => new SlashCommandMentionableOption().setName('
 const getSubcommandGroup = () => new SlashCommandSubcommandGroupBuilder().setName('owo').setDescription('Testing 123');
 const getSubcommand = () => new SlashCommandSubcommandBuilder().setName('owo').setDescription('Testing 123');
 
-const getAppCommandData: () => ApplicationCommandData = () => ({
+const getSlashCommandData: () => ChatInputApplicationCommandData = () => ({
 	name: getNamedBuilder().name,
 	description: getNamedBuilder().description,
+	defaultPermission: undefined,
+	options: [],
 });
 
-const getSlashCommandData: () => ChatInputApplicationCommandData = () => ({
-	...getAppCommandData(),
-	type: 'CHAT_INPUT',
-	description: getNamedBuilder().description,
+const getStringOptionData: () => ApplicationCommandChoicesData = () => ({
+	name: getStringOption().name,
+	description: getStringOption().description,
+	type: 3,
+	required: false,
+	choices: undefined,
+});
+
+const getStringChoiceData: () => ApplicationCommandOptionChoice = () => ({
+	name: 'owo',
+	value: 'Testing 123',
 });
 
 class Collection {
@@ -54,7 +67,30 @@ describe('Slash Commands', () => {
 
 		test('GIVEN a valid slash command with options THEN gives proper ApplicationCommandData', () => {
 			const expected = getSlashCommandData();
+			expected.options.push(getStringOptionData());
+
+			expect(getNamedBuilder().addStringOption(getStringOption)).toEqual(expected);
 		});
+
+		test('GIVEN a valid slash command with choices THEN gives proper ApplicationCommandData', () => {
+			const name = 'owo';
+			const value = 'Testing 123';
+
+			const expected = getSlashCommandData();
+			const testing = getStringOption().addChoice(name, value);
+			const options = getStringOptionData();
+
+			options.choices = [getStringChoiceData()];
+			expected.options.push(options);
+
+			console.log(getNamedBuilder().addStringOption(testing).toData());
+
+			expect(getNamedBuilder().addStringOption(testing).toData()).toEqual(expected);
+		});
+
+		// TODO: Sub Commands
+
+		// TODO: Sub Command Groups
 	});
 	describe('Assertions tests', () => {
 		test('GIVEN valid name THEN does not throw error', () => {

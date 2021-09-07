@@ -55,8 +55,14 @@ export class SlashCommandBuilder {
 	 * **Note:** Calling this function will validate required properties based on their conditions.
 	 */
 	public toData(): ApplicationCommandData {
+		const json = this.toJSON();
+		const defaultPermission = json.default_permission;
+
+		delete json.default_permission;
+
 		return {
-			...this.toJSON(),
+			...json,
+			defaultPermission,
 			options: this.options.map((option) => option.toData()),
 		};
 	}
