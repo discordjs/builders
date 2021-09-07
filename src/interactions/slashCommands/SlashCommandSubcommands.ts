@@ -1,4 +1,10 @@
 import { APIApplicationCommandSubCommandOptions, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import type {
+	ApplicationCommandChoicesData,
+	ApplicationCommandNonOptionsData,
+	ApplicationCommandSubCommandData,
+	ApplicationCommandSubGroupData,
+} from 'discord.js';
 import { mix } from 'ts-mixer';
 import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
 import { SharedSlashCommandOptions } from './mixins/CommandOptions';
@@ -61,6 +67,14 @@ export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationComma
 			options: this.options.map((option) => option.toJSON()),
 		};
 	}
+
+	public toData(): ApplicationCommandSubGroupData {
+		return {
+			...this.toJSON(),
+			type: 'SUB_COMMAND_GROUP',
+			options: this.options.map((option) => option.toData()) as ApplicationCommandSubCommandData[],
+		};
+	}
 }
 
 export interface SlashCommandSubcommandGroupBuilder extends SharedNameAndDescription {}
@@ -94,6 +108,17 @@ export class SlashCommandSubcommandBuilder implements ToAPIApplicationCommandOpt
 			name: this.name,
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
+		};
+	}
+
+	public toData(): ApplicationCommandSubCommandData {
+		return {
+			...this.toJSON(),
+			type: 'SUB_COMMAND',
+			options: this.options.map((option) => option.toData()) as (
+				| ApplicationCommandNonOptionsData
+				| ApplicationCommandChoicesData
+			)[],
 		};
 	}
 }

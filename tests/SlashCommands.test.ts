@@ -1,3 +1,4 @@
+import { ApplicationCommandData, ChatInputApplicationCommandData } from 'discord.js';
 import {
 	SlashCommandAssertions,
 	SlashCommandBooleanOption,
@@ -28,6 +29,17 @@ const getMentionableOption = () => new SlashCommandMentionableOption().setName('
 const getSubcommandGroup = () => new SlashCommandSubcommandGroupBuilder().setName('owo').setDescription('Testing 123');
 const getSubcommand = () => new SlashCommandSubcommandBuilder().setName('owo').setDescription('Testing 123');
 
+const getAppCommandData: () => ApplicationCommandData = () => ({
+	name: getNamedBuilder().name,
+	description: getNamedBuilder().description,
+});
+
+const getSlashCommandData: () => ChatInputApplicationCommandData = () => ({
+	...getAppCommandData(),
+	type: 'CHAT_INPUT',
+	description: getNamedBuilder().description,
+});
+
 class Collection {
 	public get [Symbol.toStringTag]() {
 		return 'Map';
@@ -35,6 +47,15 @@ class Collection {
 }
 
 describe('Slash Commands', () => {
+	describe('Normalization tests', () => {
+		test('GIVEN a valid slash command THEN gives a proper ApplicationCommandData', () => {
+			expect(getNamedBuilder().toData()).toEqual(getSlashCommandData());
+		});
+
+		test('GIVEN a valid slash command with options THEN gives proper ApplicationCommandData', () => {
+			const expected = getSlashCommandData();
+		});
+	});
 	describe('Assertions tests', () => {
 		test('GIVEN valid name THEN does not throw error', () => {
 			expect(() => SlashCommandAssertions.validateName('ping')).not.toThrowError();

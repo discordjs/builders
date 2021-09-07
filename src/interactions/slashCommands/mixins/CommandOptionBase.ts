@@ -1,4 +1,5 @@
 import type { ApplicationCommandOptionType } from 'discord-api-types/v9';
+import type { ApplicationCommandOptionData } from 'discord.js';
 import ow from 'ow';
 import { validateRequiredParameters } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
@@ -37,6 +38,13 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 			name: this.name,
 			description: this.description,
 			required: this.required,
+		};
+	}
+
+	public toData(): ApplicationCommandOptionData {
+		return {
+			...this.toJSON(),
+			type: this.type as number, // IDK why TS complains if I don't cast this ¯\_(ツ)_/¯
 		};
 	}
 }

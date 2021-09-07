@@ -1,4 +1,5 @@
 import type { APIApplicationCommandOption, RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
+import type { ApplicationCommandData, ApplicationCommandOptionData } from 'discord.js';
 import { mix } from 'ts-mixer';
 import {
 	assertReturnOfBuilder,
@@ -45,6 +46,18 @@ export class SlashCommandBuilder {
 			description: this.description,
 			options: this.options.map((option) => option.toJSON()),
 			default_permission: this.defaultPermission,
+		};
+	}
+
+	/**
+	 * Returns the final data that should be sent to discord.js.
+	 *
+	 * **Note:** Calling this function will validate required properties based on their conditions.
+	 */
+	public toData(): ApplicationCommandData {
+		return {
+			...this.toJSON(),
+			options: this.options.map((option) => option.toData()),
 		};
 	}
 
@@ -129,4 +142,5 @@ export interface SlashCommandOptionsOnlyBuilder
 
 export interface ToAPIApplicationCommandOptions {
 	toJSON(): APIApplicationCommandOption;
+	toData(): ApplicationCommandOptionData;
 }

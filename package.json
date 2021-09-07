@@ -64,6 +64,7 @@
 		"@typescript-eslint/parser": "^4.29.3",
 		"babel-jest": "^27.0.6",
 		"babel-plugin-transform-typescript-metadata": "^0.3.2",
+		"discord.js": "^13.1.0",
 		"eslint": "^7.32.0",
 		"eslint-config-marine": "^9.0.6",
 		"eslint-config-prettier": "^8.3.0",
