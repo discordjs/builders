@@ -50,7 +50,7 @@ export class SlashCommandBuilder {
 	}
 
 	/**
-	 * Returns the final data that should be sent to discord.js.
+	 * Returns the final data that is compatible with discord.js methods.
 	 *
 	 * **Note:** Calling this function will validate required properties based on their conditions.
 	 */
