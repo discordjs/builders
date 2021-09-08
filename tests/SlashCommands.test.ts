@@ -1,6 +1,9 @@
+import exp from 'constants';
 import {
 	ApplicationCommandChoicesData,
 	ApplicationCommandOptionChoice,
+	ApplicationCommandSubCommandData,
+	ApplicationCommandSubGroupData,
 	ChatInputApplicationCommandData,
 } from 'discord.js';
 import {
@@ -53,6 +56,20 @@ const getStringChoiceData: () => ApplicationCommandOptionChoice = () => ({
 	value: 'Testing 123',
 });
 
+const getSubCommandData: () => ApplicationCommandSubCommandData = () => ({
+	name: getSubcommand().name,
+	description: getSubcommand().description,
+	type: 1,
+	options: [],
+});
+
+const getSubGroupCommandData: () => ApplicationCommandSubGroupData = () => ({
+	name: 'owo',
+	description: 'Testing 123',
+	type: 2,
+	options: [],
+});
+
 class Collection {
 	public get [Symbol.toStringTag]() {
 		return 'Map';
@@ -83,14 +100,35 @@ describe('Slash Commands', () => {
 			options.choices = [getStringChoiceData()];
 			expected.options.push(options);
 
-			console.log(getNamedBuilder().addStringOption(testing).toData());
-
 			expect(getNamedBuilder().addStringOption(testing).toData()).toEqual(expected);
 		});
 
-		// TODO: Sub Commands
+		test('GIVEN a valid slash command with subcommand THEN gives proper ApplicationCommandData', () => {
+			const expected = getSlashCommandData();
+			const testing = getNamedBuilder().addSubcommand(getSubcommand());
 
-		// TODO: Sub Command Groups
+			expected.options.push(getSubCommandData());
+
+			expect(testing.toData()).toEqual(expected);
+		});
+
+		test('GIVEN a valid slash command with subcommand with options THEN gives proper ApplicationCommandData', () => {
+			const expected = getSlashCommandData();
+			expected.options.push(getSubCommandData());
+			(expected.options as ApplicationCommandSubCommandData[])[0].options.push(getStringOptionData());
+
+			const testing = getNamedBuilder().addSubcommand(getSubcommand().addStringOption(getStringOption()));
+			expect(testing.toData()).toEqual(expected);
+		});
+
+		test('GIVEN a valid slash command with subcommand group THEN gives proper ApplicationCommandData', () => {
+			const expected = getSlashCommandData();
+			expected.options.push(getSubGroupCommandData());
+			(expected.options as ApplicationCommandSubGroupData[])[0].options.push(getSubCommandData());
+
+			const testing = getNamedBuilder().addSubcommandGroup(getSubcommandGroup().addSubcommand(getSubcommand()));
+			expect(testing.toData()).toEqual(expected);
+		});
 	});
 	describe('Assertions tests', () => {
 		test('GIVEN valid name THEN does not throw error', () => {

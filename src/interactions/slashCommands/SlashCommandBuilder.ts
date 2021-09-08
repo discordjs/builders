@@ -139,7 +139,7 @@ export interface SlashCommandBuilder extends SharedNameAndDescription, SharedSla
 
 export interface SlashCommandSubcommandsOnlyBuilder
 	extends SharedNameAndDescription,
-		Pick<SlashCommandBuilder, 'toJSON' | 'addSubcommand' | 'addSubcommandGroup'> {}
+		Pick<SlashCommandBuilder, 'toJSON' | 'toData' | 'addSubcommand' | 'addSubcommandGroup'> {}
 
 export interface SlashCommandOptionsOnlyBuilder
 	extends SharedNameAndDescription,

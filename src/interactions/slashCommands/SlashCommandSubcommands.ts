@@ -71,7 +71,7 @@ export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationComma
 	public toData(): ApplicationCommandSubGroupData {
 		return {
 			...this.toJSON(),
-			type: 'SUB_COMMAND_GROUP',
+			type: 2,
 			options: this.options.map((option) => option.toData()) as ApplicationCommandSubCommandData[],
 		};
 	}
@@ -114,7 +114,7 @@ export class SlashCommandSubcommandBuilder implements ToAPIApplicationCommandOpt
 	public toData(): ApplicationCommandSubCommandData {
 		return {
 			...this.toJSON(),
-			type: 'SUB_COMMAND',
+			type: 1,
 			options: this.options.map((option) => option.toData()) as (
 				| ApplicationCommandNonOptionsData
 				| ApplicationCommandChoicesData
