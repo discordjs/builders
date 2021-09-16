@@ -1,3 +1,4 @@
+import { ChannelType } from 'discord-api-types';
 import {
 	SlashCommandAssertions,
 	SlashCommandBooleanOption,
@@ -157,6 +158,26 @@ describe('Slash Commands', () => {
 						)
 						.toJSON(),
 				).not.toThrowError();
+			});
+
+			test('GIVEN a builder with valid channel options and channel_types THEN does not throw an error', () => {
+				expect(() =>
+					getBuilder().addChannelOption(getChannelOption().addChannelType(ChannelType.GuildText)),
+				).not.toThrowError();
+
+				expect(() => {
+					getBuilder().addChannelOption(
+						getChannelOption().addChannelTypes([ChannelType.GuildNews, ChannelType.GuildText]),
+					);
+				}).not.toThrowError();
+			});
+
+			test('GIVEN a builder with valid channel options and channel_types THEN does throw an error', () => {
+				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
+
+				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([100, 200]))).toThrowError();
+				// @ts-expect-error
+				expect(() => getBuilder().addBooleanOption(getChannelOption().addChannelType('GuildTest'))).toThrowError();
 			});
 
 			test('GIVEN an already built builder THEN does not throw an error', () => {
