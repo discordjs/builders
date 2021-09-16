@@ -3,7 +3,9 @@ import ow from 'ow';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
-const channelTypePredicate = ow.number.greaterThanOrEqual(0).lessThanOrEqual(13);
+// Only allow valid channel types to be used. (This can't be dynamic because const enums are erased at runtime)
+const maxChannelType = 13;
+const channelTypePredicate = ow.number.greaterThanOrEqual(0).lessThanOrEqual(maxChannelType);
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
 	extends SlashCommandOptionBase
