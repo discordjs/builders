@@ -1,4 +1,4 @@
-import type { ChannelType } from 'discord-api-types';
+import type { ChannelType } from 'discord-api-types/v9';
 import ow from 'ow';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
