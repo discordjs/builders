@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.6.0](https://github.com/discordjs/builders/compare/v0.5.0...v0.6.0) (2021-08-24)
+
+
+### Bug Fixes
+
+* **SlashCommandBuilder:** allow subcommands and groups to coexist at the root level ([#26](https://github.com/discordjs/builders/issues/26)) ([0be4daf](https://github.com/discordjs/builders/commit/0be4dafdfc0b5747c880be0078c00ada913eb4fb))
+
+
+### Features
+
+* create `Embed` builder ([#11](https://github.com/discordjs/builders/issues/11)) ([eb942a4](https://github.com/discordjs/builders/commit/eb942a4d1f3bcec9a4e370b6af602a713ad8f9b7))
+* **SlashCommandBuilder:** create setDefaultPermission function ([#19](https://github.com/discordjs/builders/issues/19)) ([5d53759](https://github.com/discordjs/builders/commit/5d537593937a8da330153ce4711b7d093a80330e))
+* **SlashCommands:** add number option type ([#23](https://github.com/discordjs/builders/issues/23)) ([1563991](https://github.com/discordjs/builders/commit/1563991d421bb07bf7a412c87e7613692d770f04))
+
+
+
 # [0.5.0](https://github.com/discordjs/builders/compare/v0.3.0...v0.5.0) (2021-08-10)
 
 

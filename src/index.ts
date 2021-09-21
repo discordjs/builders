@@ -1,3 +1,5 @@
+export * as EmbedAssertions from './messages/embed/Assertions';
+export * from './messages/embed/Embed';
 export * from './messages/formatters';
 
 export * as SlashCommandAssertions from './interactions/slashCommands/Assertions';

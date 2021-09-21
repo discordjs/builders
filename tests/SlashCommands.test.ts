@@ -73,6 +73,14 @@ describe('Slash Commands', () => {
 			).toThrowError();
 		});
 
+		test('GIVEN valid default_permission THEN does not throw error', () => {
+			expect(() => SlashCommandAssertions.validateDefaultPermission(true)).not.toThrowError();
+		});
+
+		test('GIVEN invalid default_permission THEN throw error', () => {
+			expect(() => SlashCommandAssertions.validateDefaultPermission(null)).toThrowError();
+		});
+
 		test('GIVEN valid array of options or choices THEN does not throw error', () => {
 			expect(() => SlashCommandAssertions.validateMaxOptionsLength([])).not.toThrowError();
 
@@ -205,6 +213,10 @@ describe('Slash Commands', () => {
 				expect(() => getBuilder().addBooleanOption(() => SlashCommandStringOption)).toThrowError();
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
 				expect(() => getBuilder().addBooleanOption(() => new Collection())).toThrowError();
+			});
+
+			test('GIVEN valid builder with defaultPermission false THEN does not throw error', () => {
+				expect(() => getBuilder().setName('foo').setDescription('foo').setDefaultPermission(false)).not.toThrowError();
 			});
 		});
 

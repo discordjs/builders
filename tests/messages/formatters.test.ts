@@ -18,9 +18,9 @@ import {
 	TimestampStyles,
 	underscore,
 	userMention,
-} from '../src';
+} from '../../src';
 
-describe('Messages', () => {
+describe('Message formatters', () => {
 	describe('codeBlock', () => {
 		test('GIVEN "discord.js" with no language THEN returns "```\\ndiscord.js```"', () => {
 			expect<'```\ndiscord.js```'>(codeBlock('discord.js')).toBe('```\ndiscord.js```');
