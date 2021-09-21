@@ -124,7 +124,7 @@ export class Embed implements APIEmbed {
 			(this.description?.length ?? 0) +
 			this.fields.reduce((prev, curr) => prev + curr.name.length + curr.value.length, 0) +
 			(this.footer?.text.length ?? 0) +
-			(this.author?.name?.length ?? 0)
+			(this.author?.name.length ?? 0)
 		);
 	}
 
