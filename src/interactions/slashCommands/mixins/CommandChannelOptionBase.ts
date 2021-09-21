@@ -1,12 +1,21 @@
-import type { ChannelType } from 'discord-api-types/v9';
+import { ChannelType } from 'discord-api-types/v9';
 import ow from 'ow';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
 // Only allow valid channel types to be used. (This can't be dynamic because const enums are erased at runtime)
-const maxChannelType = 13;
-const DMChannels = [1, 3];
-const channelTypePredicate = ow.number.greaterThanOrEqual(0).lessThanOrEqual(maxChannelType).not.oneOf(DMChannels);
+const allowedChannelTypes = [
+	ChannelType.GuildCategory,
+	ChannelType.GuildNews,
+	ChannelType.GuildNewsThread,
+	ChannelType.GuildStore,
+	ChannelType.GuildStageVoice,
+	ChannelType.GuildText,
+	ChannelType.GuildVoice,
+	ChannelType.GuildPublicThread,
+	ChannelType.GuildPrivateThread,
+];
+const channelTypePredicate = ow.number.oneOf(allowedChannelTypes);
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
 	extends SlashCommandOptionBase

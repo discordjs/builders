@@ -173,7 +173,7 @@ describe('Slash Commands', () => {
 			});
 
 			test('GIVEN a builder with valid channel options and channel_types THEN does throw an error', () => {
-				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(10))).toThrowError();
+				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
 
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([100, 200]))).toThrowError();
 				// @ts-expect-error
