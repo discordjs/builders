@@ -15,6 +15,7 @@ const allowedChannelTypes = [
 	ChannelType.GuildPublicThread,
 	ChannelType.GuildPrivateThread,
 ];
+
 const channelTypePredicate = ow.number.oneOf(allowedChannelTypes);
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
@@ -30,7 +31,7 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	public addChannelType(channelType: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>) {
 		this.channelTypes ??= [];
 
-		ow(channelType, `channel type`, channelTypePredicate);
+		ow(channelType, 'channel type', channelTypePredicate);
 		this.channelTypes.push(channelType);
 
 		return this;
