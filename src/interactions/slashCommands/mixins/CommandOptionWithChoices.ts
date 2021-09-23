@@ -17,6 +17,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	implements ToAPIApplicationCommandOptions
 {
 	public choices?: APIApplicationCommandOptionChoice[];
+	public autocomplete?: boolean;
 
 	/**
 	 * Adds a choice for this option
@@ -51,10 +52,24 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		return this;
 	}
 
+	/**
+	 * Marks the option as autocompletable
+	 * @param autocomplete If this option should be autocompletable
+	 */
+	public setAutocomplete(autocomplete: boolean) {
+		// Assert that you actually passed a boolean
+		ow(autocomplete, 'autocomplete', ow.boolean);
+
+		this.autocomplete = autocomplete;
+
+		return this;
+	}
+
 	public override toJSON() {
 		return {
 			...super.toJSON(),
 			choices: this.choices,
+			autocomplete: this.autocomplete,
 		};
 	}
 }
