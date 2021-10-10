@@ -1,4 +1,5 @@
 import { validateRequiredParameters, validateName, validateType } from './Assertions';
+import type { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 
 export class ContextMenuCommandBuilder {
 	/**
@@ -42,7 +43,7 @@ export class ContextMenuCommandBuilder {
 	 *
 	 * **Note:** Calling this function will validate required properties based on their conditions.
 	 */
-	public toJSON() {
+	public toJSON(): RESTPostAPIApplicationCommandsJSONBody {
 		validateRequiredParameters(this.name, this.type);
 		return {
 			name: this.name,
