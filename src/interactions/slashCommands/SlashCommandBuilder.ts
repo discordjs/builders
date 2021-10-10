@@ -54,7 +54,7 @@ export class SlashCommandBuilder {
 	 * **Note**: If set to `false`, you will have to later have to `PUT` the permissions for this command.
 	 * @param value Whether or not to enable this command by default
 	 *
-	 * @see https://discord.com/developers/docs/interactions/slash-commands#permissions
+	 * @see https://discord.com/developers/docs/interactions/application-commands#permissions
 	 */
 	public setDefaultPermission(value: boolean) {
 		// Assert the value matches the conditions
