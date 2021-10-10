@@ -1,4 +1,4 @@
-import { validateRequiredParameters, validateName, validateType } from './Assertions';
+import { validateRequiredParameters, validateName, validateType, validateDefaultPermission } from './Assertions';
 import type { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 
 export class ContextMenuCommandBuilder {
@@ -11,6 +11,12 @@ export class ContextMenuCommandBuilder {
 	 * The type of this context menu command
 	 */
 	public readonly type: number = undefined!;
+
+	/**
+	 * Whether the command is enabled by default when the app is added to a guild
+	 * @default true
+	 */
+	public readonly defaultPermission: boolean | undefined = undefined;
 
 	/**
 	 * Sets the name
@@ -39,6 +45,23 @@ export class ContextMenuCommandBuilder {
 	}
 
 	/**
+	 * Sets whether the command is enabled by default when the application is added to a guild.
+	 *
+	 * **Note**: If set to `false`, you will have to later have to `PUT` the permissions for this command.
+	 * @param value Whether or not to enable this command by default
+	 *
+	 * @see https://discord.com/developers/docs/interactions/application-commands#permissions
+	 */
+	public setDefaultPermission(value: boolean) {
+		// Assert the value matches the conditions
+		validateDefaultPermission(value);
+
+		Reflect.set(this, 'defaultPermission', value);
+
+		return this;
+	}
+
+	/**
 	 * Returns the final data that should be sent to Discord.
 	 *
 	 * **Note:** Calling this function will validate required properties based on their conditions.
@@ -48,6 +71,7 @@ export class ContextMenuCommandBuilder {
 		return {
 			name: this.name,
 			type: this.type,
+			default_permission: this.defaultPermission,
 		};
 	}
 }

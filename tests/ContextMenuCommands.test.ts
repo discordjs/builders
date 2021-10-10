@@ -37,6 +37,14 @@ describe('Context Menu Commands', () => {
 		test('GIVEN valid required parameters THEN does not throw error', () => {
 			expect(() => ContextMenuCommandAssertions.validateRequiredParameters('owo', 2)).not.toThrowError();
 		});
+
+		test('GIVEN valid default_permission THEN does not throw error', () => {
+			expect(() => ContextMenuCommandAssertions.validateDefaultPermission(true)).not.toThrowError();
+		});
+
+		test('GIVEN invalid default_permission THEN throw error', () => {
+			expect(() => ContextMenuCommandAssertions.validateDefaultPermission(null)).toThrowError();
+		});
 	});
 
 	describe('ContextMenuCommandBuilder', () => {

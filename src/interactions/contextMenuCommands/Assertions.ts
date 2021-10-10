@@ -23,3 +23,9 @@ const typePredicate = ow.number.oneOf([ApplicationCommandType.User, ApplicationC
 export function validateType(type: unknown): asserts type is number {
 	ow(type, 'type', typePredicate);
 }
+
+const defaultPermissionPredicate = ow.boolean;
+
+export function validateDefaultPermission(value: unknown): asserts value is boolean {
+	ow(value, 'default_permission', defaultPermissionPredicate);
+}
