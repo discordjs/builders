@@ -176,8 +176,8 @@ describe('Slash Commands', () => {
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
 
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([100, 200]))).toThrowError();
-				// @ts-expect-error
-				expect(() => getBuilder().addBooleanOption(getChannelOption().addChannelType('GuildTest'))).toThrowError();
+
+				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
 
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(1))).toThrowError();
 
