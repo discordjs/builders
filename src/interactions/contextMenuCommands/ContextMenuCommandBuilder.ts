@@ -1,5 +1,5 @@
 import { validateRequiredParameters, validateName, validateType, validateDefaultPermission } from './Assertions';
-import type { RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
+import type { ApplicationCommandType, RESTPostAPIApplicationCommandsJSONBody } from 'discord-api-types/v9';
 
 export class ContextMenuCommandBuilder {
 	/**
@@ -35,7 +35,7 @@ export class ContextMenuCommandBuilder {
 	 * Sets the type
 	 * @param type The type
 	 */
-	public setType(type: number) {
+	public setType(type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>) {
 		// Assert the type is valid
 		validateType(type);
 
