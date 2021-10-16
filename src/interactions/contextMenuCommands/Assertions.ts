@@ -1,5 +1,6 @@
 import ow from 'ow';
 import { ApplicationCommandType } from 'discord-api-types/v9';
+import type { ContextMenuCommandType } from './ContextMenuCommandBuilder';
 
 export function validateRequiredParameters(name: string, type: number) {
 	// Assert name matches all conditions
@@ -20,7 +21,7 @@ export function validateName(name: unknown): asserts name is string {
 
 const typePredicate = ow.number.oneOf([ApplicationCommandType.User, ApplicationCommandType.Message]);
 
-export function validateType(type: unknown): asserts type is number {
+export function validateType(type: unknown): asserts type is ContextMenuCommandType {
 	ow(type, 'type', typePredicate);
 }
 

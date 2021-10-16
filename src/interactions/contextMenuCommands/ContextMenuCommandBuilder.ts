@@ -10,7 +10,7 @@ export class ContextMenuCommandBuilder {
 	/**
 	 * The type of this context menu command
 	 */
-	public readonly type: number = undefined!;
+	public readonly type: ContextMenuCommandType = undefined!;
 
 	/**
 	 * Whether the command is enabled by default when the app is added to a guild
@@ -35,7 +35,7 @@ export class ContextMenuCommandBuilder {
 	 * Sets the type
 	 * @param type The type
 	 */
-	public setType(type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>) {
+	public setType(type: ContextMenuCommandType) {
 		// Assert the type is valid
 		validateType(type);
 
@@ -75,3 +75,5 @@ export class ContextMenuCommandBuilder {
 		};
 	}
 }
+
+export type ContextMenuCommandType = ApplicationCommandType.User | ApplicationCommandType.Message;
