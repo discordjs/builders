@@ -1,4 +1,4 @@
-import { ChannelType } from 'discord-api-types/v9';
+import { APIApplicationCommandChannelOptions, ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v9';
 import ow from 'ow';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
@@ -22,7 +22,7 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	extends SlashCommandOptionBase
 	implements ToAPIApplicationCommandOptions
 {
-	public channelTypes?: ChannelType[];
+	public channelTypes?: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>[];
 
 	/**
 	 * Adds a channel type to this option
@@ -46,9 +46,10 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 		return this;
 	}
 
-	public override toJSON() {
+	public override toJSON(): APIApplicationCommandChannelOptions {
 		return {
 			...super.toJSON(),
+			type: ApplicationCommandOptionType.Channel,
 			channel_types: this.channelTypes,
 		};
 	}
