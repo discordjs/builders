@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.7.0](https://github.com/discordjs/builders/compare/v0.6.0...v0.7.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* properly type `toJSON` methods ([#34](https://github.com/discordjs/builders/issues/34)) ([7723ad0](https://github.com/discordjs/builders/commit/7723ad0da169386e638188de220451a97513bc25))
+
+
+### Features
+
+* **ContextMenus:** add context menu command builder ([#29](https://github.com/discordjs/builders/issues/29)) ([f0641e5](https://github.com/discordjs/builders/commit/f0641e55733de8992600f3082bcf054e6f815cf7))
+* add support for channel types on channel options ([#41](https://github.com/discordjs/builders/issues/41)) ([f6c187e](https://github.com/discordjs/builders/commit/f6c187e0ad6ebe03e65186ece3e95cb1db5aeb50))
+
+
+
 # [0.6.0](https://github.com/discordjs/builders/compare/v0.5.0...v0.6.0) (2021-08-24)
 
 
