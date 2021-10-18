@@ -1,4 +1,4 @@
-import type { ApplicationCommandOptionType } from 'discord-api-types/v9';
+import type { APIApplicationCommandOption, ApplicationCommandOptionType } from 'discord-api-types/v9';
 import ow from 'ow';
 import { validateRequiredParameters } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
@@ -26,7 +26,7 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 		return this;
 	}
 
-	public toJSON() {
+	public toJSON(): APIApplicationCommandOption {
 		validateRequiredParameters(this.name, this.description, []);
 
 		// Assert that you actually passed a boolean
