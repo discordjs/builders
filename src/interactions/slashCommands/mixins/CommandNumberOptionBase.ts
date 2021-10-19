@@ -6,13 +6,13 @@ export abstract class ApplicationCommandNumberOptionBase extends ApplicationComm
 
 	/**
 	 * Sets the maximum number value of this option
-	 * @param max The maximun value this option can be
+	 * @param max The maximum value this option can be
 	 */
 	public abstract setMaxValue(max: number): this;
 
 	/**
-	 * Sets the maximum number value of this option
-	 * @param min The maximun value this option can be
+	 * Sets the minimum number value of this option
+	 * @param min The minimum value this option can be
 	 */
 	public abstract setMinValue(min: number): this;
 
