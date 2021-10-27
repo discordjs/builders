@@ -3,21 +3,12 @@
 	"parserOptions": {
 		"project": "./tsconfig.eslint.json"
 	},
+	"ignorePatterns": ["**/dist/*"],
 	"env": {
 		"jest": true
 	},
 	"rules": {
-		"@typescript-eslint/naming-convention": 0,
-		"no-redeclare": 0
-	},
-	"overrides": [
-		{
-			"files": ["scripts/**/*.mjs"],
-			"parser": "@babel/eslint-parser",
-			"parserOptions": {
-				"ecmaVersion": 2021,
-				"sourceType": "module"
-			}
-		}
-	]
+		"no-redeclare": 0,
+		"@typescript-eslint/naming-convention": 0
+	}
 }

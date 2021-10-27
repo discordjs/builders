@@ -1,8 +1,3 @@
-# These are supported funding model platforms
-
-github: [vladfrangu]
-patreon: vladfrangu # Replace with a single Patreon name
-open_collective: # Replace with a single Open Collective username
-ko_fi: wolfgalvlad # Replace with a single ko-fi username
-tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
-custom: # Replace with a single custom sponsorship URL
+github: [vladfrangu, iCrawl, amishshah, kyranet]
+patreon: vladfrangu
+ko_fi: wolfgalvlad
