@@ -30,7 +30,7 @@ export class SlashCommandBuilder {
 	/**
 	 * Whether the command is enabled by default when the app is added to a guild
 	 *
-	 * @defaultValue true
+	 * @default true
 	 */
 	public readonly defaultPermission: boolean | undefined = undefined;
 
