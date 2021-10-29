@@ -26,6 +26,7 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 
 	/**
 	 * Adds a channel type to this option
+	 *
 	 * @param channelType The type of channel to allow
 	 */
 	public addChannelType(channelType: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>) {
@@ -39,6 +40,7 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 
 	/**
 	 * Adds channel types to this option
+	 *
 	 * @param channelTypes The channel types to add
 	 */
 	public addChannelTypes(channelTypes: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>[]) {

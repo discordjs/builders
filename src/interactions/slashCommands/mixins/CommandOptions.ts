@@ -15,6 +15,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a boolean option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addBooleanOption(
@@ -25,6 +26,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a user option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addUserOption(input: SlashCommandUserOption | ((builder: SlashCommandUserOption) => SlashCommandUserOption)) {
@@ -33,6 +35,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a channel option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addChannelOption(
@@ -43,6 +46,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a role option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addRoleOption(input: SlashCommandRoleOption | ((builder: SlashCommandRoleOption) => SlashCommandRoleOption)) {
@@ -51,6 +55,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a mentionable option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addMentionableOption(
@@ -61,6 +66,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a string option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addStringOption(
@@ -71,6 +77,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds an integer option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addIntegerOption(
@@ -81,6 +88,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 
 	/**
 	 * Adds a number option
+	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
 	public addNumberOption(

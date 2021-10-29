@@ -1,4 +1,4 @@
-# @discordjs/builders Contributing Guide
+# discord.js Contributing Guide
 
 **The issue tracker is only for bug reports and enhancement suggestions. If you have a question, please ask it in the [Discord server](https://discord.gg/djs) instead of opening an issue – you will get redirected there anyway.**
 
@@ -39,16 +39,21 @@
 
 ## Development Setup
 
-You will need [Node.js](http://nodejs.org) **version 14+**, and [npm](https://www.npmjs.com/).
+You will need [Node.js](http://nodejs.org) **version 16+**, and [npm](https://www.npmjs.com/).
 
 After cloning the repo, run:
 
 ```bash
-$ npm i # install the dependencies of the project
+$ npm ci # install the dependencies of the project
 ```
 
 A high level overview of tools used:
 
 - [TypeScript](https://www.typescriptlang.org/) as the development language
+- [Jest](https://jestjs.io/) for unit testing
 - [Eslint](https://eslint.org/) for code-style
 - [Prettier](https://prettier.io/) for code formatting
+
+## Contributing Tests
+
+Unit tests are collocated with the code being tested in each package, inside directories named `__tests__`. Consult the [Jest docs](https://jestjs.io/docs/en/using-matchers) and existing test cases for how to write new test specs.
