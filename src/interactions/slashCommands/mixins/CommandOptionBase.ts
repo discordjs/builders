@@ -15,6 +15,7 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 
 	/**
 	 * Marks the option as required
+	 *
 	 * @param required If this option should be required
 	 */
 	public setRequired(required: boolean) {

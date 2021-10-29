@@ -20,6 +20,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 
 	/**
 	 * Adds a choice for this option
+	 *
 	 * @param name The name of the choice
 	 * @param value The value of the choice
 	 */
@@ -42,6 +43,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 
 	/**
 	 * Adds multiple choices for this option
+	 *
 	 * @param choices The choices to add
 	 */
 	public addChoices(choices: [name: string, value: T][]) {

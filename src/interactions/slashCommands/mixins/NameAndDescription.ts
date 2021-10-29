@@ -6,6 +6,7 @@ export class SharedNameAndDescription {
 
 	/**
 	 * Sets the name
+	 *
 	 * @param name The name
 	 */
 	public setName(name: string) {
@@ -19,6 +20,7 @@ export class SharedNameAndDescription {
 
 	/**
 	 * Sets the description
+	 *
 	 * @param description The description
 	 */
 	public setDescription(description: string) {
