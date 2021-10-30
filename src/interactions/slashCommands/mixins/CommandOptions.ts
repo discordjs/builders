@@ -9,6 +9,9 @@ import { SlashCommandRoleOption } from '../options/role';
 import { SlashCommandStringOption } from '../options/string';
 import { SlashCommandUserOption } from '../options/user';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
+import { SlashCommandAutocompleteStringOption } from '../options/autoString';
+import { SlashCommandAutocompleteIntegerOption } from '../options/autoInteger';
+import { SlashCommandAutocompleteNumberOption } from '../options/autoNumber';
 
 export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 	public readonly options!: ToAPIApplicationCommandOptions[];
@@ -60,6 +63,18 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 	}
 
 	/**
+	 * Adds a autocompletable string option
+	 * @param input A function that returns an option builder, or an already built builder
+	 */
+	public addAutocompleteStringOption(
+		input:
+			| SlashCommandAutocompleteStringOption
+			| ((builder: SlashCommandAutocompleteStringOption) => SlashCommandAutocompleteStringOption),
+	) {
+		return this._sharedAddOptionMethod(input, SlashCommandAutocompleteStringOption);
+	}
+
+	/**
 	 * Adds a string option
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
@@ -70,6 +85,18 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 	}
 
 	/**
+	 * Adds a autocompletable integer option
+	 * @param input A function that returns an option builder, or an already built builder
+	 */
+	public addAutocompleteIntegerOption(
+		input:
+			| SlashCommandAutocompleteIntegerOption
+			| ((builder: SlashCommandAutocompleteIntegerOption) => SlashCommandAutocompleteIntegerOption),
+	) {
+		return this._sharedAddOptionMethod(input, SlashCommandAutocompleteIntegerOption);
+	}
+
+	/**
 	 * Adds an integer option
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
@@ -77,6 +104,18 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 		input: SlashCommandIntegerOption | ((builder: SlashCommandIntegerOption) => SlashCommandIntegerOption),
 	) {
 		return this._sharedAddOptionMethod(input, SlashCommandIntegerOption);
+	}
+
+	/**
+	 * Adds a autocompletable number option
+	 * @param input A function that returns an option builder, or an already built builder
+	 */
+	public addAutocompleteNumberOption(
+		input:
+			| SlashCommandAutocompleteNumberOption
+			| ((builder: SlashCommandAutocompleteNumberOption) => SlashCommandAutocompleteNumberOption),
+	) {
+		return this._sharedAddOptionMethod(input, SlashCommandAutocompleteNumberOption);
 	}
 
 	/**

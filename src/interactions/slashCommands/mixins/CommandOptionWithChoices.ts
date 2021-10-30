@@ -55,6 +55,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		return {
 			...super.toJSON(),
 			choices: this.choices,
+			autocomplete: false,
 		};
 	}
 }

@@ -13,14 +13,23 @@ import {
 	SlashCommandSubcommandGroupBuilder,
 	SlashCommandUserOption,
 } from '../src/index';
+import { SlashCommandAutocompleteIntegerOption } from '../src/interactions/slashCommands/options/autoInteger';
+import { SlashCommandAutocompleteNumberOption } from '../src/interactions/slashCommands/options/autoNumber';
+import { SlashCommandAutocompleteStringOption } from '../src/interactions/slashCommands/options/autoString';
 
 const largeArray = Array.from({ length: 26 }, () => 1 as any);
 
 const getBuilder = () => new SlashCommandBuilder();
 const getNamedBuilder = () => getBuilder().setName('example').setDescription('Example command');
 const getStringOption = () => new SlashCommandStringOption().setName('owo').setDescription('Testing 123');
+const getAutoStringOption = () =>
+	new SlashCommandAutocompleteStringOption().setName('owo').setDescription('Testing 123');
 const getIntegerOption = () => new SlashCommandIntegerOption().setName('owo').setDescription('Testing 123');
+const getAutoIntegerOption = () =>
+	new SlashCommandAutocompleteIntegerOption().setName('owo').setDescription('Testing 123');
 const getNumberOption = () => new SlashCommandNumberOption().setName('owo').setDescription('Testing 123');
+const getAutoNumberOption = () =>
+	new SlashCommandAutocompleteNumberOption().setName('owo').setDescription('Testing 123');
 const getBooleanOption = () => new SlashCommandBooleanOption().setName('owo').setDescription('Testing 123');
 const getUserOption = () => new SlashCommandUserOption().setName('owo').setDescription('Testing 123');
 const getChannelOption = () => new SlashCommandChannelOption().setName('owo').setDescription('Testing 123');
@@ -210,6 +219,16 @@ describe('Slash Commands', () => {
 
 				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
 				expect(() => getBuilder().addBooleanOption(getRoleOption())).toThrowError();
+			});
+
+			test("GIVEN valid autocomplete options THEN doesn't throw error", () => {
+				expect(() => getNamedBuilder().addAutocompleteStringOption(getAutoStringOption()).toJSON()).not.toThrowError();
+
+				expect(() =>
+					getNamedBuilder().addAutocompleteIntegerOption(getAutoIntegerOption()).toJSON(),
+				).not.toThrowError();
+
+				expect(() => getNamedBuilder().addAutocompleteNumberOption(getAutoNumberOption()).toJSON()).not.toThrowError();
 			});
 
 			test('GIVEN invalid name THEN throw error', () => {
