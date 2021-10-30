@@ -13,6 +13,9 @@ export * from './interactions/slashCommands/options/number';
 export * from './interactions/slashCommands/options/role';
 export * from './interactions/slashCommands/options/string';
 export * from './interactions/slashCommands/options/user';
+export * from './interactions/slashCommands/options/autoInteger';
+export * from './interactions/slashCommands/options/autoNumber';
+export * from './interactions/slashCommands/options/autoString';
 
 export * as ContextMenuCommandAssertions from './interactions/contextMenuCommands/Assertions';
 export * from './interactions/contextMenuCommands/ContextMenuCommandBuilder';
