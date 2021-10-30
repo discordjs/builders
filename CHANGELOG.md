@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.2](https://github.com/discordjs/builders/compare/v0.8.1...v0.8.2) (2021-10-30)
+
+
+### Bug Fixes
+
+* downgrade ow because of esm issues ([#55](https://github.com/discordjs/builders/issues/55)) ([3722d2c](https://github.com/discordjs/builders/commit/3722d2c1109a7a5c0abad63c1a7eb944df6e46c8))
+
+
+
 ## [0.8.1](https://github.com/discordjs/builders/compare/v0.8.0...v0.8.1) (2021-10-29)
 
 
