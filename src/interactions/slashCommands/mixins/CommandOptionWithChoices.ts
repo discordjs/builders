@@ -22,8 +22,9 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param value The value of the choice
 	 */
 	public addChoice(name: string, value: T): Omit<this, 'setAutocomplete'> {
-		if (typeof this.autocomplete !== 'undefined')
+		if (typeof this.autocomplete !== 'undefined') {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
 
 		this.choices ??= [];
 
@@ -47,8 +48,9 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param choices The choices to add
 	 */
 	public addChoices(choices: [name: string, value: T][]): Omit<this, 'setAutocomplete'> {
-		if (typeof this.autocomplete !== 'undefined')
+		if (typeof this.autocomplete !== 'undefined') {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
 
 		ow(choices, `${ApplicationCommandOptionTypeNames[this.type]} choices`, choicesPredicate);
 
@@ -61,8 +63,9 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param autocomplete If this option should be autocompletable
 	 */
 	public setAutocomplete(autocomplete: boolean): Omit<this, 'addChoice' | 'addChoices'> {
-		if (typeof this.choices !== 'undefined')
+		if (typeof this.choices !== 'undefined') {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
 
 		// Assert that you actually passed a boolean
 		ow(autocomplete, 'autocomplete', ow.boolean);
@@ -73,8 +76,9 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	}
 
 	public override toJSON() {
-		if (typeof this.choices !== 'undefined' && typeof this.autocomplete !== 'undefined')
+		if (typeof this.choices !== 'undefined' && typeof this.autocomplete !== 'undefined') {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
 
 		return {
 			...super.toJSON(),
