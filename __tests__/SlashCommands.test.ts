@@ -182,6 +182,35 @@ describe('Slash Commands', () => {
 						getStringOption().setAutocomplete(true).addChoice('Fancy Pants', 'fp_1'),
 					),
 				).toThrowError();
+
+				expect(() =>
+					getBuilder().addStringOption(
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+						getStringOption()
+							.setAutocomplete(true)
+							// @ts-expect-error Checking if check works JS-side too
+							.addChoices([
+								['Fancy Pants', 'fp_1'],
+								['Fancy Shoes', 'fs_1'],
+								['The Whole shebang', 'all'],
+							]),
+					),
+				).toThrowError();
+
+				expect(() =>
+					getBuilder().addStringOption(
+						// @ts-expect-error Checking if check works JS-side too
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+						getStringOption().addChoice('Fancy Pants', 'fp_1').setAutocomplete(true),
+					),
+				).toThrowError();
+
+				expect(() => {
+					const option = getStringOption();
+					option.autocomplete = true;
+					option.choices = [{ name: 'Fancy Pants', value: 'fp_1' }];
+					return option.toJSON();
+				}).toThrowError();
 			});
 
 			test('GIVEN a builder with valid channel options and channel_types THEN does not throw an error', () => {
