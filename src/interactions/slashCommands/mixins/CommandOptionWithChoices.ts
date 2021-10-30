@@ -13,7 +13,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	implements ToAPIApplicationCommandOptions
 {
 	public choices?: APIApplicationCommandOptionChoice[];
-	public autocomplete?: boolean;
+	public readonly autocomplete?: boolean;
 
 	/**
 	 * Adds a choice for this option
@@ -22,7 +22,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param value The value of the choice
 	 */
 	public addChoice(name: string, value: T): Omit<this, 'setAutocomplete'> {
-		if (typeof this.autocomplete !== 'undefined') {
+		if (this.autocomplete) {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
 		}
 
@@ -48,7 +48,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param choices The choices to add
 	 */
 	public addChoices(choices: [name: string, value: T][]): Omit<this, 'setAutocomplete'> {
-		if (typeof this.autocomplete !== 'undefined') {
+		if (this.autocomplete) {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
 		}
 
@@ -62,21 +62,23 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * Marks the option as autocompletable
 	 * @param autocomplete If this option should be autocompletable
 	 */
-	public setAutocomplete(autocomplete: boolean): Omit<this, 'addChoice' | 'addChoices'> {
-		if (typeof this.choices !== 'undefined') {
-			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
-		}
-
+	public setAutocomplete<U extends boolean>(
+		autocomplete: U,
+	): U extends true ? Omit<this, 'addChoice' | 'addChoices'> : this {
 		// Assert that you actually passed a boolean
 		ow(autocomplete, 'autocomplete', ow.boolean);
 
-		this.autocomplete = autocomplete;
+		if (autocomplete && Array.isArray(this.choices) && this.choices.length > 0) {
+			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
+
+		Reflect.set(this, 'autocomplete', autocomplete);
 
 		return this;
 	}
 
 	public override toJSON() {
-		if (typeof this.choices !== 'undefined' && typeof this.autocomplete !== 'undefined') {
+		if (this.autocomplete && Array.isArray(this.choices) && this.choices.length > 0) {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
 		}
 
