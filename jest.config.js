@@ -1,6 +1,8 @@
-/** @type {import('@jest/types').Config.InitialOptions} */
+/**
+ * @type {import('@jest/types').Config.InitialOptions}
+ */
 module.exports = {
-	testMatch: ['<rootDir>/tests/**/*.test.ts'],
+	testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
 	testEnvironment: 'node',
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*.ts'],

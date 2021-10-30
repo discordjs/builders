@@ -14,12 +14,14 @@ export class ContextMenuCommandBuilder {
 
 	/**
 	 * Whether the command is enabled by default when the app is added to a guild
+	 *
 	 * @default true
 	 */
 	public readonly defaultPermission: boolean | undefined = undefined;
 
 	/**
 	 * Sets the name
+	 *
 	 * @param name The name
 	 */
 	public setName(name: string) {
@@ -33,6 +35,7 @@ export class ContextMenuCommandBuilder {
 
 	/**
 	 * Sets the type
+	 *
 	 * @param type The type
 	 */
 	public setType(type: ContextMenuCommandType) {
@@ -48,6 +51,7 @@ export class ContextMenuCommandBuilder {
 	 * Sets whether the command is enabled by default when the application is added to a guild.
 	 *
 	 * **Note**: If set to `false`, you will have to later `PUT` the permissions for this command.
+	 *
 	 * @param value Whether or not to enable this command by default
 	 *
 	 * @see https://discord.com/developers/docs/interactions/application-commands#permissions

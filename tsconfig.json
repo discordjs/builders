@@ -2,19 +2,17 @@
 	// Mapped from https://www.typescriptlang.org/tsconfig
 	"compilerOptions": {
 		// Type Checking
-		"alwaysStrict": true,
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
-		// TypeScript 4.4
-		// "exactOptionalPropertyTypes": true,
+		// if true: conflicts with discord-api-types
+		"exactOptionalPropertyTypes": false,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strict": true,
-		// TypeScript 4.4
-		// "useUnknownInCatchVariables": true,
+		"useUnknownInCatchVariables": true,
 
 		// Modules
 		"module": "CommonJS",
@@ -23,7 +21,6 @@
 
 		// Emit
 		"declaration": true,
-		"declarationMap": true,
 		"importHelpers": true,
 		"importsNotUsedAsValues": "error",
 		"inlineSources": true,
@@ -33,7 +30,6 @@
 		"preserveConstEnums": true,
 		"removeComments": false,
 		"sourceMap": true,
-		"sourceRoot": "/",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 

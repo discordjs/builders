@@ -40,62 +40,62 @@ export interface FooterOptions {
  */
 export class Embed implements APIEmbed {
 	/**
-	 * An array of fields of this embed.
+	 * An array of fields of this embed
 	 */
 	public fields: APIEmbedField[];
 
 	/**
-	 * The embed title.
+	 * The embed title
 	 */
 	public title?: string;
 
 	/**
-	 * The embed description.
+	 * The embed description
 	 */
 	public description?: string;
 
 	/**
-	 * The embed url.
+	 * The embed url
 	 */
 	public url?: string;
 
 	/**
-	 * The embed color.
+	 * The embed color
 	 */
 	public color?: number;
 
 	/**
-	 * The timestamp of the embed in the ISO format.
+	 * The timestamp of the embed in the ISO format
 	 */
 	public timestamp?: string;
 
 	/**
-	 * The embed thumbnail data.
+	 * The embed thumbnail data
 	 */
 	public thumbnail?: APIEmbedThumbnail;
 
 	/**
-	 * The embed image data.
+	 * The embed image data
 	 */
 	public image?: APIEmbedImage;
 
 	/**
-	 * Received video data.
+	 * Received video data
 	 */
 	public video?: APIEmbedVideo;
 
 	/**
-	 * The embed author data.
+	 * The embed author data
 	 */
 	public author?: APIEmbedAuthor;
 
 	/**
-	 * Received data about the embed provider.
+	 * Received data about the embed provider
 	 */
 	public provider?: APIEmbedProvider;
 
 	/**
-	 * The embed footer data.
+	 * The embed footer data
 	 */
 	public footer?: APIEmbedFooter;
 
@@ -116,7 +116,7 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * The accumulated length for the embed title, description, fields, footer text, and author name.
+	 * The accumulated length for the embed title, description, fields, footer text, and author name
 	 */
 	public get length(): number {
 		return (
@@ -129,7 +129,8 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Adds a field to the embed (max 25).
+	 * Adds a field to the embed (max 25)
+	 *
 	 * @param field The field to add.
 	 */
 	public addField(field: APIEmbedField): this {
@@ -137,8 +138,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Adds fields to the embed (max 25).
-	 * @param fields The fields to add.
+	 * Adds fields to the embed (max 25)
+	 *
+	 * @param fields The fields to add
 	 */
 	public addFields(...fields: APIEmbedField[]): this {
 		// Data assertions
@@ -152,10 +154,11 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Removes, replaces, or inserts fields in the embed (max 25).
-	 * @param index The index to start at.
-	 * @param deleteCount The number of fields to remove.
-	 * @param fields The replacing field objects.
+	 * Removes, replaces, or inserts fields in the embed (max 25)
+	 *
+	 * @param index The index to start at
+	 * @param deleteCount The number of fields to remove
+	 * @param fields The replacing field objects
 	 */
 	public spliceFields(index: number, deleteCount: number, ...fields: APIEmbedField[]): this {
 		// Data assertions
@@ -169,8 +172,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the author of this embed.
-	 * @param options The options for the author.
+	 * Sets the author of this embed
+	 *
+	 * @param options The options for the author
 	 */
 	public setAuthor(options: AuthorOptions | null): this {
 		if (options === null) {
@@ -189,8 +193,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the color of this embed.
-	 * @param color The color of the embed.
+	 * Sets the color of this embed
+	 *
+	 * @param color The color of the embed
 	 */
 	public setColor(color: number | null): this {
 		// Data assertions
@@ -201,8 +206,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the description of this embed.
-	 * @param description The description.
+	 * Sets the description of this embed
+	 *
+	 * @param description The description
 	 */
 	public setDescription(description: string | null): this {
 		// Data assertions
@@ -213,8 +219,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the footer of this embed.
-	 * @param options The options for the footer.
+	 * Sets the footer of this embed
+	 *
+	 * @param options The options for the footer
 	 */
 	public setFooter(options: FooterOptions | null): this {
 		if (options === null) {
@@ -232,8 +239,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the image of this embed.
-	 * @param url The URL of the image.
+	 * Sets the image of this embed
+	 *
+	 * @param url The URL of the image
 	 */
 	public setImage(url: string | null): this {
 		// Data assertions
@@ -244,8 +252,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the thumbnail of this embed.
-	 * @param url The URL of the thumbnail.
+	 * Sets the thumbnail of this embed
+	 *
+	 * @param url The URL of the thumbnail
 	 */
 	public setThumbnail(url: string | null): this {
 		// Data assertions
@@ -256,8 +265,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the timestamp of this embed.
-	 * @param timestamp The timestamp or date.
+	 * Sets the timestamp of this embed
+	 *
+	 * @param timestamp The timestamp or date
 	 */
 	public setTimestamp(timestamp: number | Date | null = Date.now()): this {
 		// Data assertions
@@ -268,8 +278,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the title of this embed.
-	 * @param title The title.
+	 * Sets the title of this embed
+	 *
+	 * @param title The title
 	 */
 	public setTitle(title: string | null): this {
 		// Data assertions
@@ -280,8 +291,9 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Sets the URL of this embed.
-	 * @param url The URL.
+	 * Sets the URL of this embed
+	 *
+	 * @param url The URL
 	 */
 	public setURL(url: string | null): this {
 		// Data assertions
@@ -292,15 +304,16 @@ export class Embed implements APIEmbed {
 	}
 
 	/**
-	 * Transforms the embed to a plain object.
+	 * Transforms the embed to a plain object
 	 */
 	public toJSON(): APIEmbed {
 		return { ...this };
 	}
 
 	/**
-	 * Normalizes field input and resolves strings.
-	 * @param fields Fields to normalize.
+	 * Normalizes field input and resolves strings
+	 *
+	 * @param fields Fields to normalize
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields.flat(Infinity).map((field) => {

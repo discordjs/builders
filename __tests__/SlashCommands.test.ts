@@ -1,4 +1,4 @@
-import { ChannelType } from 'discord-api-types/v9';
+import { APIApplicationCommandOptionChoice, ChannelType } from 'discord-api-types/v9';
 import {
 	SlashCommandAssertions,
 	SlashCommandBooleanOption,
@@ -17,7 +17,7 @@ import { SlashCommandAutocompleteIntegerOption } from '../src/interactions/slash
 import { SlashCommandAutocompleteNumberOption } from '../src/interactions/slashCommands/options/autoNumber';
 import { SlashCommandAutocompleteStringOption } from '../src/interactions/slashCommands/options/autoString';
 
-const largeArray = Array.from({ length: 26 }, () => 1 as any);
+const largeArray = Array.from({ length: 26 }, () => 1 as unknown as APIApplicationCommandOptionChoice);
 
 const getBuilder = () => new SlashCommandBuilder();
 const getNamedBuilder = () => getBuilder().setName('example').setDescription('Example command');

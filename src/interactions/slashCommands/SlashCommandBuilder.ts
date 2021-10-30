@@ -29,6 +29,7 @@ export class SlashCommandBuilder {
 
 	/**
 	 * Whether the command is enabled by default when the app is added to a guild
+	 *
 	 * @default true
 	 */
 	public readonly defaultPermission: boolean | undefined = undefined;
@@ -52,6 +53,7 @@ export class SlashCommandBuilder {
 	 * Sets whether the command is enabled by default when the application is added to a guild.
 	 *
 	 * **Note**: If set to `false`, you will have to later `PUT` the permissions for this command.
+	 *
 	 * @param value Whether or not to enable this command by default
 	 *
 	 * @see https://discord.com/developers/docs/interactions/application-commands#permissions
@@ -67,6 +69,7 @@ export class SlashCommandBuilder {
 
 	/**
 	 * Adds a new subcommand group to this command
+	 *
 	 * @param input A function that returns a subcommand group builder, or an already built builder
 	 */
 	public addSubcommandGroup(
@@ -92,6 +95,7 @@ export class SlashCommandBuilder {
 
 	/**
 	 * Adds a new subcommand to this command
+	 *
 	 * @param input A function that returns a subcommand builder, or an already built builder
 	 */
 	public addSubcommand(
