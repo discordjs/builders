@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v9';
-import ow from 'ow';
+import Joi, { ValidationOptions } from 'joi';
 import type { SlashCommandOptionBase } from './mixins/CommandOptionBase';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
 import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
@@ -20,38 +20,37 @@ export function validateRequiredParameters(
 	validateMaxOptionsLength(options);
 }
 
-const namePredicate = ow.string.lowercase
-	.minLength(1)
-	.maxLength(32)
-	.addValidator({
-		message: (value, label) => `Expected ${label!} to match "^[\\p{L}\\p{N}_-]+$", got ${value} instead`,
-		validator: (value) => /^[\p{L}\p{N}_-]+$/u.test(value),
-	});
+const namePredicate = Joi.string()
+	.lowercase()
+	.min(1)
+	.max(32)
+	.pattern(/^[\p{L}\p{N}_-]+$/u)
+	.required();
 
-export function validateName(name: unknown): asserts name is string {
-	ow(name, 'name', namePredicate);
+export function validateName(name: unknown, opts: ValidationOptions | undefined = undefined): asserts name is string {
+	Joi.assert(name, namePredicate, opts);
 }
 
-const descriptionPredicate = ow.string.minLength(1).maxLength(100);
+const descriptionPredicate = Joi.string().min(1).max(100).required();
 
 export function validateDescription(description: unknown): asserts description is string {
-	ow(description, 'description', descriptionPredicate);
+	Joi.assert(description, descriptionPredicate);
 }
 
-const defaultPermissionPredicate = ow.boolean;
+const defaultPermissionPredicate = Joi.boolean().required();
 
 export function validateDefaultPermission(value: unknown): asserts value is boolean {
-	ow(value, 'default_permission', defaultPermissionPredicate);
+	Joi.assert(value, defaultPermissionPredicate);
 }
 
-const maxArrayLengthPredicate = ow.array.maxLength(25);
+const maxArrayLengthPredicate = Joi.array().max(25).required();
 
 export function validateMaxOptionsLength(options: unknown): asserts options is ToAPIApplicationCommandOptions[] {
-	ow(options, 'options', maxArrayLengthPredicate);
+	Joi.assert(options, maxArrayLengthPredicate);
 }
 
 export function validateMaxChoicesLength(choices: APIApplicationCommandOptionChoice[]) {
-	ow(choices, 'choices', maxArrayLengthPredicate);
+	Joi.assert(choices, maxArrayLengthPredicate);
 }
 
 export function assertReturnOfBuilder<

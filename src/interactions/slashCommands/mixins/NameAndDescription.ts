@@ -11,7 +11,7 @@ export class SharedNameAndDescription {
 	 */
 	public setName(name: string) {
 		// Assert the name matches the conditions
-		validateName(name);
+		validateName(name, { convert: false });
 
 		Reflect.set(this, 'name', name);
 

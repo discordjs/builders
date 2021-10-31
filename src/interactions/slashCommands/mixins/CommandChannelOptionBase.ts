@@ -1,5 +1,5 @@
 import { APIApplicationCommandChannelOptions, ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v9';
-import ow from 'ow';
+import Joi from 'joi';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
@@ -16,7 +16,9 @@ const allowedChannelTypes = [
 	ChannelType.GuildPrivateThread,
 ];
 
-const channelTypePredicate = ow.number.oneOf(allowedChannelTypes);
+const channelTypePredicate = Joi.number()
+	.valid(...allowedChannelTypes)
+	.required();
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
 	extends SlashCommandOptionBase
@@ -32,7 +34,7 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	public addChannelType(channelType: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>) {
 		this.channelTypes ??= [];
 
-		ow(channelType, 'channel type', channelTypePredicate);
+		Joi.assert(channelType, channelTypePredicate);
 		this.channelTypes.push(channelType);
 
 		return this;

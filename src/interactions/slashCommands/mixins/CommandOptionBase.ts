@@ -1,5 +1,5 @@
 import type { APIApplicationCommandOption, ApplicationCommandOptionType } from 'discord-api-types/v9';
-import ow from 'ow';
+import Joi from 'joi';
 import { validateRequiredParameters } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SharedNameAndDescription } from './NameAndDescription';
@@ -20,7 +20,7 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 	 */
 	public setRequired(required: boolean) {
 		// Assert that you actually passed a boolean
-		ow(required, 'required', ow.boolean);
+		Joi.assert(required, Joi.boolean().required());
 
 		this.required = required;
 
@@ -31,7 +31,7 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 		validateRequiredParameters(this.name, this.description, []);
 
 		// Assert that you actually passed a boolean
-		ow(this.required, 'required', ow.boolean);
+		Joi.assert(this.required, Joi.boolean().required());
 
 		return {
 			type: this.type,

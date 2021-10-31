@@ -1,15 +1,14 @@
 import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v9';
-import ow, { Predicate } from 'ow';
+import Joi from 'joi';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
-const stringPredicate = ow.string.minLength(1).maxLength(100);
-const integerPredicate = ow.number.finite;
+const stringPredicate = Joi.string().min(1).max(100).required();
+const integerPredicate = Joi.number().required();
 
-// TODO: See resolution for sindresorhus/ow#217 in relation to this cast
-const choicesPredicate = ow.array.ofType<[string, string | number]>(
-	ow.array.exactShape([stringPredicate, ow.any(ow.string, integerPredicate) as unknown as Predicate<string | number>]),
+const choicesPredicate = Joi.array().items(
+	Joi.array().items(stringPredicate, Joi.alternatives(Joi.string(), integerPredicate)),
 );
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
@@ -30,11 +29,11 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		validateMaxChoicesLength(this.choices);
 
 		// Validate name
-		ow(name, `${ApplicationCommandOptionTypeNames[this.type]} choice name`, stringPredicate);
+		Joi.assert(name, stringPredicate);
 
 		// Validate the value
-		if (this.type === ApplicationCommandOptionType.String) ow(value, 'string choice value', stringPredicate);
-		else ow(value, `${ApplicationCommandOptionTypeNames[this.type]} choice value`, integerPredicate);
+		if (this.type === ApplicationCommandOptionType.String) Joi.assert(value, stringPredicate);
+		else Joi.assert(value, integerPredicate);
 
 		this.choices.push({ name, value });
 
@@ -47,7 +46,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param choices The choices to add
 	 */
 	public addChoices(choices: [name: string, value: T][]) {
-		ow(choices, `${ApplicationCommandOptionTypeNames[this.type]} choices`, choicesPredicate);
+		Joi.assert(choices, choicesPredicate);
 
 		for (const [label, value] of choices) this.addChoice(label, value);
 		return this;
@@ -60,16 +59,3 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		};
 	}
 }
-
-const ApplicationCommandOptionTypeNames = {
-	[ApplicationCommandOptionType.Subcommand]: 'subcommand',
-	[ApplicationCommandOptionType.SubcommandGroup]: 'subcommand group',
-	[ApplicationCommandOptionType.String]: 'string',
-	[ApplicationCommandOptionType.Integer]: 'integer',
-	[ApplicationCommandOptionType.Boolean]: 'boolean',
-	[ApplicationCommandOptionType.User]: 'user',
-	[ApplicationCommandOptionType.Channel]: 'channel',
-	[ApplicationCommandOptionType.Role]: 'role',
-	[ApplicationCommandOptionType.Mentionable]: 'mentionable',
-	[ApplicationCommandOptionType.Number]: 'number',
-} as const;

@@ -1,34 +1,35 @@
 import type { APIEmbedField } from 'discord-api-types/v9';
-import ow from 'ow';
+import Joi from 'joi';
 
-export const fieldNamePredicate = ow.string.minLength(1).maxLength(256);
+export const fieldNamePredicate = Joi.string().min(1).max(256).required();
 
-export const fieldValuePredicate = ow.string.minLength(1).maxLength(1024);
+export const fieldValuePredicate = Joi.string().min(1).max(1024).required();
 
-export const fieldInlinePredicate = ow.optional.boolean;
+export const fieldInlinePredicate = Joi.boolean();
 
-export const embedFieldPredicate = ow.object.exactShape({
+export const embedFieldPredicate = Joi.object({
 	name: fieldNamePredicate,
 	value: fieldValuePredicate,
 	inline: fieldInlinePredicate,
 });
 
-export const embedFieldsArrayPredicate = ow.array.ofType(embedFieldPredicate);
+export const embedFieldsArrayPredicate = Joi.array().items(embedFieldPredicate);
 
 export function validateFieldLength(fields: APIEmbedField[], amountAdding: number): void {
-	ow(fields.length + amountAdding, 'field amount', ow.number.lessThanOrEqual(25));
+	const predicate = Joi.number().max(25).required();
+	Joi.assert(fields.length + amountAdding, predicate);
 }
 
-export const authorNamePredicate = ow.any(fieldNamePredicate, ow.null);
+export const authorNamePredicate = fieldNamePredicate.allow(null).required();
 
-export const urlPredicate = ow.any(ow.string.url, ow.nullOrUndefined);
+export const urlPredicate = Joi.string().uri().allow(null).required();
 
-export const colorPredicate = ow.any(ow.number.greaterThanOrEqual(0).lessThanOrEqual(0xffffff), ow.null);
+export const colorPredicate = Joi.number().min(0).max(0xffffff).allow(null).required();
 
-export const descriptionPredicate = ow.any(ow.string.minLength(1).maxLength(4096), ow.null);
+export const descriptionPredicate = Joi.string().min(1).max(4096).allow(null).required();
 
-export const footerTextPredicate = ow.any(ow.string.minLength(1).maxLength(2048), ow.null);
+export const footerTextPredicate = Joi.string().min(1).max(2048).allow(null).required();
 
-export const timestampPredicate = ow.any(ow.number, ow.date, ow.null);
+export const timestampPredicate = Joi.alternatives(Joi.number(), Joi.date(), null).required();
 
-export const titlePredicate = ow.any(fieldNamePredicate, ow.null);
+export const titlePredicate = fieldNamePredicate.allow(null).required();

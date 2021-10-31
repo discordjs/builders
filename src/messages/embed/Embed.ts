@@ -8,7 +8,7 @@ import type {
 	APIEmbedThumbnail,
 	APIEmbedVideo,
 } from 'discord-api-types/v9';
-import ow from 'ow';
+import Joi from 'joi';
 import {
 	authorNamePredicate,
 	colorPredicate,
@@ -144,7 +144,7 @@ export class Embed implements APIEmbed {
 	 */
 	public addFields(...fields: APIEmbedField[]): this {
 		// Data assertions
-		ow(fields, 'fields', embedFieldsArrayPredicate);
+		Joi.assert(fields, embedFieldsArrayPredicate);
 
 		// Ensure adding these fields won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length);
@@ -162,7 +162,7 @@ export class Embed implements APIEmbed {
 	 */
 	public spliceFields(index: number, deleteCount: number, ...fields: APIEmbedField[]): this {
 		// Data assertions
-		ow(fields, 'fields', embedFieldsArrayPredicate);
+		Joi.assert(fields, embedFieldsArrayPredicate);
 
 		// Ensure adding these fields won't exceed the 25 field limit
 		validateFieldLength(this.fields, fields.length - deleteCount);
@@ -184,9 +184,9 @@ export class Embed implements APIEmbed {
 
 		const { name, iconURL, url } = options;
 		// Data assertions
-		ow(name, 'name', authorNamePredicate);
-		ow(iconURL, 'iconURL', urlPredicate);
-		ow(url, 'url', urlPredicate);
+		Joi.assert(name, authorNamePredicate);
+		Joi.assert(iconURL, urlPredicate);
+		Joi.assert(url, urlPredicate);
 
 		this.author = { name, url, icon_url: iconURL };
 		return this;
@@ -199,7 +199,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setColor(color: number | null): this {
 		// Data assertions
-		ow(color, 'color', colorPredicate);
+		Joi.assert(color, colorPredicate);
 
 		this.color = color ?? undefined;
 		return this;
@@ -212,7 +212,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setDescription(description: string | null): this {
 		// Data assertions
-		ow(description, 'description', descriptionPredicate);
+		Joi.assert(description, descriptionPredicate);
 
 		this.description = description ?? undefined;
 		return this;
@@ -231,8 +231,8 @@ export class Embed implements APIEmbed {
 
 		const { text, iconURL } = options;
 		// Data assertions
-		ow(text, 'text', footerTextPredicate);
-		ow(iconURL, 'iconURL', urlPredicate);
+		Joi.assert(text, footerTextPredicate);
+		Joi.assert(iconURL, urlPredicate);
 
 		this.footer = { text, icon_url: iconURL };
 		return this;
@@ -245,7 +245,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setImage(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', urlPredicate);
+		Joi.assert(url, urlPredicate);
 
 		this.image = url ? { url } : undefined;
 		return this;
@@ -258,7 +258,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setThumbnail(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', urlPredicate);
+		Joi.assert(url, urlPredicate);
 
 		this.thumbnail = url ? { url } : undefined;
 		return this;
@@ -271,7 +271,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setTimestamp(timestamp: number | Date | null = Date.now()): this {
 		// Data assertions
-		ow(timestamp, 'timestamp', timestampPredicate);
+		Joi.assert(timestamp, timestampPredicate);
 
 		this.timestamp = timestamp ? new Date(timestamp).toISOString() : undefined;
 		return this;
@@ -284,7 +284,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setTitle(title: string | null): this {
 		// Data assertions
-		ow(title, 'title', titlePredicate);
+		Joi.assert(title, titlePredicate);
 
 		this.title = title ?? undefined;
 		return this;
@@ -297,7 +297,7 @@ export class Embed implements APIEmbed {
 	 */
 	public setURL(url: string | null): this {
 		// Data assertions
-		ow(url, 'url', urlPredicate);
+		Joi.assert(url, urlPredicate);
 
 		this.url = url ?? undefined;
 		return this;
@@ -317,9 +317,9 @@ export class Embed implements APIEmbed {
 	 */
 	public static normalizeFields(...fields: APIEmbedField[]): APIEmbedField[] {
 		return fields.flat(Infinity).map((field) => {
-			ow(field.name, 'field name', fieldNamePredicate);
-			ow(field.value, 'field value', fieldValuePredicate);
-			ow(field.inline, 'field inline', fieldInlinePredicate);
+			Joi.assert(field.name, fieldNamePredicate);
+			Joi.assert(field.value, fieldValuePredicate);
+			Joi.assert(field.inline, fieldInlinePredicate);
 
 			return { name: field.name, value: field.value, inline: field.inline ?? undefined };
 		});
