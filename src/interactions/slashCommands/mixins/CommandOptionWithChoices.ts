@@ -64,7 +64,9 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 */
 	public setAutocomplete<U extends boolean>(
 		autocomplete: U,
-	): U extends true ? Omit<this, 'addChoice' | 'addChoices'> : this {
+	): U extends true
+		? Omit<this, 'addChoice' | 'addChoices'>
+		: this & Pick<ApplicationCommandOptionWithChoicesBase<T>, 'addChoice' | 'addChoices'> {
 		// Assert that you actually passed a boolean
 		ow(autocomplete, 'autocomplete', ow.boolean);
 
