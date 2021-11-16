@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v9';
-import ow from 'ow';
+import { z } from 'zod';
 import type { SlashCommandOptionBase } from './mixins/CommandOptionBase';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
 import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
@@ -20,38 +20,36 @@ export function validateRequiredParameters(
 	validateMaxOptionsLength(options);
 }
 
-const namePredicate = ow.string.lowercase
-	.minLength(1)
-	.maxLength(32)
-	.addValidator({
-		message: (value, label) => `Expected ${label!} to match "^[\\p{L}\\p{N}_-]+$", got ${value} instead`,
-		validator: (value) => /^[\p{L}\p{N}_-]+$/u.test(value),
-	});
+const namePredicate = z
+	.string()
+	.min(1)
+	.max(32)
+	.regex(/^[\P{Lu}\p{N}_-]+$/u);
 
 export function validateName(name: unknown): asserts name is string {
-	ow(name, 'name', namePredicate);
+	namePredicate.parse(name);
 }
 
-const descriptionPredicate = ow.string.minLength(1).maxLength(100);
+const descriptionPredicate = z.string().min(1).max(100);
 
 export function validateDescription(description: unknown): asserts description is string {
-	ow(description, 'description', descriptionPredicate);
+	descriptionPredicate.parse(description);
 }
 
-const defaultPermissionPredicate = ow.boolean;
+const defaultPermissionPredicate = z.boolean();
 
 export function validateDefaultPermission(value: unknown): asserts value is boolean {
-	ow(value, 'default_permission', defaultPermissionPredicate);
+	defaultPermissionPredicate.parse(value);
 }
 
-const maxArrayLengthPredicate = ow.array.maxLength(25);
+const maxArrayLengthPredicate = z.unknown().array().max(25);
 
 export function validateMaxOptionsLength(options: unknown): asserts options is ToAPIApplicationCommandOptions[] {
-	ow(options, 'options', maxArrayLengthPredicate);
+	maxArrayLengthPredicate.parse(options);
 }
 
 export function validateMaxChoicesLength(choices: APIApplicationCommandOptionChoice[]) {
-	ow(choices, 'choices', maxArrayLengthPredicate);
+	maxArrayLengthPredicate.parse(choices);
 }
 
 export function assertReturnOfBuilder<

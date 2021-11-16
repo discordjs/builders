@@ -1,16 +1,12 @@
 import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v9';
-import ow, { Predicate } from 'ow';
+import { z } from 'zod';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
-const stringPredicate = ow.string.minLength(1).maxLength(100);
-const integerPredicate = ow.number.finite;
-
-// TODO: See resolution for sindresorhus/ow#217 in relation to this cast
-const choicesPredicate = ow.array.ofType<[string, string | number]>(
-	ow.array.exactShape([stringPredicate, ow.any(ow.string, integerPredicate) as unknown as Predicate<string | number>]),
-);
+const stringPredicate = z.string().min(1).max(100);
+const integerPredicate = z.number();
+const choicesPredicate = z.tuple([stringPredicate, z.union([z.string(), integerPredicate])]).array();
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
 	extends SlashCommandOptionBase
@@ -30,11 +26,11 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		validateMaxChoicesLength(this.choices);
 
 		// Validate name
-		ow(name, `${ApplicationCommandOptionTypeNames[this.type]} choice name`, stringPredicate);
+		stringPredicate.parse(name);
 
 		// Validate the value
-		if (this.type === ApplicationCommandOptionType.String) ow(value, 'string choice value', stringPredicate);
-		else ow(value, `${ApplicationCommandOptionTypeNames[this.type]} choice value`, integerPredicate);
+		if (this.type === ApplicationCommandOptionType.String) stringPredicate.parse(value);
+		else integerPredicate.parse(value);
 
 		this.choices.push({ name, value });
 
@@ -47,7 +43,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	 * @param choices The choices to add
 	 */
 	public addChoices(choices: [name: string, value: T][]) {
-		ow(choices, `${ApplicationCommandOptionTypeNames[this.type]} choices`, choicesPredicate);
+		choicesPredicate.parse(choices);
 
 		for (const [label, value] of choices) this.addChoice(label, value);
 		return this;
@@ -60,16 +56,3 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		};
 	}
 }
-
-const ApplicationCommandOptionTypeNames = {
-	[ApplicationCommandOptionType.Subcommand]: 'subcommand',
-	[ApplicationCommandOptionType.SubcommandGroup]: 'subcommand group',
-	[ApplicationCommandOptionType.String]: 'string',
-	[ApplicationCommandOptionType.Integer]: 'integer',
-	[ApplicationCommandOptionType.Boolean]: 'boolean',
-	[ApplicationCommandOptionType.User]: 'user',
-	[ApplicationCommandOptionType.Channel]: 'channel',
-	[ApplicationCommandOptionType.Role]: 'role',
-	[ApplicationCommandOptionType.Mentionable]: 'mentionable',
-	[ApplicationCommandOptionType.Number]: 'number',
-} as const;
