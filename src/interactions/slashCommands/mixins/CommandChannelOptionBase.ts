@@ -1,5 +1,5 @@
 import { APIApplicationCommandChannelOptions, ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v9';
-import { z } from 'zod';
+import { z, ZodLiteral } from 'zod';
 import type { ToAPIApplicationCommandOptions } from '../../..';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
@@ -16,7 +16,13 @@ const allowedChannelTypes = [
 	ChannelType.GuildPrivateThread,
 ];
 
-const channelTypePredicate = z.union(allowedChannelTypes.map((type) => z.literal(type)) as any);
+const channelTypePredicate = z.union(
+	allowedChannelTypes.map((type) => z.literal(type)) as [
+		ZodLiteral<ChannelType>,
+		ZodLiteral<ChannelType>,
+		...ZodLiteral<ChannelType>[]
+	],
+);
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
 	extends SlashCommandOptionBase
