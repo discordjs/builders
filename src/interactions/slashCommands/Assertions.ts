@@ -42,6 +42,10 @@ export function validateDefaultPermission(value: unknown): asserts value is bool
 	defaultPermissionPredicate.parse(value);
 }
 
+export function validateRequired(required: unknown): asserts required is boolean {
+	defaultPermissionPredicate.parse(required);
+}
+
 const maxArrayLengthPredicate = z.unknown().array().max(25);
 
 export function validateMaxOptionsLength(options: unknown): asserts options is ToAPIApplicationCommandOptions[] {
