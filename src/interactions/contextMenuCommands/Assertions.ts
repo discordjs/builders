@@ -26,8 +26,8 @@ export function validateType(type: unknown): asserts type is ContextMenuCommandT
 	typePredicate.parse(type);
 }
 
-const defaultPermissionPredicate = z.boolean();
+const booleanPredicate = z.boolean();
 
 export function validateDefaultPermission(value: unknown): asserts value is boolean {
-	defaultPermissionPredicate.parse(value);
+	booleanPredicate.parse(value);
 }

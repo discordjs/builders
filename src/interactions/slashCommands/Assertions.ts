@@ -36,14 +36,14 @@ export function validateDescription(description: unknown): asserts description i
 	descriptionPredicate.parse(description);
 }
 
-const defaultPermissionPredicate = z.boolean();
+const booleanPredicate = z.boolean();
 
 export function validateDefaultPermission(value: unknown): asserts value is boolean {
-	defaultPermissionPredicate.parse(value);
+	booleanPredicate.parse(value);
 }
 
 export function validateRequired(required: unknown): asserts required is boolean {
-	defaultPermissionPredicate.parse(required);
+	booleanPredicate.parse(required);
 }
 
 const maxArrayLengthPredicate = z.unknown().array().max(25);
