@@ -5,8 +5,8 @@ import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SlashCommandOptionBase } from './CommandOptionBase';
 
 const stringPredicate = z.string().min(1).max(100);
-const integerPredicate = z.number();
-const choicesPredicate = z.tuple([stringPredicate, z.union([z.string(), integerPredicate])]).array();
+const integerPredicate = z.number().gt(-Infinity).lt(Infinity);
+const choicesPredicate = z.tuple([stringPredicate, z.union([stringPredicate, integerPredicate])]).array();
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
 	extends SlashCommandOptionBase
