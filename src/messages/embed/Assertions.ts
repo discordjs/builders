@@ -15,10 +15,10 @@ export const embedFieldPredicate = z.object({
 
 export const embedFieldsArrayPredicate = embedFieldPredicate.array();
 
+export const fieldLengthPredicate = z.number().lte(25);
+
 export function validateFieldLength(fields: APIEmbedField[], amountAdding: number): void {
-	z.number()
-		.lte(25)
-		.parse(fields.length + amountAdding);
+	fieldLengthPredicate.parse(fields.length + amountAdding);
 }
 
 export const authorNamePredicate = fieldNamePredicate.nullable();
