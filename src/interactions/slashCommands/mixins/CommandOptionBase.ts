@@ -6,17 +6,9 @@ import { SharedNameAndDescription } from './NameAndDescription';
 
 export class SlashCommandOptionBase extends SharedNameAndDescription implements ToAPIApplicationCommandOptions {
 	public required = false;
-	public readonly type:
-		| ApplicationCommandOptionType.Integer
-		| ApplicationCommandOptionType.String
-		| ApplicationCommandOptionType.Number;
+	public readonly type: ApplicationCommandOptionType;
 
-	public constructor(
-		type:
-			| ApplicationCommandOptionType.Integer
-			| ApplicationCommandOptionType.String
-			| ApplicationCommandOptionType.Number,
-	) {
+	public constructor(type: ApplicationCommandOptionType) {
 		super();
 		this.type = type;
 	}

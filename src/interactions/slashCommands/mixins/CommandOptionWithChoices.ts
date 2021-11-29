@@ -1,9 +1,4 @@
-import {
-	APIApplicationCommandNumberArgumentOptions,
-	APIApplicationCommandOptionChoice,
-	APIApplicationCommandStringArgumentOptions,
-	ApplicationCommandOptionType,
-} from 'discord-api-types/v9';
+import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v9';
 import ow, { Predicate } from 'ow';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
@@ -22,20 +17,6 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 	implements ToAPIApplicationCommandOptions
 {
 	public choices?: APIApplicationCommandOptionChoice[];
-	public override type:
-		| ApplicationCommandOptionType.Integer
-		| ApplicationCommandOptionType.Number
-		| ApplicationCommandOptionType.String;
-
-	public constructor(
-		type:
-			| ApplicationCommandOptionType.Integer
-			| ApplicationCommandOptionType.Number
-			| ApplicationCommandOptionType.String,
-	) {
-		super(type);
-		this.type = type;
-	}
 
 	/**
 	 * Adds a choice for this option
@@ -72,12 +53,10 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		return this;
 	}
 
-	public override toJSON(): APIApplicationCommandStringArgumentOptions | APIApplicationCommandNumberArgumentOptions {
+	public override toJSON() {
 		return {
 			...super.toJSON(),
-			type: this.type,
 			choices: this.choices,
-			autocomplete: undefined,
 		};
 	}
 }
