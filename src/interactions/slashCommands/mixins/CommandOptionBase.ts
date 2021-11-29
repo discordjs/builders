@@ -4,11 +4,14 @@ import { validateRequiredParameters } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SharedNameAndDescription } from './NameAndDescription';
 
-export class SlashCommandOptionBase extends SharedNameAndDescription implements ToAPIApplicationCommandOptions {
+export class SlashCommandOptionBase<OptionType extends ApplicationCommandOptionType = ApplicationCommandOptionType>
+	extends SharedNameAndDescription
+	implements ToAPIApplicationCommandOptions
+{
 	public required = false;
-	public readonly type: ApplicationCommandOptionType;
+	public readonly type: OptionType;
 
-	public constructor(type: ApplicationCommandOptionType) {
+	public constructor(type: OptionType) {
 		super();
 		this.type = type;
 	}
@@ -38,6 +41,7 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 			name: this.name,
 			description: this.description,
 			required: this.required,
+			autocomplete: undefined,
 		};
 	}
 }

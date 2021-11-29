@@ -19,7 +19,7 @@ const allowedChannelTypes = [
 const channelTypePredicate = ow.number.oneOf(allowedChannelTypes);
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
-	extends SlashCommandOptionBase
+	extends SlashCommandOptionBase<ApplicationCommandOptionType.Channel>
 	implements ToAPIApplicationCommandOptions
 {
 	public channelTypes?: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>[];
@@ -51,8 +51,9 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	public override toJSON(): APIApplicationCommandChannelOptions {
 		return {
 			...super.toJSON(),
-			type: ApplicationCommandOptionType.Channel,
+			type: this.type,
 			channel_types: this.channelTypes,
+			autocomplete: undefined,
 		};
 	}
 }

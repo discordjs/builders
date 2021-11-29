@@ -13,7 +13,9 @@ const choicesPredicate = ow.array.ofType<[string, string | number]>(
 );
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
-	extends SlashCommandOptionBase
+	extends SlashCommandOptionBase<
+		ApplicationCommandOptionType.String | ApplicationCommandOptionType.Number | ApplicationCommandOptionType.Integer
+	>
 	implements ToAPIApplicationCommandOptions
 {
 	public choices?: APIApplicationCommandOptionChoice[];
