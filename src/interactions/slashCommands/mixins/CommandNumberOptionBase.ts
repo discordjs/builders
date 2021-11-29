@@ -1,3 +1,4 @@
+import { APIApplicationCommandNumberArgumentOptions, ApplicationCommandOptionType } from 'discord-api-types';
 import { ApplicationCommandOptionWithChoicesBase } from './CommandOptionWithChoices';
 
 export abstract class ApplicationCommandNumberOptionBase extends ApplicationCommandOptionWithChoicesBase<number> {
@@ -17,11 +18,13 @@ export abstract class ApplicationCommandNumberOptionBase extends ApplicationComm
 	public abstract setMinValue(min: number): this;
 
 	// TODO: Update return type when discord-api-types is updated
-	public override toJSON() {
+	public override toJSON(): APIApplicationCommandNumberArgumentOptions {
 		return {
 			...super.toJSON(),
+			type: ApplicationCommandOptionType.Integer,
 			min_value: this.minValue,
 			max_value: this.maxValue,
+			autocomplete: false,
 		};
 	}
 }
