@@ -7,6 +7,7 @@ import { SlashCommandOptionBase } from './CommandOptionBase';
 const stringPredicate = z.string().min(1).max(100);
 const numberPredicate = z.number().gt(-Infinity).lt(Infinity);
 const choicesPredicate = z.tuple([stringPredicate, z.union([stringPredicate, numberPredicate])]).array();
+const booleanPredicate = z.boolean();
 
 export abstract class ApplicationCommandOptionWithChoicesBase<T extends string | number>
 	extends SlashCommandOptionBase
@@ -52,7 +53,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
 		}
 
-		ow(choices, `${ApplicationCommandOptionTypeNames[this.type]} choices`, choicesPredicate);
+		choicesPredicate.parse(choices);
 
 		for (const [label, value] of choices) this.addChoice(label, value);
 		return this;
@@ -68,7 +69,7 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 		? Omit<this, 'addChoice' | 'addChoices'>
 		: this & Pick<ApplicationCommandOptionWithChoicesBase<T>, 'addChoice' | 'addChoices'> {
 		// Assert that you actually passed a boolean
-		ow(autocomplete, 'autocomplete', ow.boolean);
+		booleanPredicate.parse(autocomplete);
 
 		if (autocomplete && Array.isArray(this.choices) && this.choices.length > 0) {
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
