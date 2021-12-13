@@ -15,9 +15,6 @@ export class ButtonComponent<T extends ButtonStyle> extends BaseComponent<Compon
 		super(data);
 	}
 
-	public setStyle<S extends ButtonStyle>(
-		style: S,
-	): S extends ButtonStyle.Link ? LinkButtonComponent : InteractionButtonComponent;
 	public setStyle(style: T) {
 		this.style = style;
 
@@ -46,7 +43,7 @@ export class ButtonComponent<T extends ButtonStyle> extends BaseComponent<Compon
 
 	public setURL(url: string): LinkButtonComponent {
 		this.url = url;
-		return new LinkButtonComponent(this);
+		return this;
 	}
 
 	public override toJSON() {
@@ -57,5 +54,5 @@ export class ButtonComponent<T extends ButtonStyle> extends BaseComponent<Compon
 	}
 }
 
-new ButtonComponent().setURL('test').setStyle(ButtonStyle.Danger);
+new ButtonComponent().setURL('test').setStyle(ButtonStyle.Link);
 new ButtonComponent().setStyle(ButtonStyle.Link);
