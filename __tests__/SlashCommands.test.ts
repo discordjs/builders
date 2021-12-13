@@ -156,8 +156,61 @@ describe('Slash Commands', () => {
 									['The Whole shebang', 'all'],
 								]),
 						)
+						.addIntegerOption((integer) =>
+							integer.setName('iscool').setDescription('Are we cool or what?').setAutocomplete(true),
+						)
+						.addNumberOption((number) =>
+							number.setName('iscool').setDescription('Are we cool or what?').setAutocomplete(true),
+						)
+						.addStringOption((string) =>
+							string.setName('iscool').setDescription('Are we cool or what?').setAutocomplete(true),
+						)
 						.toJSON(),
 				).not.toThrowError();
+			});
+
+			test('GIVEN a builder with invalid autocomplete THEN does throw an error', () => {
+				// @ts-expect-error Checking if not providing anything, or an invalid return type causes an error
+				expect(() => getBuilder().addStringOption(getStringOption().setAutocomplete('not a boolean'))).toThrowError();
+			});
+
+			test('GIVEN a builder with both choices and autocomplete THEN does throw an error', () => {
+				expect(() =>
+					getBuilder().addStringOption(
+						// @ts-expect-error Checking if check works JS-side too
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+						getStringOption().setAutocomplete(true).addChoice('Fancy Pants', 'fp_1'),
+					),
+				).toThrowError();
+
+				expect(() =>
+					getBuilder().addStringOption(
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+						getStringOption()
+							.setAutocomplete(true)
+							// @ts-expect-error Checking if check works JS-side too
+							.addChoices([
+								['Fancy Pants', 'fp_1'],
+								['Fancy Shoes', 'fs_1'],
+								['The Whole shebang', 'all'],
+							]),
+					),
+				).toThrowError();
+
+				expect(() =>
+					getBuilder().addStringOption(
+						// @ts-expect-error Checking if check works JS-side too
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+						getStringOption().addChoice('Fancy Pants', 'fp_1').setAutocomplete(true),
+					),
+				).toThrowError();
+
+				expect(() => {
+					const option = getStringOption();
+					option.autocomplete = true;
+					option.choices = [{ name: 'Fancy Pants', value: 'fp_1' }];
+					return option.toJSON();
+				}).toThrowError();
 			});
 
 			test('GIVEN a builder with valid channel options and channel_types THEN does not throw an error', () => {

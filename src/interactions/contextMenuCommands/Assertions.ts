@@ -1,4 +1,4 @@
-import ow from 'ow';
+import { z } from 'zod';
 import { ApplicationCommandType } from 'discord-api-types/v9';
 import type { ContextMenuCommandType } from './ContextMenuCommandBuilder';
 
@@ -10,23 +10,24 @@ export function validateRequiredParameters(name: string, type: number) {
 	validateType(type);
 }
 
-const namePredicate = ow.string
-	.minLength(1)
-	.maxLength(32)
-	.matches(/^( *[\p{L}\p{N}_-]+ *)+$/u);
+const namePredicate = z
+	.string()
+	.min(1)
+	.max(32)
+	.regex(/^( *[\p{L}\p{N}_-]+ *)+$/u);
 
 export function validateName(name: unknown): asserts name is string {
-	ow(name, 'name', namePredicate);
+	namePredicate.parse(name);
 }
 
-const typePredicate = ow.number.oneOf([ApplicationCommandType.User, ApplicationCommandType.Message]);
+const typePredicate = z.union([z.literal(ApplicationCommandType.User), z.literal(ApplicationCommandType.Message)]);
 
 export function validateType(type: unknown): asserts type is ContextMenuCommandType {
-	ow(type, 'type', typePredicate);
+	typePredicate.parse(type);
 }
 
-const defaultPermissionPredicate = ow.boolean;
+const booleanPredicate = z.boolean();
 
 export function validateDefaultPermission(value: unknown): asserts value is boolean {
-	ow(value, 'default_permission', defaultPermissionPredicate);
+	booleanPredicate.parse(value);
 }
