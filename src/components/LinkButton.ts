@@ -1,16 +1,26 @@
-import type { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types';
-import { ButtonComponent } from './Button';
+import { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types';
+import { BaseButtonComponent } from './BaseButton';
 
-export class LinkButtonComponent extends ButtonComponent<ButtonStyle.Link> {
-	public constructor(data?: ButtonComponent<ButtonStyle.Link> | APIButtonComponentWithURL) {
+/**
+ * Represents a button that opens a specified URL when clicked.
+ */
+export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
+	public url!: string;
+
+	public constructor(data?: BaseButtonComponent<ButtonStyle.Link> | APIButtonComponentWithURL) {
 		super(data);
-		this.url = data.url!;
+
+		if (!(data instanceof BaseButtonComponent) && data !== undefined) {
+			this.url = data.url;
+		}
+
+		this.style = ButtonStyle.Link;
 	}
 
 	public override toJSON(): APIButtonComponentWithURL {
 		return {
 			...super.toJSON(),
-			url: this.url!,
+			url: this.url,
 		};
 	}
 }
