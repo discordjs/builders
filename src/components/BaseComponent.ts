@@ -1,15 +1,15 @@
-import type { APIBaseMessageComponent, ComponentType } from 'discord-api-types';
+import type { ComponentType } from 'discord-api-types';
 
-export abstract class BaseComponent<T extends ComponentType> {
-	public type?: T;
+export class BaseComponent<T extends ComponentType> {
+	public type: T;
 
-	public constructor(data?: APIBaseMessageComponent<T> | BaseComponent<T>) {
-		this.type = data?.type;
+	public constructor(type: T) {
+		this.type = type;
 	}
 
 	public toJSON() {
 		return {
-			type: this.type!,
+			type: this.type,
 		};
 	}
 }

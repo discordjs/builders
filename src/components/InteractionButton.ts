@@ -11,22 +11,11 @@ const styleValidator = z.union([z.string(), z.number()]);
 export class InteractionButtonComponent extends BaseButtonComponent<Exclude<ButtonStyle, ButtonStyle.Link>> {
 	public customId!: string;
 
-	public constructor(
-		data?: BaseButtonComponent<Exclude<ButtonStyle, ButtonStyle.Link>> | APIButtonComponentWithCustomId,
-	) {
-		super(data);
-
-		if (!(data instanceof BaseButtonComponent) && data !== undefined) {
-			this.customId = data.custom_id;
-		}
-	}
-
 	/**
 	 * Sets the style of this button
 	 * @param style The style to use for this button
 	 */
 	public setStyle(style: Exclude<ButtonStyle, ButtonStyle.Link>) {
-		styleValidator.parse(style);
 		this.style = style;
 		return this;
 	}
@@ -38,9 +27,12 @@ export class InteractionButtonComponent extends BaseButtonComponent<Exclude<Butt
 	public setCustomId(customId: string) {
 		customIdValidator.parse(customId);
 		this.customId = customId;
+		return this;
 	}
 
 	public override toJSON(): APIButtonComponentWithCustomId {
+		// Style is required
+		styleValidator.parse(this.style);
 		return {
 			...super.toJSON(),
 			custom_id: this.customId,

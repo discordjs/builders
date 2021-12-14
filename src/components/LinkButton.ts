@@ -10,13 +10,8 @@ const urlValidator = z.string().url();
 export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 	public url!: string;
 
-	public constructor(data?: BaseButtonComponent<ButtonStyle.Link> | APIButtonComponentWithURL) {
-		super(data);
-
-		if (!(data instanceof BaseButtonComponent) && data !== undefined) {
-			this.url = data.url;
-		}
-
+	public constructor() {
+		super();
 		this.style = ButtonStyle.Link;
 	}
 
@@ -25,12 +20,13 @@ export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 	 * @param url The URL to open when this button is clicked
 	 */
 	public setURL(url: string) {
-		urlValidator.parse(url);
 		this.url = url;
 		return this;
 	}
 
 	public override toJSON(): APIButtonComponentWithURL {
+		// url is required.
+		urlValidator.parse(this.url);
 		return {
 			...super.toJSON(),
 			url: this.url,

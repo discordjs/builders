@@ -1,5 +1,6 @@
-import type { APIButtonComponent, APIMessageComponentEmoji, ButtonStyle, ComponentType } from 'discord-api-types';
+import { APIButtonComponent, APIMessageComponentEmoji, ButtonStyle, ComponentType } from 'discord-api-types';
 import z from 'zod';
+import { disabledValidator, emojiValidator } from './Assertions';
 import { BaseComponent } from './BaseComponent';
 
 export type BuilderButtonBaseData<T> = Omit<APIButtonComponent, 'url' | 'customId'> & { style: T };
@@ -12,22 +13,15 @@ function validateButtonFields(button: BaseButtonComponent<ButtonStyle>) {
 
 const labelValidator = z.string().nonempty().max(80);
 
-const emojiValidator = z
-	.object({
-		id: z.string(),
-		name: z.string(),
-		animated: z.boolean(),
-	})
-	.partial()
-	.strict();
-
-const disabledValidator = z.boolean();
-
 export abstract class BaseButtonComponent<T extends ButtonStyle> extends BaseComponent<ComponentType.Button> {
 	public style!: T;
 	public label?: string;
 	public emoji?: APIMessageComponentEmoji;
 	public disabled?: boolean;
+
+	public constructor() {
+		super(ComponentType.Button);
+	}
 
 	/**
 	 * Sets the emoji to display on this button
