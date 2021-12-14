@@ -1,17 +1,17 @@
 import { APIButtonComponent, APIMessageComponentEmoji, ButtonStyle, ComponentType } from 'discord-api-types';
-import z from 'zod';
+import { z } from 'zod';
 import { disabledValidator, emojiValidator } from '../Assertions';
 import { BaseComponent } from '../BaseComponent';
 
 export type BuilderButtonBaseData<T> = Omit<APIButtonComponent, 'url' | 'customId'> & { style: T };
 
-function validateButtonFields(button: BaseButtonComponent<ButtonStyle>) {
+export function validateButtonFields(button: BaseButtonComponent<ButtonStyle>) {
 	if (button.emoji && button.label) {
 		throw new TypeError('Cannot construct a button with both a label and an emoji field present.');
 	}
 }
 
-const labelValidator = z.string().nonempty().max(80);
+export const buttonLabelValidator = z.string().nonempty().max(80);
 
 export abstract class BaseButtonComponent<T extends ButtonStyle> extends BaseComponent<ComponentType.Button> {
 	public style!: T;
@@ -56,7 +56,7 @@ export abstract class BaseButtonComponent<T extends ButtonStyle> extends BaseCom
 	 * @param label The label to display on this button
 	 */
 	public setLabel(label: string): Omit<this, 'setEmoji'> {
-		labelValidator.parse(label);
+		buttonLabelValidator.parse(label);
 		this.label = label;
 		return this;
 	}

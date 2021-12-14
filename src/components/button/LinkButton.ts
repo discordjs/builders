@@ -1,8 +1,8 @@
 import { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types';
 import { BaseButtonComponent } from './BaseButton';
-import z from 'zod';
+import { z } from 'zod';
 
-const urlValidator = z.string().url();
+export const urlValidator = z.string().url();
 
 /**
  * Represents a button that opens a specified URL when clicked.

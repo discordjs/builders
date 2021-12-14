@@ -1,13 +1,13 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types';
 import { customIdValidator } from '../Assertions';
 import { BaseComponent } from '../BaseComponent';
-import z from 'zod';
+import { z } from 'zod';
 import { SelectMenuOption } from './SelectMenuOption';
 
-const placeholderValidator = z.string().max(100);
-const minMaxValidator = z.number().max(25).min(0);
+export const placeholderValidator = z.string().max(100);
+export const minMaxValidator = z.number().max(25).min(0);
 
-const optionsValidator = z.object({}).array().nonempty();
+export const optionsValidator = z.object({}).array().nonempty();
 
 function validateRequiredParameters(customId: string, options: SelectMenuOption[]) {
 	customIdValidator.parse(customId);

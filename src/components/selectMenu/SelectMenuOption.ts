@@ -1,9 +1,9 @@
 import type { APIMessageComponentEmoji, APISelectMenuOption } from 'discord-api-types';
-import z from 'zod';
+import { z } from 'zod';
 import { emojiValidator } from '../Assertions';
 
-const labelValueValidator = z.string().min(1).max(100);
-const defaultValidator = z.boolean();
+export const labelValueValidator = z.string().min(1).max(100);
+export const defaultValidator = z.boolean();
 
 export function validateRequiredParameters(label: string, value: string) {
 	labelValueValidator.parse(label);

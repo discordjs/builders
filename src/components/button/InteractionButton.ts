@@ -1,9 +1,9 @@
-import type { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types';
-import z from 'zod';
+import { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types';
+import { z } from 'zod';
 import { customIdValidator } from '../Assertions';
 import { BaseButtonComponent } from './BaseButton';
 
-const styleValidator = z.union([z.string(), z.number()]);
+export const styleValidator = z.number().min(ButtonStyle.Primary).max(ButtonStyle.Danger);
 
 /**
  * Represents the a button that can send interactions whenever clicked.
