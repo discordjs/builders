@@ -10,9 +10,15 @@ const urlValidator = z.string().url();
 export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 	public url!: string;
 
-	public constructor() {
-		super();
+	public constructor(data?: APIButtonComponentWithURL) {
+		super(data);
 		this.style = ButtonStyle.Link;
+
+		if (!data) {
+			return;
+		}
+
+		this.url = data.url;
 	}
 
 	/**

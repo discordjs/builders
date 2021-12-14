@@ -19,8 +19,16 @@ export abstract class BaseButtonComponent<T extends ButtonStyle> extends BaseCom
 	public emoji?: APIMessageComponentEmoji;
 	public disabled?: boolean;
 
-	public constructor() {
+	public constructor(data?: APIButtonComponent) {
 		super(ComponentType.Button);
+
+		if (!data) {
+			return;
+		}
+
+		this.label = data.label;
+		this.emoji = data.emoji;
+		this.disabled = data.disabled;
 	}
 
 	/**

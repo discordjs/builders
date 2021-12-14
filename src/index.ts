@@ -3,6 +3,7 @@ export * from './messages/embed/Embed';
 export * from './messages/formatters';
 
 export * as ComponentAssertions from './components/Assertions';
+export * from './components/ActionRow';
 export * from './components/button/BaseButton';
 export * from './components/button/InteractionButton';
 export * from './components/button/LinkButton';
