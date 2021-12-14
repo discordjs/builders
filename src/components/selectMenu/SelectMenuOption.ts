@@ -1,6 +1,6 @@
 import type { APIMessageComponentEmoji, APISelectMenuOption } from 'discord-api-types';
 import z from 'zod';
-import { emojiValidator } from './Assertions';
+import { emojiValidator } from '../Assertions';
 
 const labelValueValidator = z.string().min(1).max(100);
 const defaultValidator = z.boolean();
@@ -19,6 +19,18 @@ export class SelectMenuOption {
 	public description?: string;
 	public emoji?: APIMessageComponentEmoji;
 	public default?: boolean;
+
+	public constructor(data?: APISelectMenuOption) {
+		if (!data) {
+			return;
+		}
+
+		this.label = data.label;
+		this.value = data.value;
+		this.description = data.description;
+		this.emoji = data.emoji;
+		this.default = data.default;
+	}
 
 	/**
 	 * Sets the label of this option

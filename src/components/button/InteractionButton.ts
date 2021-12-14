@@ -1,6 +1,6 @@
 import type { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types';
 import z from 'zod';
-import { customIdValidator } from './Assertions';
+import { customIdValidator } from '../Assertions';
 import { BaseButtonComponent } from './BaseButton';
 
 const styleValidator = z.union([z.string(), z.number()]);

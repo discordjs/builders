@@ -1,8 +1,8 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types';
-import { customIdValidator } from './Assertions';
-import { BaseComponent } from './BaseComponent';
+import { customIdValidator } from '../Assertions';
+import { BaseComponent } from '../BaseComponent';
 import z from 'zod';
-import type { SelectMenuOption } from './SelectMenuOption';
+import { SelectMenuOption } from './SelectMenuOption';
 
 const placeholderValidator = z.string().max(100);
 const minMaxValidator = z.number().max(25).min(0);
@@ -25,8 +25,20 @@ export class SelectMenuComponent extends BaseComponent<ComponentType.SelectMenu>
 	public customId!: string;
 	public disabled?: boolean;
 
-	public constructor() {
+	public constructor(data?: APISelectMenuComponent) {
 		super(ComponentType.SelectMenu);
+
+		if (!data) {
+			this.options = [];
+			return;
+		}
+
+		this.options = data.options ? data.options.map((option) => new SelectMenuOption(option)) : [];
+		this.placeholder = data.placeholder;
+		this.minValues = data.min_values;
+		this.maxValues = data.max_values;
+		this.customId = data.custom_id;
+		this.disabled = data.disabled;
 	}
 
 	/**
