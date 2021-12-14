@@ -26,6 +26,7 @@ export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 	 * @param url The URL to open when this button is clicked
 	 */
 	public setURL(url: string) {
+		urlValidator.parse(url);
 		this.url = url;
 		return this;
 	}
