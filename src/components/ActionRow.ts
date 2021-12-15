@@ -1,6 +1,7 @@
-import { APIActionRowComponent, ButtonStyle, ComponentType } from 'discord-api-types';
-import { InteractionButtonComponent, LinkButtonComponent, SelectMenuComponent } from '..';
+import { APIActionRowComponent, ComponentType } from 'discord-api-types';
+import type { LinkButtonComponent, InteractionButtonComponent, SelectMenuComponent } from '..';
 import { Component } from './Component';
+import { createComponent } from './Components';
 
 export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponent | SelectMenuComponent;
 
@@ -19,17 +20,7 @@ export class ActionRow<T extends ActionRowComponent> extends Component<Component
 			return;
 		}
 
-		this.components = data.components.map((component) => {
-			switch (component.type) {
-				case ComponentType.Button:
-					if (component.style === ButtonStyle.Link) {
-						return new LinkButtonComponent(component);
-					}
-					return new InteractionButtonComponent(component);
-				case ComponentType.SelectMenu:
-					return new SelectMenuComponent(component);
-			}
-		}) as T[];
+		this.components = data.components.map(createComponent) as T[];
 	}
 
 	/**

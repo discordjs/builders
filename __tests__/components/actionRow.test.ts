@@ -1,5 +1,5 @@
 import { APIActionRowComponent, ButtonStyle, ComponentType } from 'discord-api-types';
-import { ActionRow, LinkButtonComponent } from '../../src';
+import { ActionRow, createComponent, LinkButtonComponent } from '../../src';
 
 describe('Action Row Components', () => {
 	describe('Assertion Tests', () => {
@@ -40,6 +40,7 @@ describe('Action Row Components', () => {
 
 			expect(new ActionRow(actionRowData).toJSON()).toEqual(actionRowData);
 			expect(new ActionRow().toJSON()).toEqual({ type: ComponentType.ActionRow, components: [] });
+			expect(() => createComponent({ type: ComponentType.ActionRow, components: [] })).not.toThrowError();
 		});
 	});
 });
