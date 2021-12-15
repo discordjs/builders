@@ -1,34 +1,36 @@
 import type { APIEmbedField } from 'discord-api-types/v9';
-import ow from 'ow';
+import { z } from 'zod';
 
-export const fieldNamePredicate = ow.string.minLength(1).maxLength(256);
+export const fieldNamePredicate = z.string().min(1).max(256);
 
-export const fieldValuePredicate = ow.string.minLength(1).maxLength(1024);
+export const fieldValuePredicate = z.string().min(1).max(1024);
 
-export const fieldInlinePredicate = ow.optional.boolean;
+export const fieldInlinePredicate = z.boolean().optional();
 
-export const embedFieldPredicate = ow.object.exactShape({
+export const embedFieldPredicate = z.object({
 	name: fieldNamePredicate,
 	value: fieldValuePredicate,
 	inline: fieldInlinePredicate,
 });
 
-export const embedFieldsArrayPredicate = ow.array.ofType(embedFieldPredicate);
+export const embedFieldsArrayPredicate = embedFieldPredicate.array();
+
+export const fieldLengthPredicate = z.number().lte(25);
 
 export function validateFieldLength(fields: APIEmbedField[], amountAdding: number): void {
-	ow(fields.length + amountAdding, 'field amount', ow.number.lessThanOrEqual(25));
+	fieldLengthPredicate.parse(fields.length + amountAdding);
 }
 
-export const authorNamePredicate = ow.any(fieldNamePredicate, ow.null);
+export const authorNamePredicate = fieldNamePredicate.nullable();
 
-export const urlPredicate = ow.any(ow.string.url, ow.nullOrUndefined);
+export const urlPredicate = z.string().url().nullish();
 
-export const colorPredicate = ow.any(ow.number.greaterThanOrEqual(0).lessThanOrEqual(0xffffff), ow.null);
+export const colorPredicate = z.number().gte(0).lte(0xffffff).nullable();
 
-export const descriptionPredicate = ow.any(ow.string.minLength(1).maxLength(4096), ow.null);
+export const descriptionPredicate = z.string().min(1).max(4096).nullable();
 
-export const footerTextPredicate = ow.any(ow.string.minLength(1).maxLength(2048), ow.null);
+export const footerTextPredicate = z.string().min(1).max(2048).nullable();
 
-export const timestampPredicate = ow.any(ow.number, ow.date, ow.null);
+export const timestampPredicate = z.union([z.number(), z.date()]).nullable();
 
-export const titlePredicate = ow.any(fieldNamePredicate, ow.null);
+export const titlePredicate = fieldNamePredicate.nullable();
