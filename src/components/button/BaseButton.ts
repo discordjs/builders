@@ -1,7 +1,7 @@
 import { APIButtonComponent, APIMessageComponentEmoji, ButtonStyle, ComponentType } from 'discord-api-types';
 import { z } from 'zod';
 import { disabledValidator, emojiValidator } from '../Assertions';
-import { Component } from '../BaseComponent';
+import { Component } from '../Component';
 
 export type BuilderButtonBaseData<T> = Omit<APIButtonComponent, 'url' | 'customId'> & { style: T };
 

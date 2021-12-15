@@ -5,6 +5,7 @@ export * from './messages/formatters';
 export * as ComponentAssertions from './components/Assertions';
 export * from './components/ActionRow';
 export * from './components/button/BaseButton';
+export * from './components/Component';
 export * from './components/button/InteractionButton';
 export * from './components/button/LinkButton';
 export * from './components/selectMenu/SelectMenu';

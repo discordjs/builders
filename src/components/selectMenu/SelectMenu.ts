@@ -1,6 +1,6 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types';
 import { customIdValidator, disabledValidator } from '../Assertions';
-import { Component } from '../BaseComponent';
+import { Component } from '../Component';
 import { z } from 'zod';
 import { SelectMenuOption } from './SelectMenuOption';
 
