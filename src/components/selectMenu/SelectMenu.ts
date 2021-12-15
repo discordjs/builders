@@ -1,6 +1,6 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types';
 import { customIdValidator, disabledValidator } from '../Assertions';
-import { BaseComponent } from '../BaseComponent';
+import { Component } from '../BaseComponent';
 import { z } from 'zod';
 import { SelectMenuOption } from './SelectMenuOption';
 
@@ -17,7 +17,7 @@ function validateRequiredParameters(customId: string, options: SelectMenuOption[
 /**
  * Represents a select menu component
  */
-export class SelectMenuComponent extends BaseComponent<ComponentType.SelectMenu> {
+export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	public options!: SelectMenuOption[];
 	public placeholder?: string;
 	public minValues?: number;

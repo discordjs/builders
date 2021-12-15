@@ -1,6 +1,6 @@
 import type { ComponentType } from 'discord-api-types';
 
-export abstract class BaseComponent<T extends ComponentType> {
+export abstract class Component<T extends ComponentType = ComponentType> {
 	public type: T;
 
 	public constructor(type: T) {

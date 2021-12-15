@@ -1,6 +1,6 @@
 import { APIActionRowComponent, ButtonStyle, ComponentType } from 'discord-api-types';
 import { InteractionButtonComponent, LinkButtonComponent, SelectMenuComponent } from '..';
-import { BaseComponent } from './BaseComponent';
+import { Component } from './BaseComponent';
 
 export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponent | SelectMenuComponent;
 
@@ -9,7 +9,7 @@ export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponen
 /**
  * Represents an action row component
  */
-export class ActionRow<T extends ActionRowComponent> extends BaseComponent<ComponentType.ActionRow> {
+export class ActionRow<T extends ActionRowComponent> extends Component<ComponentType.ActionRow> {
 	public components: T[] = [];
 
 	public constructor(data?: APIActionRowComponent) {
