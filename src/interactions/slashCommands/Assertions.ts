@@ -21,7 +21,7 @@ export function validateRequiredParameters(
 }
 
 const namePredicate = z
-	.string()
+	.string({ required_error: 'Name must be provided' })
 	.min(1)
 	.max(32)
 	.regex(/^[\P{Lu}\p{N}_-]+$/u, 'Name must match /^[\\P{Lu}\\p{N}_-]+$/u');
@@ -30,7 +30,7 @@ export function validateName(name: unknown): asserts name is string {
 	namePredicate.parse(name);
 }
 
-const descriptionPredicate = z.string().min(1).max(100);
+const descriptionPredicate = z.string({ required_error: 'Description must be provided' }).min(1).max(100);
 
 export function validateDescription(description: unknown): asserts description is string {
 	descriptionPredicate.parse(description);
