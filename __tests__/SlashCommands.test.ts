@@ -256,7 +256,7 @@ describe('Slash Commands', () => {
 
 				expect(() => getBuilder().addRoleOption(getRoleOption())).not.toThrowError();
 
-				expect(() => getBuilder().addRoleOption(getAttachmentOption())).not.toThrowError();
+				expect(() => getBuilder().addAttachmentOption(getAttachmentOption())).not.toThrowError();
 
 				expect(() => getBuilder().addMentionableOption(getMentionableOption())).not.toThrowError();
 			});
