@@ -59,7 +59,9 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 	 *
 	 * @param input A function that returns an option builder, or an already built builder
 	 */
-	public addAttachmentOption(input: SlashCommandAttachmentOption | ((builder: SlashCommandAttachmentOption) => SlashCommandAttachmentOption)) {
+	public addAttachmentOption(
+		input: SlashCommandAttachmentOption | ((builder: SlashCommandAttachmentOption) => SlashCommandAttachmentOption),
+	) {
 		return this._sharedAddOptionMethod(input, SlashCommandAttachmentOption);
 	}
 
