@@ -1,9 +1,8 @@
 import { ApplicationCommandOptionType } from 'discord-api-types/v9';
 import { ApplicationCommandNumberOptionBase } from '../mixins/CommandNumberOptionBase';
+import { z } from 'zod';
 
-import ow from 'ow';
-
-const numberPredicate = ow.number;
+const numberValidator = z.number().nonnegative();
 
 export class SlashCommandNumberOption extends ApplicationCommandNumberOptionBase {
 	public override readonly type = ApplicationCommandOptionType.Number as const;
@@ -13,13 +12,13 @@ export class SlashCommandNumberOption extends ApplicationCommandNumberOptionBase
 	}
 
 	public setMaxValue(max: number): this {
-		ow(max, numberPredicate);
+		numberValidator.parse(max);
 		this.maxValue = max;
 		return this;
 	}
 
 	public setMinValue(min: number): this {
-		ow(min, numberPredicate);
+		numberValidator.parse(min);
 		this.minValue = min;
 		return this;
 	}
