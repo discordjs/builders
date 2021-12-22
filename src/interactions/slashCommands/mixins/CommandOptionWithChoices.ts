@@ -1,4 +1,8 @@
-import { APIApplicationCommandOptionChoice, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import {
+	APIApplicationCommandOption,
+	APIApplicationCommandOptionChoice,
+	ApplicationCommandOptionType,
+} from 'discord-api-types/v9';
 import { z } from 'zod';
 import { validateMaxChoicesLength } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
@@ -87,10 +91,12 @@ export abstract class ApplicationCommandOptionWithChoicesBase<T extends string |
 			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
 		}
 
+		// TODO: Fix types
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return {
 			...super.toJSON(),
 			choices: this.choices,
 			autocomplete: this.autocomplete,
-		};
+		} as APIApplicationCommandOption;
 	}
 }

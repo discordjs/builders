@@ -55,11 +55,12 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	}
 
 	public override toJSON(): APIApplicationCommandChannelOptions {
+		// TODO: Fix types
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return {
 			...super.toJSON(),
 			type: this.type,
 			channel_types: this.channelTypes,
-			autocomplete: undefined,
-		};
+		} as APIApplicationCommandChannelOptions;
 	}
 }

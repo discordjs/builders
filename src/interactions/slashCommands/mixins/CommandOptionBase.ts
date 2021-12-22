@@ -35,12 +35,13 @@ export class SlashCommandOptionBase<OptionType extends ApplicationCommandOptionT
 		// Assert that you actually passed a boolean
 		validateRequired(this.required);
 
+		// TODO: Fix types
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return {
 			type: this.type,
 			name: this.name,
 			description: this.description,
 			required: this.required,
-			autocomplete: undefined,
-		};
+		} as APIApplicationCommandOption;
 	}
 }
