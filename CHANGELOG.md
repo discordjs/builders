@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.9.0](https://github.com/discordjs/builders/compare/v0.8.2...v0.9.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* replace ow with zod ([#58](https://github.com/discordjs/builders/issues/58)) ([0b6fb81](https://github.com/discordjs/builders/commit/0b6fb8161b858e42781855fb73aaa873fec58160))
+
+
+### Features
+
+* **SlashCommandBuilder:** add autocomplete ([#53](https://github.com/discordjs/builders/issues/53)) ([05b07a7](https://github.com/discordjs/builders/commit/05b07a7e88848188c27d7380d9f948cba25ef778))
+
+
+
+## [0.8.2](https://github.com/discordjs/builders/compare/v0.8.1...v0.8.2) (2021-10-30)
+
+
+### Bug Fixes
+
+* downgrade ow because of esm issues ([#55](https://github.com/discordjs/builders/issues/55)) ([3722d2c](https://github.com/discordjs/builders/commit/3722d2c1109a7a5c0abad63c1a7eb944df6e46c8))
+
+
+
 ## [0.8.1](https://github.com/discordjs/builders/compare/v0.8.0...v0.8.1) (2021-10-29)
 
 
