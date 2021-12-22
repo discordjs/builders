@@ -239,6 +239,32 @@ describe('Slash Commands', () => {
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([1, 2, 3]))).toThrowError();
 			});
 
+			test('GIVEN a builder with invalid number min/max options THEN does throw an error', () => {
+				// @ts-expect-error
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMaxValue('test'))).toThrowError();
+
+				// @ts-expect-error
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMaxValue('test'))).toThrowError();
+
+				// @ts-expect-error
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMinValue('test'))).toThrowError();
+
+				// @ts-expect-error
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue('test'))).toThrowError();
+
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue(1.5))).toThrowError();
+			});
+
+			test('GIVEN a builder with valid number min/max options THEN does not throw an error', () => {
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue(1))).not.toThrowError();
+
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMinValue(1.5))).not.toThrowError();
+
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMaxValue(1))).not.toThrowError();
+
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMaxValue(1.5))).not.toThrowError();
+			});
+
 			test('GIVEN an already built builder THEN does not throw an error', () => {
 				expect(() => getBuilder().addStringOption(getStringOption())).not.toThrowError();
 
