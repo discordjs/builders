@@ -25,7 +25,7 @@ const channelTypePredicate = z.union(
 );
 
 export abstract class ApplicationCommandOptionWithChannelTypesBase
-	extends SlashCommandOptionBase
+	extends SlashCommandOptionBase<ApplicationCommandOptionType.Channel>
 	implements ToAPIApplicationCommandOptions
 {
 	public channelTypes?: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>[];
@@ -55,10 +55,12 @@ export abstract class ApplicationCommandOptionWithChannelTypesBase
 	}
 
 	public override toJSON(): APIApplicationCommandChannelOptions {
+		// TODO: Fix types
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return {
 			...super.toJSON(),
-			type: ApplicationCommandOptionType.Channel,
+			type: this.type,
 			channel_types: this.channelTypes,
-		};
+		} as APIApplicationCommandChannelOptions;
 	}
 }
