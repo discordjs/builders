@@ -4,7 +4,7 @@ import { ApplicationCommandOptionBase } from '../mixins/ApplicationCommandOption
 import { ApplicationCommandOptionWithChoicesAndAutocompleteMixin } from '../mixins/ApplicationCommandOptionWithChoicesAndAutocompleteMixin';
 
 @mix(ApplicationCommandOptionWithChoicesAndAutocompleteMixin)
-export class SlashCommandStringOption extends ApplicationCommandOptionBase<ApplicationCommandOptionType.String> {
+export class SlashCommandStringOption extends ApplicationCommandOptionBase {
 	public readonly type = ApplicationCommandOptionType.String as const;
 
 	public toJSON(): APIApplicationCommandStringOption {

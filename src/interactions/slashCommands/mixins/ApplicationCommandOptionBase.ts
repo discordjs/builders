@@ -2,10 +2,8 @@ import type { APIApplicationCommandBasicOption, ApplicationCommandOptionType } f
 import { validateRequiredParameters, validateRequired } from '../Assertions';
 import { SharedNameAndDescription } from './NameAndDescription';
 
-export abstract class ApplicationCommandOptionBase<
-	OptionType extends ApplicationCommandOptionType = ApplicationCommandOptionType,
-> extends SharedNameAndDescription {
-	public abstract readonly type: OptionType;
+export abstract class ApplicationCommandOptionBase extends SharedNameAndDescription {
+	public abstract readonly type: ApplicationCommandOptionType;
 
 	public readonly required = false;
 

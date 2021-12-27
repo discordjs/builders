@@ -9,7 +9,7 @@ const numberValidator = z.number().nonnegative();
 
 @mix(ApplicationCommandNumericOptionMinMaxValueMixin, ApplicationCommandOptionWithChoicesAndAutocompleteMixin)
 export class SlashCommandNumberOption
-	extends ApplicationCommandOptionBase<ApplicationCommandOptionType.Number>
+	extends ApplicationCommandOptionBase
 	implements ApplicationCommandNumericOptionMinMaxValueMixin
 {
 	public readonly type = ApplicationCommandOptionType.Number as const;

@@ -4,7 +4,7 @@ import { ApplicationCommandOptionBase } from '../mixins/ApplicationCommandOption
 import { ApplicationCommandOptionChannelTypesMixin } from '../mixins/ApplicationCommandOptionChannelTypesMixin';
 
 @mix(ApplicationCommandOptionChannelTypesMixin)
-export class SlashCommandChannelOption extends ApplicationCommandOptionBase<ApplicationCommandOptionType.Channel> {
+export class SlashCommandChannelOption extends ApplicationCommandOptionBase {
 	public override readonly type = ApplicationCommandOptionType.Channel as const;
 
 	public toJSON(): APIApplicationCommandChannelOption {
