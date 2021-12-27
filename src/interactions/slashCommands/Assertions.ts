@@ -1,7 +1,7 @@
 import is from '@sindresorhus/is';
 import type { APIApplicationCommandOptionChoice } from 'discord-api-types/v9';
 import { z } from 'zod';
-import type { SlashCommandOptionBase } from './mixins/CommandOptionBase';
+import type { ApplicationCommandOptionBase } from './mixins/ApplicationCommandOptionBase';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
 import type { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
 
@@ -57,7 +57,7 @@ export function validateMaxChoicesLength(choices: APIApplicationCommandOptionCho
 }
 
 export function assertReturnOfBuilder<
-	T extends SlashCommandOptionBase | SlashCommandSubcommandBuilder | SlashCommandSubcommandGroupBuilder,
+	T extends ApplicationCommandOptionBase | SlashCommandSubcommandBuilder | SlashCommandSubcommandGroupBuilder,
 >(input: unknown, ExpectedInstanceOf: new () => T): asserts input is T {
 	const instanceName = ExpectedInstanceOf.name;
 

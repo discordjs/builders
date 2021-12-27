@@ -1,25 +1,46 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v9';
-import { ApplicationCommandNumberOptionBase } from '../mixins/CommandNumberOptionBase';
+import { APIApplicationCommandIntegerOption, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import { mix } from 'ts-mixer';
 import { z } from 'zod';
+import { ApplicationCommandNumericOptionMinMaxValueMixin } from '../mixins/ApplicationCommandNumericOptionMinMaxValueMixin';
+import { ApplicationCommandOptionBase } from '../mixins/ApplicationCommandOptionBase';
+import { ApplicationCommandOptionWithChoicesAndAutocompleteMixin } from '../mixins/ApplicationCommandOptionWithChoicesAndAutocompleteMixin';
 
 const numberValidator = z.number().int().nonnegative();
 
-export class SlashCommandIntegerOption extends ApplicationCommandNumberOptionBase {
-	public override readonly type = ApplicationCommandOptionType.Integer as const;
-
-	public constructor() {
-		super(ApplicationCommandOptionType.Integer);
-	}
+@mix(ApplicationCommandNumericOptionMinMaxValueMixin, ApplicationCommandOptionWithChoicesAndAutocompleteMixin)
+export class SlashCommandIntegerOption
+	extends ApplicationCommandOptionBase<ApplicationCommandOptionType.Integer>
+	implements ApplicationCommandNumericOptionMinMaxValueMixin
+{
+	public readonly type = ApplicationCommandOptionType.Integer as const;
 
 	public setMaxValue(max: number): this {
 		numberValidator.parse(max);
-		this.maxValue = max;
+
+		Reflect.set(this, 'maxValue', max);
+
 		return this;
 	}
 
 	public setMinValue(min: number): this {
 		numberValidator.parse(min);
-		this.minValue = min;
+
+		Reflect.set(this, 'minValue', min);
+
 		return this;
 	}
+
+	public toJSON(): APIApplicationCommandIntegerOption {
+		this.runRequiredValidations();
+
+		if (this.autocomplete && Array.isArray(this.choices) && this.choices.length > 0) {
+			throw new RangeError('Autocomplete and choices are mutually exclusive to each other.');
+		}
+
+		return { ...this };
+	}
 }
+
+export interface SlashCommandIntegerOption
+	extends ApplicationCommandNumericOptionMinMaxValueMixin,
+		ApplicationCommandOptionWithChoicesAndAutocompleteMixin<number> {}

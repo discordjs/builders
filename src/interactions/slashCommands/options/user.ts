@@ -1,10 +1,12 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v9';
-import { SlashCommandOptionBase } from '../mixins/CommandOptionBase';
+import { APIApplicationCommandUserOption, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import { ApplicationCommandOptionBase } from '../mixins/ApplicationCommandOptionBase';
 
-export class SlashCommandUserOption extends SlashCommandOptionBase {
-	public override readonly type = ApplicationCommandOptionType.User as const;
+export class SlashCommandUserOption extends ApplicationCommandOptionBase<ApplicationCommandOptionType.User> {
+	public readonly type = ApplicationCommandOptionType.User as const;
 
-	public constructor() {
-		super(ApplicationCommandOptionType.User);
+	public toJSON(): APIApplicationCommandUserOption {
+		this.runRequiredValidations();
+
+		return { ...this };
 	}
 }
