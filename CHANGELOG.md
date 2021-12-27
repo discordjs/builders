@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.10.0](https://github.com/discordjs/builders/compare/v0.9.0...v0.10.0) (2021-12-24)
+
+
+### Bug Fixes
+
+* use zod instead of ow for max/min option validation ([#66](https://github.com/discordjs/builders/issues/66)) ([beb35fb](https://github.com/discordjs/builders/commit/beb35fb1f65bd6be2321e17cc792f67e8615fd48))
+
+
+### Features
+
+* add max/min option for int and number builder options ([#47](https://github.com/discordjs/builders/issues/47)) ([2e1e860](https://github.com/discordjs/builders/commit/2e1e860b46e3453398b20df63dabb6d4325e32d1))
+
+
+
 # [0.9.0](https://github.com/discordjs/builders/compare/v0.8.2...v0.9.0) (2021-12-02)
 
 

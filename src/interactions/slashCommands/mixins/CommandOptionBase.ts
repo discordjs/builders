@@ -3,11 +3,14 @@ import { validateRequiredParameters, validateRequired } from '../Assertions';
 import type { ToAPIApplicationCommandOptions } from '../SlashCommandBuilder';
 import { SharedNameAndDescription } from './NameAndDescription';
 
-export class SlashCommandOptionBase extends SharedNameAndDescription implements ToAPIApplicationCommandOptions {
+export class SlashCommandOptionBase<OptionType extends ApplicationCommandOptionType = ApplicationCommandOptionType>
+	extends SharedNameAndDescription
+	implements ToAPIApplicationCommandOptions
+{
 	public required = false;
-	public readonly type: ApplicationCommandOptionType;
+	public readonly type: OptionType;
 
-	public constructor(type: ApplicationCommandOptionType) {
+	public constructor(type: OptionType) {
 		super();
 		this.type = type;
 	}
@@ -32,11 +35,13 @@ export class SlashCommandOptionBase extends SharedNameAndDescription implements 
 		// Assert that you actually passed a boolean
 		validateRequired(this.required);
 
+		// TODO: Fix types
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return {
 			type: this.type,
 			name: this.name,
 			description: this.description,
 			required: this.required,
-		};
+		} as APIApplicationCommandOption;
 	}
 }
