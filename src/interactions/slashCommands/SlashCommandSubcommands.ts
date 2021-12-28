@@ -1,8 +1,13 @@
-import { APIApplicationCommandSubCommandOptions, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import {
+	APIApplicationCommandSubcommandGroupOption,
+	APIApplicationCommandSubcommandOption,
+	ApplicationCommandOptionType,
+} from 'discord-api-types/v9';
 import { mix } from 'ts-mixer';
 import { assertReturnOfBuilder, validateMaxOptionsLength, validateRequiredParameters } from './Assertions';
-import { SharedSlashCommandOptions } from './mixins/CommandOptions';
+import type { ApplicationCommandOptionBase } from './mixins/ApplicationCommandOptionBase';
 import { SharedNameAndDescription } from './mixins/NameAndDescription';
+import { SharedSlashCommandOptions } from './mixins/SharedSlashCommandOptions';
 import type { ToAPIApplicationCommandOptions } from './SlashCommandBuilder';
 
 /**
@@ -25,7 +30,7 @@ export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationComma
 	/**
 	 * The subcommands part of this subcommand group
 	 */
-	public readonly options: ToAPIApplicationCommandOptions[] = [];
+	public readonly options: SlashCommandSubcommandBuilder[] = [];
 
 	/**
 	 * Adds a new subcommand to this group
@@ -53,8 +58,9 @@ export class SlashCommandSubcommandGroupBuilder implements ToAPIApplicationComma
 		return this;
 	}
 
-	public toJSON(): APIApplicationCommandSubCommandOptions {
+	public toJSON(): APIApplicationCommandSubcommandGroupOption {
 		validateRequiredParameters(this.name, this.description, this.options);
+
 		return {
 			type: ApplicationCommandOptionType.SubcommandGroup,
 			name: this.name,
@@ -86,10 +92,11 @@ export class SlashCommandSubcommandBuilder implements ToAPIApplicationCommandOpt
 	/**
 	 * The options of this subcommand
 	 */
-	public readonly options: ToAPIApplicationCommandOptions[] = [];
+	public readonly options: ApplicationCommandOptionBase[] = [];
 
-	public toJSON(): APIApplicationCommandSubCommandOptions {
+	public toJSON(): APIApplicationCommandSubcommandOption {
 		validateRequiredParameters(this.name, this.description, this.options);
+
 		return {
 			type: ApplicationCommandOptionType.Subcommand,
 			name: this.name,

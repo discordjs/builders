@@ -1,5 +1,5 @@
 import { assertReturnOfBuilder, validateMaxOptionsLength } from '../Assertions';
-import type { SlashCommandOptionBase } from './CommandOptionBase';
+import type { ApplicationCommandOptionBase } from './ApplicationCommandOptionBase';
 import { SlashCommandBooleanOption } from '../options/boolean';
 import { SlashCommandChannelOption } from '../options/channel';
 import { SlashCommandIntegerOption } from '../options/integer';
@@ -124,7 +124,7 @@ export class SharedSlashCommandOptions<ShouldOmitSubcommandFunctions = true> {
 		return this._sharedAddOptionMethod(input, SlashCommandNumberOption);
 	}
 
-	private _sharedAddOptionMethod<T extends SlashCommandOptionBase>(
+	private _sharedAddOptionMethod<T extends ApplicationCommandOptionBase>(
 		input:
 			| T
 			| Omit<T, 'setAutocomplete'>
