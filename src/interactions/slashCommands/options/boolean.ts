@@ -1,10 +1,12 @@
-import { ApplicationCommandOptionType } from 'discord-api-types/v9';
-import { SlashCommandOptionBase } from '../mixins/CommandOptionBase';
+import { APIApplicationCommandBooleanOption, ApplicationCommandOptionType } from 'discord-api-types/v9';
+import { ApplicationCommandOptionBase } from '../mixins/ApplicationCommandOptionBase';
 
-export class SlashCommandBooleanOption extends SlashCommandOptionBase {
-	public override readonly type = ApplicationCommandOptionType.Boolean as const;
+export class SlashCommandBooleanOption extends ApplicationCommandOptionBase {
+	public readonly type = ApplicationCommandOptionType.Boolean as const;
 
-	public constructor() {
-		super(ApplicationCommandOptionType.Boolean);
+	public toJSON(): APIApplicationCommandBooleanOption {
+		this.runRequiredValidations();
+
+		return { ...this };
 	}
 }
