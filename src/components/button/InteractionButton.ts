@@ -8,8 +8,9 @@ export const styleValidator = z.number().min(ButtonStyle.Primary).max(ButtonStyl
 /**
  * Represents the a button that can send interactions whenever clicked.
  */
-export class InteractionButtonComponent extends BaseButtonComponent<Exclude<ButtonStyle, ButtonStyle.Link>> {
-	public customId!: string;
+export class InteractionButtonComponent extends BaseButtonComponent {
+	public readonly customId!: string;
+	public readonly style!: APIButtonComponentWithCustomId['style'];
 
 	public constructor(data?: APIButtonComponentWithCustomId) {
 		super(data);
@@ -27,7 +28,7 @@ export class InteractionButtonComponent extends BaseButtonComponent<Exclude<Butt
 	 * @param style The style to use for this button
 	 */
 	public setStyle(style: Exclude<ButtonStyle, ButtonStyle.Link>) {
-		this.style = style;
+		Reflect.set(this, 'style', style);
 		return this;
 	}
 
@@ -37,7 +38,7 @@ export class InteractionButtonComponent extends BaseButtonComponent<Exclude<Butt
 	 */
 	public setCustomId(customId: string) {
 		customIdValidator.parse(customId);
-		this.customId = customId;
+		Reflect.set(this, 'customId', customId);
 		return this;
 	}
 
@@ -45,7 +46,8 @@ export class InteractionButtonComponent extends BaseButtonComponent<Exclude<Butt
 		// Style is required
 		styleValidator.parse(this.style);
 		return {
-			...super.toJSON(),
+			...super.toPartialJSON(),
+			style: this.style,
 			custom_id: this.customId,
 		};
 	}

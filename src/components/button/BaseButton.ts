@@ -1,11 +1,15 @@
-import { APIButtonComponent, APIMessageComponentEmoji, ButtonStyle, ComponentType } from 'discord-api-types';
+import {
+	APIButtonComponent,
+	APIMessageComponent,
+	APIMessageComponentEmoji,
+	ButtonStyle,
+	ComponentType,
+} from 'discord-api-types';
 import { z } from 'zod';
 import { disabledValidator, emojiValidator } from '../Assertions';
-import { Component } from '../Component';
+import type { Component } from '../Component';
 
-export type BuilderButtonBaseData<T> = Omit<APIButtonComponent, 'url' | 'customId'> & { style: T };
-
-export function validateButtonFields(button: BaseButtonComponent<ButtonStyle>) {
+export function validateButtonFields(button: BaseButtonComponent) {
 	if (button.emoji && button.label) {
 		throw new TypeError('Cannot construct a button with both a label and an emoji field present.');
 	}
@@ -13,15 +17,14 @@ export function validateButtonFields(button: BaseButtonComponent<ButtonStyle>) {
 
 export const buttonLabelValidator = z.string().nonempty().max(80);
 
-export abstract class BaseButtonComponent<T extends ButtonStyle> extends Component<ComponentType.Button> {
-	public style!: T;
-	public label?: string;
-	public emoji?: APIMessageComponentEmoji;
-	public disabled?: boolean;
+export abstract class BaseButtonComponent implements Component {
+	public readonly type: ComponentType.Button = ComponentType.Button;
+	public abstract readonly style: ButtonStyle;
+	public readonly label?: string;
+	public readonly emoji?: APIMessageComponentEmoji;
+	public readonly disabled?: boolean;
 
 	public constructor(data?: APIButtonComponent) {
-		super(ComponentType.Button);
-
 		if (!data) {
 			return;
 		}
@@ -37,7 +40,7 @@ export abstract class BaseButtonComponent<T extends ButtonStyle> extends Compone
 	 */
 	public setEmoji(emoji: APIMessageComponentEmoji): Omit<this, 'setLabel'> {
 		emojiValidator.parse(emoji);
-		this.emoji = emoji;
+		Reflect.set(this, 'emoji', emoji);
 		return this;
 	}
 
@@ -47,7 +50,7 @@ export abstract class BaseButtonComponent<T extends ButtonStyle> extends Compone
 	 */
 	public setDisabled(disabled: boolean) {
 		disabledValidator.parse(disabled);
-		this.disabled = disabled;
+		Reflect.set(this, 'disabled', disabled);
 		return this;
 	}
 
@@ -57,18 +60,18 @@ export abstract class BaseButtonComponent<T extends ButtonStyle> extends Compone
 	 */
 	public setLabel(label: string): Omit<this, 'setEmoji'> {
 		buttonLabelValidator.parse(label);
-		this.label = label;
+		Reflect.set(this, 'label', label);
 		return this;
 	}
 
-	public override toJSON(): BuilderButtonBaseData<T> {
-		validateButtonFields(this);
+	public toPartialJSON() {
 		return {
-			...super.toJSON(),
-			style: this.style,
+			type: this.type,
 			label: this.label,
 			emoji: this.emoji,
 			disabled: this.disabled,
 		};
 	}
+
+	public abstract toJSON(): APIMessageComponent;
 }

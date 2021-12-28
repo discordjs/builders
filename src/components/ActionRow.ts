@@ -1,6 +1,6 @@
 import { APIActionRowComponent, ComponentType } from 'discord-api-types';
 import type { LinkButtonComponent, InteractionButtonComponent, SelectMenuComponent } from '..';
-import { Component } from './Component';
+import type { Component } from './Component';
 import { createComponent } from './Components';
 
 export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponent | SelectMenuComponent;
@@ -10,12 +10,11 @@ export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponen
 /**
  * Represents an action row component
  */
-export class ActionRow<T extends ActionRowComponent> extends Component<ComponentType.ActionRow> {
-	public components: T[] = [];
+export class ActionRow<T extends ActionRowComponent> implements Component {
+	public readonly components: T[] = [];
+	public readonly type = ComponentType.ActionRow;
 
 	public constructor(data?: APIActionRowComponent) {
-		super(ComponentType.ActionRow);
-
 		if (!data) {
 			return;
 		}
@@ -38,13 +37,13 @@ export class ActionRow<T extends ActionRowComponent> extends Component<Component
 	 * @param components The components to set this row to
 	 */
 	public setComponents(components: T[]) {
-		this.components = components;
+		Reflect.set(this, 'components', components);
 		return this;
 	}
 
-	public override toJSON(): APIActionRowComponent {
+	public toJSON(): APIActionRowComponent {
 		return {
-			...super.toJSON(),
+			type: this.type,
 			components: this.components.map((component) => component.toJSON()),
 		};
 	}

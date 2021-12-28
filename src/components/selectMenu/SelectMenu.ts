@@ -1,6 +1,6 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types';
 import { customIdValidator, disabledValidator } from '../Assertions';
-import { Component } from '../Component';
+import type { Component } from '../Component';
 import { z } from 'zod';
 import { SelectMenuOption } from './SelectMenuOption';
 
@@ -17,23 +17,22 @@ function validateRequiredParameters(customId: string, options: SelectMenuOption[
 /**
  * Represents a select menu component
  */
-export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
-	public options!: SelectMenuOption[];
-	public placeholder?: string;
-	public minValues?: number;
-	public maxValues?: number;
-	public customId!: string;
-	public disabled?: boolean;
+export class SelectMenuComponent implements Component {
+	public readonly type = ComponentType.SelectMenu;
+	public readonly options!: SelectMenuOption[];
+	public readonly placeholder?: string;
+	public readonly minValues?: number;
+	public readonly maxValues?: number;
+	public readonly customId!: string;
+	public readonly disabled?: boolean;
 
 	public constructor(data?: APISelectMenuComponent) {
-		super(ComponentType.SelectMenu);
-
 		if (!data) {
 			this.options = [];
 			return;
 		}
 
-		this.options = data.options!.map((option) => new SelectMenuOption(option));
+		this.options = data.options.map((option) => new SelectMenuOption(option));
 		this.placeholder = data.placeholder;
 		this.minValues = data.min_values;
 		this.maxValues = data.max_values;
@@ -47,7 +46,7 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 */
 	public setPlaceholder(placeholder: string) {
 		placeholderValidator.parse(placeholder);
-		this.placeholder = placeholder;
+		Reflect.set(this, 'placeholder', placeholder);
 		return this;
 	}
 
@@ -57,7 +56,7 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 */
 	public setMinValues(minValues: number) {
 		minMaxValidator.parse(minValues);
-		this.minValues = minValues;
+		Reflect.set(this, 'minValues', minValues);
 		return this;
 	}
 
@@ -67,7 +66,7 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 */
 	public setMaxValues(maxValues: number) {
 		minMaxValidator.parse(maxValues);
-		this.maxValues = maxValues;
+		Reflect.set(this, 'maxValues', maxValues);
 		return this;
 	}
 
@@ -77,7 +76,7 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 */
 	public setCustomId(customId: string) {
 		customIdValidator.parse(customId);
-		this.customId = customId;
+		Reflect.set(this, 'customId', customId);
 		return this;
 	}
 
@@ -87,7 +86,7 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 */
 	public setDisabled(disabled: boolean) {
 		disabledValidator.parse(disabled);
-		this.disabled = disabled;
+		Reflect.set(this, 'disabled', disabled);
 		return this;
 	}
 
@@ -106,14 +105,14 @@ export class SelectMenuComponent extends Component<ComponentType.SelectMenu> {
 	 * @param options The options to set on this select menu
 	 */
 	public setOptions(options: SelectMenuOption[]) {
-		this.options = options;
+		Reflect.set(this, 'options', options);
 		return this;
 	}
 
-	public override toJSON(): APISelectMenuComponent {
+	public toJSON(): APISelectMenuComponent {
 		validateRequiredParameters(this.customId, this.options);
 		return {
-			...super.toJSON(),
+			type: this.type,
 			custom_id: this.customId,
 			options: this.options.map((option) => option.toJSON()),
 			placeholder: this.placeholder,

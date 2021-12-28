@@ -7,8 +7,9 @@ export const urlValidator = z.string().url();
 /**
  * Represents a button that opens a specified URL when clicked.
  */
-export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
-	public url!: string;
+export class LinkButtonComponent extends BaseButtonComponent {
+	public readonly url!: string;
+	public readonly style: ButtonStyle.Link = ButtonStyle.Link;
 
 	public constructor(data?: APIButtonComponentWithURL) {
 		super(data);
@@ -27,7 +28,7 @@ export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 	 */
 	public setURL(url: string) {
 		urlValidator.parse(url);
-		this.url = url;
+		Reflect.set(this, 'url', url);
 		return this;
 	}
 
@@ -35,7 +36,8 @@ export class LinkButtonComponent extends BaseButtonComponent<ButtonStyle.Link> {
 		// url is required.
 		urlValidator.parse(this.url);
 		return {
-			...super.toJSON(),
+			...super.toPartialJSON(),
+			style: this.style,
 			url: this.url,
 		};
 	}

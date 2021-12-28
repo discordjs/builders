@@ -14,11 +14,11 @@ export function validateRequiredParameters(label: string, value: string) {
  * Represents an option within a select menu component
  */
 export class SelectMenuOption {
-	public label!: string;
-	public value!: string;
-	public description?: string;
-	public emoji?: APIMessageComponentEmoji;
-	public default?: boolean;
+	public readonly label!: string;
+	public readonly value!: string;
+	public readonly description?: string;
+	public readonly emoji?: APIMessageComponentEmoji;
+	public readonly default?: boolean;
 
 	public constructor(data?: APISelectMenuOption) {
 		if (!data) {
@@ -37,7 +37,7 @@ export class SelectMenuOption {
 	 * @param label The label to show on this option
 	 */
 	public setLabel(label: string) {
-		this.label = label;
+		Reflect.set(this, 'label', label);
 		return this;
 	}
 
@@ -46,7 +46,7 @@ export class SelectMenuOption {
 	 * @param value The value of this option
 	 */
 	public setValue(value: string) {
-		this.value = value;
+		Reflect.set(this, 'value', value);
 		return this;
 	}
 
@@ -56,7 +56,7 @@ export class SelectMenuOption {
 	 */
 	public setDescription(description: string) {
 		labelValueValidator.parse(description);
-		this.description = description;
+		Reflect.set(this, 'description', description);
 		return this;
 	}
 
@@ -66,7 +66,7 @@ export class SelectMenuOption {
 	 */
 	public setDefault(isDefault: boolean) {
 		defaultValidator.parse(isDefault);
-		this.default = isDefault;
+		Reflect.set(this, 'default', isDefault);
 		return this;
 	}
 
@@ -76,7 +76,7 @@ export class SelectMenuOption {
 	 */
 	public setEmoji(emoji: APIMessageComponentEmoji) {
 		emojiValidator.parse(emoji);
-		this.emoji = emoji;
+		Reflect.set(this, 'emoji', emoji);
 		return this;
 	}
 
