@@ -65,6 +65,7 @@ export abstract class BaseButtonComponent implements Component {
 	}
 
 	public toPartialJSON() {
+		validateButtonFields(this);
 		return {
 			type: this.type,
 			label: this.label,
