@@ -1,4 +1,4 @@
-import { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types';
+import { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types/v9';
 import { BaseButtonComponent } from './BaseButton';
 import { z } from 'zod';
 

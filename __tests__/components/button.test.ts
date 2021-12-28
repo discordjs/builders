@@ -3,7 +3,7 @@ import {
 	APIButtonComponentWithURL,
 	ButtonStyle,
 	ComponentType,
-} from 'discord-api-types';
+} from 'discord-api-types/v9';
 import { buttonLabelValidator, InteractionButtonComponent, LinkButtonComponent, styleValidator } from '../../src/index';
 
 const interactionButtonComponent = () => new InteractionButtonComponent();

@@ -4,7 +4,7 @@ import {
 	APIMessageComponentEmoji,
 	ButtonStyle,
 	ComponentType,
-} from 'discord-api-types';
+} from 'discord-api-types/v9';
 import { z } from 'zod';
 import { disabledValidator, emojiValidator } from '../Assertions';
 import type { Component } from '../Component';

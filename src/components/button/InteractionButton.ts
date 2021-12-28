@@ -1,4 +1,4 @@
-import { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types';
+import { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types/v9';
 import { z } from 'zod';
 import { customIdValidator } from '../Assertions';
 import { BaseButtonComponent } from './BaseButton';

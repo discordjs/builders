@@ -1,4 +1,4 @@
-import { APIMessageComponent, ButtonStyle, ComponentType } from 'discord-api-types';
+import { APIMessageComponent, ButtonStyle, ComponentType } from 'discord-api-types/v9';
 import { ActionRow, Component, InteractionButtonComponent, LinkButtonComponent, SelectMenuComponent } from '../index';
 import type { ActionRowComponent } from './ActionRow';
 

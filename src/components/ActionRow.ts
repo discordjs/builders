@@ -1,4 +1,4 @@
-import { APIActionRowComponent, ComponentType } from 'discord-api-types';
+import { APIActionRowComponent, ComponentType } from 'discord-api-types/v9';
 import type { LinkButtonComponent, InteractionButtonComponent, SelectMenuComponent } from '..';
 import type { Component } from './Component';
 import { createComponent } from './Components';

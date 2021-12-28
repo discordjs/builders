@@ -1,4 +1,4 @@
-import type { APIMessageComponentEmoji, APISelectMenuOption } from 'discord-api-types';
+import type { APIMessageComponentEmoji, APISelectMenuOption } from 'discord-api-types/v9';
 import { z } from 'zod';
 import { emojiValidator } from '../Assertions';
 

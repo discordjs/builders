@@ -1,4 +1,4 @@
-import type { APIMessageComponent, ComponentType } from 'discord-api-types';
+import type { APIMessageComponent, ComponentType } from 'discord-api-types/v9';
 
 /**
  * Represents a discord component
