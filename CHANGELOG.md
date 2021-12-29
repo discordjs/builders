@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.11.0](https://github.com/discordjs/builders/compare/v0.10.0...v0.11.0) (2021-12-29)
+
+
+### Bug Fixes
+
+* **ApplicationCommandOptions:** clean up code for builder options ([#68](https://github.com/discordjs/builders/issues/68)) ([b5d0b15](https://github.com/discordjs/builders/commit/b5d0b157b1262bd01fa011f8e0cf33adb82776e7))
+
+
+
 # [0.10.0](https://github.com/discordjs/builders/compare/v0.9.0...v0.10.0) (2021-12-24)
 
 
