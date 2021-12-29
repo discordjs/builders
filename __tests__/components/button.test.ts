@@ -4,10 +4,10 @@ import {
 	ButtonStyle,
 	ComponentType,
 } from 'discord-api-types/v9';
-import { buttonLabelValidator, InteractionButtonComponent, LinkButtonComponent, styleValidator } from '../../src/index';
+import { buttonLabelValidator, buttonStyleValidator } from '../../src/components/Assertions';
+import { ButtonComponent } from '../../src/components/Button';
 
-const interactionButtonComponent = () => new InteractionButtonComponent();
-const linkButtonComponent = () => new LinkButtonComponent();
+const buttonComponent = () => new ButtonComponent();
 
 const longStr =
 	'looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong';
@@ -26,24 +26,21 @@ describe('Button Components', () => {
 		});
 
 		test('GIVEN valid style then validator does not throw', () => {
-			expect(() => styleValidator.parse(3)).not.toThrowError();
-			expect(() => styleValidator.parse(ButtonStyle.Secondary)).not.toThrowError();
+			expect(() => buttonStyleValidator.parse(3)).not.toThrowError();
+			expect(() => buttonStyleValidator.parse(ButtonStyle.Secondary)).not.toThrowError();
 		});
 
 		test('GIVEN invalid style then validator does not throw', () => {
-			expect(() => styleValidator.parse(7)).toThrowError();
-
-			// Note: this throws because link styles are always set for you.
-			expect(() => styleValidator.parse(ButtonStyle.Link)).toThrowError();
+			expect(() => buttonStyleValidator.parse(7)).toThrowError();
 		});
 
 		test('GIVEN valid fields THEN builder does not throw', () => {
 			expect(() =>
-				interactionButtonComponent().setCustomId('custom').setStyle(ButtonStyle.Primary).setLabel('test'),
+				buttonComponent().setCustomId('custom').setStyle(ButtonStyle.Primary).setLabel('test'),
 			).not.toThrowError();
 
 			expect(() => {
-				const button = interactionButtonComponent()
+				const button = buttonComponent()
 					.setCustomId('custom')
 					.setStyle(ButtonStyle.Primary)
 					.setDisabled(true)
@@ -52,34 +49,65 @@ describe('Button Components', () => {
 				button.toJSON();
 			}).not.toThrowError();
 
-			expect(() => linkButtonComponent().setURL('https://google.com')).not.toThrowError();
+			expect(() => buttonComponent().setURL('https://google.com')).not.toThrowError();
 		});
 
 		test('GIVEN invalid fields THEN build does throw', () => {
 			expect(() => {
-				interactionButtonComponent().setCustomId(longStr);
+				buttonComponent().setCustomId(longStr);
 			}).toThrowError();
 
 			expect(() => {
-				const button = interactionButtonComponent()
+				const button = buttonComponent()
 					.setCustomId('custom')
 					.setStyle(ButtonStyle.Primary)
 					.setDisabled(true)
 					.setLabel('test')
-					// @ts-expect-error
+					.setURL('https://google.com')
 					.setEmoji({ name: 'test' });
 
 				button.toJSON();
 			}).toThrowError();
 
-			expect(() => interactionButtonComponent().setStyle(24));
-			expect(() => interactionButtonComponent().setLabel(longStr));
-			// @ts-ignore
-			expect(() => interactionButtonComponent().setDisabled(0));
-			// @ts-ignore
-			expect(() => interactionButtonComponent().setEmoji('foo'));
+			expect(() => {
+				// @ts-expect-error
+				const button = buttonComponent().setEmoji('test');
+				button.toJSON();
+			}).toThrowError();
 
-			expect(() => linkButtonComponent().setURL('foobar')).toThrowError();
+			expect(() => {
+				const button = buttonComponent().setStyle(ButtonStyle.Primary);
+				button.toJSON();
+			}).toThrowError();
+
+			expect(() => {
+				const button = buttonComponent().setStyle(ButtonStyle.Primary).setCustomId('test');
+				button.toJSON();
+			}).toThrowError();
+
+			expect(() => {
+				const button = buttonComponent().setStyle(ButtonStyle.Link);
+				button.toJSON();
+			}).toThrowError();
+
+			expect(() => {
+				const button = buttonComponent().setStyle(ButtonStyle.Primary).setLabel('test').setURL('https://google.com');
+				button.toJSON();
+			}).toThrowError();
+
+			expect(() => {
+				const button = buttonComponent().setStyle(ButtonStyle.Link).setLabel('test');
+				button.toJSON();
+			}).toThrowError();
+
+			expect(() => buttonComponent().setStyle(24)).toThrowError();
+			expect(() => buttonComponent().setLabel(longStr)).toThrowError();
+			// @ts-ignore
+			expect(() => buttonComponent().setDisabled(0)).toThrowError();
+			// @ts-ignore
+			expect(() => buttonComponent().setEmoji('foo')).toThrowError();
+
+			expect(() => buttonComponent().setURL('foobar')).toThrowError();
 		});
 
 		test('GiVEN valid input THEN valid JSON outputs are given', () => {
@@ -91,10 +119,10 @@ describe('Button Components', () => {
 				disabled: true,
 			};
 
-			expect(new InteractionButtonComponent(interactionData).toJSON()).toEqual(interactionData);
+			expect(new ButtonComponent(interactionData).toJSON()).toEqual(interactionData);
 
 			expect(
-				interactionButtonComponent()
+				buttonComponent()
 					.setCustomId(interactionData.custom_id)
 					.setLabel(interactionData.label)
 					.setStyle(interactionData.style)
@@ -110,9 +138,9 @@ describe('Button Components', () => {
 				url: 'https://google.com',
 			};
 
-			expect(new LinkButtonComponent(linkData).toJSON()).toEqual(linkData);
+			expect(new ButtonComponent(linkData).toJSON()).toEqual(linkData);
 
-			expect(linkButtonComponent().setLabel(linkData.label).setDisabled(true).setURL(linkData.url));
+			expect(buttonComponent().setLabel(linkData.label).setDisabled(true).setURL(linkData.url));
 		});
 	});
 });

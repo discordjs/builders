@@ -1,11 +1,11 @@
 import { APIActionRowComponent, ButtonStyle, ComponentType } from 'discord-api-types/v9';
-import { ActionRow, createComponent, LinkButtonComponent } from '../../src';
+import { ActionRow, ButtonComponent, createComponent } from '../../src';
 
 describe('Action Row Components', () => {
 	describe('Assertion Tests', () => {
 		test('GIVEN valid components THEN do not throw', () => {
-			expect(() => new ActionRow().addComponents(new LinkButtonComponent())).not.toThrowError();
-			expect(() => new ActionRow().setComponents([new LinkButtonComponent()])).not.toThrowError();
+			expect(() => new ActionRow().addComponents(new ButtonComponent())).not.toThrowError();
+			expect(() => new ActionRow().setComponents([new ButtonComponent()])).not.toThrowError();
 		});
 
 		test('GIVEN valid JSON input THEN valid JSON output is given', () => {
@@ -41,6 +41,8 @@ describe('Action Row Components', () => {
 			expect(new ActionRow(actionRowData).toJSON()).toEqual(actionRowData);
 			expect(new ActionRow().toJSON()).toEqual({ type: ComponentType.ActionRow, components: [] });
 			expect(() => createComponent({ type: ComponentType.ActionRow, components: [] })).not.toThrowError();
+			// @ts-expect-error
+			expect(() => createComponent({ type: 42, components: [] })).toThrowError();
 		});
 	});
 });

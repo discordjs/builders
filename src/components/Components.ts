@@ -1,10 +1,10 @@
-import { APIMessageComponent, ButtonStyle, ComponentType } from 'discord-api-types/v9';
-import { ActionRow, Component, InteractionButtonComponent, LinkButtonComponent, SelectMenuComponent } from '../index';
+import { APIMessageComponent, ComponentType } from 'discord-api-types/v9';
+import { ActionRow, ButtonComponent, Component, SelectMenuComponent } from '../index';
 import type { ActionRowComponent } from './ActionRow';
 
 export interface MappedComponentTypes {
 	[ComponentType.ActionRow]: ActionRow<ActionRowComponent>;
-	[ComponentType.Button]: LinkButtonComponent | InteractionButtonComponent;
+	[ComponentType.Button]: ButtonComponent;
 	[ComponentType.SelectMenu]: SelectMenuComponent;
 }
 
@@ -20,10 +20,7 @@ export function createComponent(data: APIMessageComponent): Component {
 		case ComponentType.ActionRow:
 			return new ActionRow(data);
 		case ComponentType.Button:
-			if (data.style === ButtonStyle.Link) {
-				return new LinkButtonComponent(data);
-			}
-			return new InteractionButtonComponent(data);
+			return new ButtonComponent(data);
 		case ComponentType.SelectMenu:
 			return new SelectMenuComponent(data);
 		default:

@@ -1,6 +1,5 @@
-import { ButtonStyle } from 'discord-api-types';
+import { APIMessageComponentEmoji, ButtonStyle } from 'discord-api-types/v9';
 import { z } from 'zod';
-import type { BaseButtonComponent } from './button/BaseButton';
 import type { SelectMenuOption } from './selectMenu/SelectMenuOption';
 
 export const customIdValidator = z.string().min(1).max(100);
@@ -16,15 +15,9 @@ export const emojiValidator = z
 
 export const disabledValidator = z.boolean();
 
-export function validateButtonFields(button: BaseButtonComponent) {
-	if (button.emoji && button.label) {
-		throw new TypeError('Cannot construct a button with both a label and an emoji field present.');
-	}
-}
-
 export const buttonLabelValidator = z.string().nonempty().max(80);
 
-export const buttonStyleValidator = z.number().min(ButtonStyle.Primary).max(ButtonStyle.Danger);
+export const buttonStyleValidator = z.number().min(ButtonStyle.Primary).max(ButtonStyle.Link);
 
 export const placeholderValidator = z.string().max(100);
 export const minMaxValidator = z.number().max(25).min(0);
@@ -45,3 +38,27 @@ export function validateRequiredSelectMenuOptionParameters(label: string, value:
 }
 
 export const urlValidator = z.string().url();
+
+export function validateRequiredButtonParameters(
+	style: ButtonStyle,
+	label?: string,
+	emoji?: APIMessageComponentEmoji,
+	customId?: string,
+	url?: string,
+) {
+	if (url && customId) {
+		throw new RangeError('url and custom ID are mutually exlcusive');
+	}
+
+	if (!label && !emoji) {
+		throw new RangeError('Buttons must have a label and/or an emoji');
+	}
+
+	if (style === ButtonStyle.Link) {
+		if (!url) {
+			throw new RangeError('Link buttons must have a url');
+		}
+	} else if (url) {
+		throw new RangeError('Interaction buttons cannot have a url');
+	}
+}

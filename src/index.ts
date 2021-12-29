@@ -4,11 +4,10 @@ export * from './messages/formatters';
 
 export * as ComponentAssertions from './components/Assertions';
 export * from './components/ActionRow';
-export * from './components/button/BaseButton';
+export * from './components/Button';
 export * from './components/Component';
 export * from './components/Components';
-export * from './components/button/InteractionButton';
-export * from './components/button/LinkButton';
+export * from './components/Button';
 export * from './components/selectMenu/SelectMenu';
 export * from './components/selectMenu/SelectMenuOption';
 

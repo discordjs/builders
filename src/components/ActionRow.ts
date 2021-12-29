@@ -1,9 +1,9 @@
 import { APIActionRowComponent, ComponentType } from 'discord-api-types/v9';
-import type { LinkButtonComponent, InteractionButtonComponent, SelectMenuComponent } from '..';
+import type { ButtonComponent, SelectMenuComponent } from '..';
 import type { Component } from './Component';
 import { createComponent } from './Components';
 
-export type ActionRowComponent = LinkButtonComponent | InteractionButtonComponent | SelectMenuComponent;
+export type ActionRowComponent = ButtonComponent | SelectMenuComponent;
 
 // TODO: Add valid form component types
 
