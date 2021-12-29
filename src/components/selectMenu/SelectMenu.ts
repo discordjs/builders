@@ -1,43 +1,33 @@
 import { APISelectMenuComponent, ComponentType } from 'discord-api-types/v9';
-import { customIdValidator, disabledValidator } from '../Assertions';
+import {
+	customIdValidator,
+	disabledValidator,
+	minMaxValidator,
+	placeholderValidator,
+	validateRequiredSelectMenuParameters,
+} from '../Assertions';
 import type { Component } from '../Component';
-import { z } from 'zod';
 import { SelectMenuOption } from './SelectMenuOption';
-
-export const placeholderValidator = z.string().max(100);
-export const minMaxValidator = z.number().max(25).min(0);
-
-export const optionsValidator = z.object({}).array().nonempty();
-
-function validateRequiredParameters(customId: string, options: SelectMenuOption[]) {
-	customIdValidator.parse(customId);
-	optionsValidator.parse(options);
-}
 
 /**
  * Represents a select menu component
  */
 export class SelectMenuComponent implements Component {
 	public readonly type = ComponentType.SelectMenu;
-	public readonly options!: SelectMenuOption[];
+	public readonly options: SelectMenuOption[];
 	public readonly placeholder?: string;
 	public readonly minValues?: number;
 	public readonly maxValues?: number;
-	public readonly customId!: string;
+	public readonly customId?: string;
 	public readonly disabled?: boolean;
 
 	public constructor(data?: APISelectMenuComponent) {
-		if (!data) {
-			this.options = [];
-			return;
-		}
-
-		this.options = data.options.map((option) => new SelectMenuOption(option));
-		this.placeholder = data.placeholder;
-		this.minValues = data.min_values;
-		this.maxValues = data.max_values;
-		this.customId = data.custom_id;
-		this.disabled = data.disabled;
+		this.options = data?.options.map((option) => new SelectMenuOption(option)) ?? [];
+		this.placeholder = data?.placeholder;
+		this.minValues = data?.min_values;
+		this.maxValues = data?.max_values;
+		this.customId = data?.custom_id;
+		this.disabled = data?.disabled;
 	}
 
 	/**
@@ -105,15 +95,15 @@ export class SelectMenuComponent implements Component {
 	 * @param options The options to set on this select menu
 	 */
 	public setOptions(options: SelectMenuOption[]) {
-		Reflect.set(this, 'options', options);
+		Reflect.set(this, 'options', [...options]);
 		return this;
 	}
 
 	public toJSON(): APISelectMenuComponent {
-		validateRequiredParameters(this.customId, this.options);
+		validateRequiredSelectMenuParameters(this.options, this.customId);
 		return {
 			type: this.type,
-			custom_id: this.customId,
+			custom_id: this.customId!,
 			options: this.options.map((option) => option.toJSON()),
 			placeholder: this.placeholder,
 			min_values: this.minValues,

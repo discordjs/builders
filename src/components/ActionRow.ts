@@ -15,11 +15,7 @@ export class ActionRow<T extends ActionRowComponent> implements Component {
 	public readonly type = ComponentType.ActionRow;
 
 	public constructor(data?: APIActionRowComponent) {
-		if (!data) {
-			return;
-		}
-
-		this.components = data.components.map(createComponent) as T[];
+		this.components = (data?.components.map(createComponent) ?? []) as T[];
 	}
 
 	/**
@@ -37,13 +33,13 @@ export class ActionRow<T extends ActionRowComponent> implements Component {
 	 * @param components The components to set this row to
 	 */
 	public setComponents(components: T[]) {
-		Reflect.set(this, 'components', components);
+		Reflect.set(this, 'components', [...components]);
 		return this;
 	}
 
 	public toJSON(): APIActionRowComponent {
 		return {
-			type: this.type,
+			...this,
 			components: this.components.map((component) => component.toJSON()),
 		};
 	}

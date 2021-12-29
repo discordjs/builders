@@ -1,14 +1,10 @@
 import type { APIMessageComponentEmoji, APISelectMenuOption } from 'discord-api-types/v9';
-import { z } from 'zod';
-import { emojiValidator } from '../Assertions';
-
-export const labelValueValidator = z.string().min(1).max(100);
-export const defaultValidator = z.boolean();
-
-export function validateRequiredParameters(label: string, value: string) {
-	labelValueValidator.parse(label);
-	labelValueValidator.parse(value);
-}
+import {
+	defaultValidator,
+	emojiValidator,
+	labelValueValidator,
+	validateRequiredSelectMenuOptionParameters,
+} from '../Assertions';
 
 /**
  * Represents an option within a select menu component
@@ -81,7 +77,7 @@ export class SelectMenuOption {
 	}
 
 	public toJSON(): APISelectMenuOption {
-		validateRequiredParameters(this.label, this.value);
+		validateRequiredSelectMenuOptionParameters(this.label, this.value);
 		return {
 			label: this.label,
 			value: this.value,

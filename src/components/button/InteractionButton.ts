@@ -1,33 +1,27 @@
-import { APIButtonComponentWithCustomId, ButtonStyle } from 'discord-api-types/v9';
-import { z } from 'zod';
-import { customIdValidator } from '../Assertions';
+import type { APIButtonComponentWithCustomId } from 'discord-api-types/v9';
+import { customIdValidator, buttonStyleValidator } from '../Assertions';
 import { BaseButtonComponent } from './BaseButton';
 
-export const styleValidator = z.number().min(ButtonStyle.Primary).max(ButtonStyle.Danger);
+export type InteractionButtonStyle = APIButtonComponentWithCustomId['style'];
 
 /**
  * Represents the a button that can send interactions whenever clicked.
  */
 export class InteractionButtonComponent extends BaseButtonComponent {
-	public readonly customId!: string;
-	public readonly style!: APIButtonComponentWithCustomId['style'];
+	public readonly customId?: string;
+	public readonly style?: InteractionButtonStyle;
 
 	public constructor(data?: APIButtonComponentWithCustomId) {
 		super(data);
-
-		if (!data) {
-			return;
-		}
-
-		this.customId = data.custom_id;
-		this.style = data.style;
+		this.customId = data?.custom_id;
+		this.style = data?.style;
 	}
 
 	/**
 	 * Sets the style of this button
 	 * @param style The style to use for this button
 	 */
-	public setStyle(style: Exclude<ButtonStyle, ButtonStyle.Link>) {
+	public setStyle(style: InteractionButtonStyle) {
 		Reflect.set(this, 'style', style);
 		return this;
 	}
@@ -42,13 +36,13 @@ export class InteractionButtonComponent extends BaseButtonComponent {
 		return this;
 	}
 
-	public override toJSON(): APIButtonComponentWithCustomId {
+	public toJSON(): APIButtonComponentWithCustomId {
 		// Style is required
-		styleValidator.parse(this.style);
+		buttonStyleValidator.parse(this.style);
 		return {
-			...super.toPartialJSON(),
-			style: this.style,
-			custom_id: this.customId,
+			...this,
+			style: this.style!,
+			custom_id: this.customId!,
 		};
 	}
 }

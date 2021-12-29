@@ -1,25 +1,18 @@
 import { APIButtonComponentWithURL, ButtonStyle } from 'discord-api-types/v9';
+import { urlValidator } from '../Assertions';
 import { BaseButtonComponent } from './BaseButton';
-import { z } from 'zod';
-
-export const urlValidator = z.string().url();
 
 /**
  * Represents a button that opens a specified URL when clicked.
  */
 export class LinkButtonComponent extends BaseButtonComponent {
-	public readonly url!: string;
-	public readonly style: ButtonStyle.Link = ButtonStyle.Link;
+	public readonly url?: string;
+	public readonly style = ButtonStyle.Link as const;
 
 	public constructor(data?: APIButtonComponentWithURL) {
 		super(data);
 		this.style = ButtonStyle.Link;
-
-		if (!data) {
-			return;
-		}
-
-		this.url = data.url;
+		this.url = data?.url;
 	}
 
 	/**
@@ -32,13 +25,13 @@ export class LinkButtonComponent extends BaseButtonComponent {
 		return this;
 	}
 
-	public override toJSON(): APIButtonComponentWithURL {
+	public toJSON(): APIButtonComponentWithURL {
 		// url is required.
 		urlValidator.parse(this.url);
 		return {
-			...super.toPartialJSON(),
+			...this,
 			style: this.style,
-			url: this.url,
+			url: this.url!,
 		};
 	}
 }
