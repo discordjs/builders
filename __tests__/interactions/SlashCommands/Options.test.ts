@@ -35,10 +35,20 @@ const getStringOption = () =>
 	new SlashCommandStringOption().setName('owo').setDescription('Testing 123').setRequired(true);
 
 const getIntegerOption = () =>
-	new SlashCommandIntegerOption().setName('owo').setDescription('Testing 123').setRequired(true);
+	new SlashCommandIntegerOption()
+		.setName('owo')
+		.setDescription('Testing 123')
+		.setRequired(true)
+		.setMinValue(1)
+		.setMaxValue(10);
 
 const getNumberOption = () =>
-	new SlashCommandNumberOption().setName('owo').setDescription('Testing 123').setRequired(true);
+	new SlashCommandNumberOption()
+		.setName('owo')
+		.setDescription('Testing 123')
+		.setRequired(true)
+		.setMinValue(1)
+		.setMaxValue(10);
 
 const getUserOption = () => new SlashCommandUserOption().setName('owo').setDescription('Testing 123').setRequired(true);
 
@@ -73,6 +83,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Integer,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 		});
 
 		expect(
@@ -82,6 +94,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Integer,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 			autocomplete: true,
 			// @ts-expect-error TODO: you *can* send an empty array with autocomplete: true, should correct that in types
 			choices: [],
@@ -92,6 +106,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Integer,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 			choices: [{ name: 'uwu', value: 1 }],
 		});
 	});
@@ -111,6 +127,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Number,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 		});
 
 		expect(getNumberOption().setAutocomplete(true).setChoices([]).toJSON()).toEqual<APIApplicationCommandNumberOption>({
@@ -118,6 +136,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Number,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 			autocomplete: true,
 			// @ts-expect-error TODO: you *can* send an empty array with autocomplete: true, should correct that in types
 			choices: [],
@@ -128,6 +148,8 @@ describe('Application Command toJSON() results', () => {
 			description: 'Testing 123',
 			type: ApplicationCommandOptionType.Number,
 			required: true,
+			max_value: 10,
+			min_value: 1,
 			choices: [{ name: 'uwu', value: 1 }],
 		});
 	});
