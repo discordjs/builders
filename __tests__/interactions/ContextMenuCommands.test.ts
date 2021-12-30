@@ -1,4 +1,4 @@
-import { ContextMenuCommandAssertions, ContextMenuCommandBuilder } from '../src/index';
+import { ContextMenuCommandAssertions, ContextMenuCommandBuilder } from '../../src/index';
 
 const getBuilder = () => new ContextMenuCommandBuilder();
 
