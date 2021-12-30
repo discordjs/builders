@@ -12,7 +12,7 @@ import {
 	SlashCommandSubcommandBuilder,
 	SlashCommandSubcommandGroupBuilder,
 	SlashCommandUserOption,
-} from '../src/index';
+} from '../../../src/index';
 
 const largeArray = Array.from({ length: 26 }, () => 1 as unknown as APIApplicationCommandOptionChoice);
 
@@ -337,7 +337,7 @@ describe('Slash Commands', () => {
 				).not.toThrowError();
 			});
 
-			test('GIVEN an option that is autocompletable and has choices, THEN setting choices should throw an error', () => {
+			test('GIVEN an option that is autocompletable, THEN setting choices should throw an error', () => {
 				expect(() =>
 					getBuilder().addStringOption(
 						getStringOption()
@@ -345,6 +345,10 @@ describe('Slash Commands', () => {
 							.setChoices([['owo', 'uwu']]),
 					),
 				).toThrowError();
+			});
+
+			test('GIVEN an option, THEN setting choices should not throw an error', () => {
+				expect(() => getBuilder().addStringOption(getStringOption().setChoices([['owo', 'uwu']]))).not.toThrowError();
 			});
 		});
 
