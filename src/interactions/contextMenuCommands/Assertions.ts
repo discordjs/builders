@@ -11,10 +11,10 @@ export function validateRequiredParameters(name: string, type: number) {
 }
 
 const namePredicate = z
-	.string()
+	.string({ required_error: 'Name must be provided' })
 	.min(1)
 	.max(32)
-	.regex(/^( *[\p{L}\p{N}_-]+ *)+$/u);
+	.regex(/^( *[\p{L}\p{N}_-]+ *)+$/u, 'Name must match /^( *[\\p{L}\\p{N}_-]+ *)+$/u');
 
 export function validateName(name: unknown): asserts name is string {
 	namePredicate.parse(name);
