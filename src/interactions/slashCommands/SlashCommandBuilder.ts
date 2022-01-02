@@ -6,7 +6,7 @@ import {
 	validateMaxOptionsLength,
 	validateRequiredParameters,
 } from './Assertions';
-import { SharedSlashCommandOptions } from './mixins/CommandOptions';
+import { SharedSlashCommandOptions } from './mixins/SharedSlashCommandOptions';
 import { SharedNameAndDescription } from './mixins/NameAndDescription';
 import { SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from './SlashCommandSubcommands';
 
@@ -41,6 +41,7 @@ export class SlashCommandBuilder {
 	 */
 	public toJSON(): RESTPostAPIApplicationCommandsJSONBody {
 		validateRequiredParameters(this.name, this.description, this.options);
+
 		return {
 			name: this.name,
 			description: this.description,

@@ -9,7 +9,7 @@ export class SharedNameAndDescription {
 	 *
 	 * @param name The name
 	 */
-	public setName(name: string) {
+	public setName(name: string): this {
 		// Assert the name matches the conditions
 		validateName(name);
 

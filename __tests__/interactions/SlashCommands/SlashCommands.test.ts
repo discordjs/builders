@@ -13,7 +13,7 @@ import {
 	SlashCommandSubcommandBuilder,
 	SlashCommandSubcommandGroupBuilder,
 	SlashCommandUserOption,
-} from '../src/index';
+} from '../../../src/index';
 
 const largeArray = Array.from({ length: 26 }, () => 1 as unknown as APIApplicationCommandOptionChoice);
 
@@ -209,8 +209,22 @@ describe('Slash Commands', () => {
 
 				expect(() => {
 					const option = getStringOption();
-					option.autocomplete = true;
-					option.choices = [{ name: 'Fancy Pants', value: 'fp_1' }];
+					Reflect.set(option, 'autocomplete', true);
+					Reflect.set(option, 'choices', [{ name: 'Fancy Pants', value: 'fp_1' }]);
+					return option.toJSON();
+				}).toThrowError();
+
+				expect(() => {
+					const option = getNumberOption();
+					Reflect.set(option, 'autocomplete', true);
+					Reflect.set(option, 'choices', [{ name: 'Fancy Pants', value: 'fp_1' }]);
+					return option.toJSON();
+				}).toThrowError();
+
+				expect(() => {
+					const option = getIntegerOption();
+					Reflect.set(option, 'autocomplete', true);
+					Reflect.set(option, 'choices', [{ name: 'Fancy Pants', value: 'fp_1' }]);
 					return option.toJSON();
 				}).toThrowError();
 			});
@@ -231,14 +245,32 @@ describe('Slash Commands', () => {
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
 
 				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([100, 200]))).toThrowError();
+			});
 
-				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(100))).toThrowError();
+			test('GIVEN a builder with invalid number min/max options THEN does throw an error', () => {
+				// @ts-expect-error
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMaxValue('test'))).toThrowError();
 
-				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(1))).toThrowError();
+				// @ts-expect-error
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMaxValue('test'))).toThrowError();
 
-				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelType(1))).toThrowError();
+				// @ts-expect-error
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMinValue('test'))).toThrowError();
 
-				expect(() => getBuilder().addChannelOption(getChannelOption().addChannelTypes([1, 2, 3]))).toThrowError();
+				// @ts-expect-error
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue('test'))).toThrowError();
+
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue(1.5))).toThrowError();
+			});
+
+			test('GIVEN a builder with valid number min/max options THEN does not throw an error', () => {
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMinValue(1))).not.toThrowError();
+
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMinValue(1.5))).not.toThrowError();
+
+				expect(() => getBuilder().addIntegerOption(getIntegerOption().setMaxValue(1))).not.toThrowError();
+
+				expect(() => getBuilder().addNumberOption(getNumberOption().setMaxValue(1.5))).not.toThrowError();
 			});
 
 			test('GIVEN an already built builder THEN does not throw an error', () => {
@@ -301,6 +333,26 @@ describe('Slash Commands', () => {
 
 			test('GIVEN valid builder with defaultPermission false THEN does not throw error', () => {
 				expect(() => getBuilder().setName('foo').setDescription('foo').setDefaultPermission(false)).not.toThrowError();
+			});
+
+			test('GIVEN an option that is autocompletable and has choices, THEN setting choices to an empty array should not throw an error', () => {
+				expect(() =>
+					getBuilder().addStringOption(getStringOption().setAutocomplete(true).setChoices([])),
+				).not.toThrowError();
+			});
+
+			test('GIVEN an option that is autocompletable, THEN setting choices should throw an error', () => {
+				expect(() =>
+					getBuilder().addStringOption(
+						getStringOption()
+							.setAutocomplete(true)
+							.setChoices([['owo', 'uwu']]),
+					),
+				).toThrowError();
+			});
+
+			test('GIVEN an option, THEN setting choices should not throw an error', () => {
+				expect(() => getBuilder().addStringOption(getStringOption().setChoices([['owo', 'uwu']]))).not.toThrowError();
 			});
 		});
 
